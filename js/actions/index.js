@@ -2,7 +2,7 @@
 import { push } from 'react-router-redux';
 
 require('isomorphic-fetch');
-
+ import ClientId from '../env.js';
 
 export var SET_USER_INFO= 'SET_USER_INFO'
 
@@ -24,7 +24,7 @@ export function getTopGames(){
   {
     method:'GET',
     headers:{
-      'Client-ID':'ncj2zt1sgqxcs3b2ncb98mgtl8ukbs',
+      'Client-ID': ClientId
       //'Accept':'application/vnd.twitchtv.v5+json'
     }
   }).then(function(data){
@@ -46,7 +46,7 @@ export function searchGame(searchString){
   {
     method:'GET',
     headers:{
-      'Client-ID':'ncj2zt1sgqxcs3b2ncb98mgtl8ukbs'
+      'Client-ID': ClientId
     }
   }).then(function(data){
 
@@ -55,8 +55,6 @@ export function searchGame(searchString){
   })
   }
 }
-
-
 
 
 
