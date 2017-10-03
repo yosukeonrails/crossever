@@ -1,0 +1,76 @@
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.landing-background{
+  padding: 20px;
+  background: linear-gradient( rgba(0, 0, 0, 0.93), rgba(0, 0, 0, 0.77) ), url(https://source.unsplash.com/eCktzGjC-iU/1600x900);
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+.landing-background h1 {
+  color: white;
+  width: 160px;
+  float: left;
+  font-family: 'Russo One', sans-serif;
+  margin: 5px;
+  padding: 0;
+}
+.header-menu i{
+  font-size: 50px;
+color: #515151;
+}
+
+.menu-hamburger{
+  float: right;
+}
+
+.menu-hamburger i{
+  color:white;
+  font-size: 30px;
+}
+
+.welcome-message{
+ color:white;
+margin-left: auto;
+margin-right: auto;
+width: 800px;
+margin-top: 200px;
+}
+
+.cross-icon{
+  margin-left: auto;
+  margin-right: auto;
+ float: none;
+}
+.welcome-message i{
+  font-size: 200px;
+    text-align: center;
+    display: block;
+    color: #14da95;
+}
+
+.welcome-message h1{
+  width: 800px;
+  text-align: center;
+font-family: 'Righteous', cursive;
+ float: none;
+}
+
+.welcome-message h2{
+  width: 800px;
+  text-align: center;
+  margin-top: 10px;
+font-family: 'Catamaran', sans-serif;
+ float: none;
+}
+
+.middle-content{
+  padding: 20px;
+  background: linear-gradient( rgb(255, 255, 255), rgba(217, 217, 217, 0.93) ), url(https://source.unsplash.com/eCktzGjC-iU/1600x900);
+  background-attachment: fixed;
+  height: 100vh;
+}
