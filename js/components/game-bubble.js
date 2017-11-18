@@ -104,6 +104,9 @@ export class GameBubble extends React.Component{
 
       if( this.props.gameIdList.includes( this.props.data._id )){
           hoverStyle = ' select-game-hover '
+      } else
+      {
+         hoverStyle = ''
       }
 
 
