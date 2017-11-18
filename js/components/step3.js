@@ -86,7 +86,7 @@ this.setState({hoverClass:'game-image'})
                 var imageURL= 'url('+game.game.box.large+')';
 
                   return(
-                      <GameBubbleContainer name={game.game.name} selected={false} imageURL={imageURL} id={i} key={i}  />
+                      <GameBubbleContainer name={game.game.name} selected={false} imageURL={imageURL} id={i} key={i} data={game.game} />
                   )
             })
       }
@@ -98,9 +98,10 @@ this.setState({hoverClass:'game-image'})
           var gameList= this.props.foundGames.map(function(game, i ){
 
                   var imageURL= 'url('+game.box.large+')';
-                      var selected= false;
+                  var selected= false;
+                  console.log(game)
                     return(
-                    <GameBubbleContainer name={game.name} selected={false} imageURL={imageURL} id={i} key={i}  />
+                    <GameBubbleContainer name={game.name} selected={false} imageURL={imageURL} id={i} key={i} data={game}  />
                     )
               })
         }
@@ -122,6 +123,10 @@ this.setState({hoverClass:'game-image'})
 
             <div className="step3-result">
                 {gameList}
+            </div>
+
+            <div className="step3-selection">
+
             </div>
 
         </div>

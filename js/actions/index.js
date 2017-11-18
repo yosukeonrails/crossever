@@ -57,6 +57,30 @@ export function searchGame(searchString){
 }
 
 
+export var ADD_TO_SELECTED_GAME= 'ADD_TO_SELECTED_GAME'
+
+export function addToSelectedGame(list){
+
+    return {
+       type:ADD_TO_SELECTED_GAME,
+       selectedGameDataArray:list
+    }
+
+}
+
+
+export var ADD_TO_GAME_ID_LIST= 'ADD_TO_GAME_ID_LIST'
+
+export function addToGameIdList(list){
+
+    return {
+       type:ADD_TO_GAME_ID_LIST,
+       gameIdList:list
+    }
+
+}
+
+
 
 export var GET_FACEBOOK_USER= 'GET_FACEBOOK_USER'
 

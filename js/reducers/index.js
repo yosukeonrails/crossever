@@ -1,5 +1,5 @@
 var actions = require('../actions/index');
-import {LOG_IN, GET_FACEBOOK_USER, GET_TOP_GAMES,SEARCH_GAME, SET_USER_INFO} from '../actions/index';
+import {LOG_IN, GET_FACEBOOK_USER, GET_TOP_GAMES,SEARCH_GAME, SET_USER_INFO, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -11,7 +11,9 @@ var stateDefault = {
         first_name:null,
         locationData:null,
         gamesArray:null
-    }
+    },
+     selectedGameDataArray: [],
+    gameIdList : []
 
 };
 
@@ -73,6 +75,16 @@ var reducer = function(state, action) {
 
         });
 
+
+        case ADD_TO_SELECTED_GAME:
+
+              return  { ...state ,  selectedGameDataArray: action.selectedGameDataArray }
+
+
+
+        case ADD_TO_GAME_ID_LIST:
+
+              return  { ...state ,  gameIdList: action.gameIdList }
 
 
 
