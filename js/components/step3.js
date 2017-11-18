@@ -15,7 +15,7 @@ import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import {getTopGames,searchGame} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
-
+import SelectedGamesContainer from './selected-games.js'
 export class SetupStep3 extends React.Component{
 
   constructor(props){
@@ -107,6 +107,19 @@ this.setState({hoverClass:'game-image'})
         }
 
 
+      //  console.log(this.props.selectedGameDataArray)
+
+        // var selectedGameList = []
+        //
+        // this.props.selectedGameDataArray.map(function(game, i){
+        //
+        //   console.log('selected Game ' + i )
+        //            var imageURL= 'url('+game.box.large+')';
+        //          selectedGameList.push(<h1>'game ' + i </h1>)
+        //
+        // })
+
+
 
 
 
@@ -126,7 +139,7 @@ this.setState({hoverClass:'game-image'})
             </div>
 
             <div className="step3-selection">
-
+              <SelectedGamesContainer/>
             </div>
 
         </div>
@@ -145,8 +158,7 @@ this.setState({hoverClass:'game-image'})
             loggedUser:state.loggedUser,
             manuallyLogged:state.manuallyLogged,
             topGames:state.topGames,
-            foundGames:state.foundGames
-
+            foundGames:state.foundGames,
         }
 
   }

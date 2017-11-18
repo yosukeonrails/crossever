@@ -62,7 +62,7 @@ export class GameBubble extends React.Component{
        console.log(gameIdList)
        this.props.dispatch(addToGameIdList(gameIdList));
 
-       if( gameIdList.includes(this.props.data.game._id) ){
+       if( gameIdList.includes(this.props.data._id) ){
            this.setState({selected: true});
         //   this.setState({hoverStyle:' select-game-hover '})
        }
@@ -100,7 +100,7 @@ export class GameBubble extends React.Component{
   //    console.log(gameIdList)
 
 
-  console.log(this.props)
+//  console.log(this.props)
 
       if( this.props.gameIdList.includes( this.props.data._id )){
           hoverStyle = ' select-game-hover '
@@ -131,10 +131,8 @@ export class GameBubble extends React.Component{
   var mapStateToProps= function(state){
 
         return {
-            loggedUser:state.loggedUser,
             selectedGameDataArray:state.selectedGameDataArray,
             gameIdList:state.gameIdList
-
         }
 
   }
