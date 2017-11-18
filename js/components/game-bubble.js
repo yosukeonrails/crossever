@@ -43,16 +43,36 @@ export class GameBubble extends React.Component{
       var gameIdList=[];
       var list = this.props.selectedGameDataArray
       var gameId=this.props.data._id;
-     //when clicked , take the info of the game like this:
-     //add to a list following data , but add as list[id] {name:  data }
-     // selectedGameArray[id] = {name: , id:  , data:}
-
-     list[gameId]= this.props.data
-      //this.setState({hoverStyle:' select-game-hover '})
+      var foundIndex= this.props.gameIdList.indexOf(this.props.data._id) ;
 
 
-       this.setState({hoverStyle:' select-game-hover '});
-       this.props.dispatch(addToSelectedGame(list))
+
+      //if already added delete
+      if( foundIndex === -1 ){
+          // if adding
+                 this.setState({hoverStyle:' select-game-hover '});
+                 list.push(this.props.data)
+                 this.props.dispatch(addToSelectedGame(list))
+
+      } else {
+        // if exists
+              this.setState({hoverStyle: ' '})
+              console.log(this.props.gameIdList[foundIndex])
+              console.log(list)
+              var dis = this
+              
+              list.map(function(game, i){
+
+                   if(game._id === dis.props.gameIdList[foundIndex]){
+                        list.splice( i ,1)
+                   }
+              })
+
+             this.props.dispatch(addToSelectedGame(list))
+
+      }
+
+
 
        this.props.selectedGameDataArray.map(function(game){
              var id= game._id;
@@ -62,10 +82,7 @@ export class GameBubble extends React.Component{
        console.log(gameIdList)
        this.props.dispatch(addToGameIdList(gameIdList));
 
-       if( gameIdList.includes(this.props.data._id) ){
-           this.setState({selected: true});
-        //   this.setState({hoverStyle:' select-game-hover '})
-       }
+
 
 
    }

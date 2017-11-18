@@ -106,21 +106,8 @@ this.setState({hoverClass:'game-image'})
               })
         }
 
-
-      //  console.log(this.props.selectedGameDataArray)
-
-        // var selectedGameList = []
-        //
-        // this.props.selectedGameDataArray.map(function(game, i){
-        //
-        //   console.log('selected Game ' + i )
-        //            var imageURL= 'url('+game.box.large+')';
-        //          selectedGameList.push(<h1>'game ' + i </h1>)
-        //
-        // })
-
-
-
+        var warning = ''
+        if(this.props.warning.length !== 0 ){ warning = <div className="step3-warning"> <h2>{this.props.warning}</h2>  </div>}
 
 
 
@@ -141,6 +128,10 @@ this.setState({hoverClass:'game-image'})
             <div className="step3-selection">
               <SelectedGamesContainer/>
             </div>
+
+            {warning}
+
+
 
         </div>
 

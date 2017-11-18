@@ -13,9 +13,10 @@ import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import SetupStep2Container from './step2.js'
 import SetupStep3Container from './step3.js'
+import SetupStep4Container from './step4.js'
 import {getFacebookUser, getTopGames} from '../actions/index.js'
 var loggedUser;
-
+var warning='';
 
 export class Dashboard extends React.Component{
 
@@ -31,15 +32,23 @@ export class Dashboard extends React.Component{
 
   componentWillMount(){
      this.setState({step:0})
+       this.setState({warning:''})
     }
 
     nextStep(){
+
+      if(this.state.step === 2 && this.props.selectedGameDataArray.length === 0 ){
+        console.log('need To have more than 0');
+        this.setState({warning:'Please select one or more games before moving on.'})
+        return
+      }
 
         if(this.state.step=== 3){ return; }
         console.log('next step')
 
         var currentStep= this.state.step;
         this.setState({step:currentStep+1})
+
 
     }
 
@@ -63,9 +72,15 @@ export class Dashboard extends React.Component{
 
         var step1= (  <div>   <h1> Hello , {username}  </h1> <h1> Welcome to CrossEver!</h1><h2>{setUpMessage}</h2></div>)
         var step2= (<SetupStep2Container/>)
-        var step3= (<SetupStep3Container/>)
-        var stepArray=[step1, step2, step3 ];
+        var step3= (<SetupStep3Container warning={this.state.warning} />)
+        var step4 = (<SetupStep4Container/>)
+        var buttonWord= 'next'
+        var stepArray=[step1, step2, step3 , step4];
+        console.log(this.state.warning)
+        if(this.state.step === 3 ){
 
+          console.log('set up is done');
+           buttonWord= 'Done'}
         console.log(stepArray)
 
       return(
@@ -78,7 +93,7 @@ export class Dashboard extends React.Component{
 
                                       {stepArray[this.state.step]}
 
-                                      <button  onClick={this.nextStep}>next</button>
+                                      <button  onClick={this.nextStep}>{buttonWord}</button>
 
                             </div>
                   </div>
@@ -96,7 +111,8 @@ export class Dashboard extends React.Component{
         return {
             loggedUser:state.loggedUser,
             manuallyLogged:state.manuallyLogged,
-            topGames:state.topGames
+            topGames:state.topGames,
+            selectedGameDataArray: state.selectedGameDataArray
         }
 
   }

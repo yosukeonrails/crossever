@@ -39,7 +39,7 @@ export class SetupStep2 extends React.Component{
 
 
 
-    geocodeByAddress(this.state.address).then(function(results){
+    geocodeByAddress(address).then(function(results){
 
         console.log(results);
         locationData= results[0];
