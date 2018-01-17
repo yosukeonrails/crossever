@@ -64,7 +64,7 @@ class HomeBubble extends React.Component{
 
     return (
 
-      <div style={{  zIndex:'3', backgroundImage: this.props.url , width:this.props.width , height:this.props.height , marginTop: this.props.marginTop ,marginLeft: this.props.marginLeft}}  className="home-bubble">
+      <div style={{  zIndex:'3', backgroundImage: this.props.url , width:this.props.width , height:this.props.height , marginTop: this.props.marginTop ,left: this.props.left}}  className="home-bubble">
 
       </div>
 
@@ -91,41 +91,45 @@ export class Home extends React.Component{
       return(
 
         <div>
-            <div className="home">
-
-              <DiagonalLine/>
-                              <div  style={{paddingLeft:'10%' , paddingTop:'50px'}} className="home-content">
+        <DiagonalLine/>
+        <HomeBubble width='300px' height='300px' marginTop="300px" left="60%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
 
 
-                                      <div className="log-in-window-container">
-                                          <LogInWindowContainer/>
-                                      </div>
+            <div className="home" >
+
+                              <div className="home-content"  style={{paddingLeft:'10%' , paddingTop:'50px'}} >
 
 
-                                              <div className="welcome-message">
+                                                <div className="log-in-window-container">
+                                                    <LogInWindowContainer/>
+                                                </div>
 
 
-                                              <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
-                                              <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
+                                                <div className="welcome-message">
 
 
-                                              <div style={{width:'30%' , marginTop:'30px'}}>
-                                              <button onClick={this.showSignIn} > Sign Up </button>
-                                              <span >  <h1 style={{textAlign:'center'}}> or  </h1> </span>
-                                              <button id="dark-home-button" onClick={this.showSignIn} >  Sign In </button>
-                                              </div>
+                                                      <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
+                                                      <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
 
 
-                                              </div>
+                                                      <div style={{width:'30%' , marginTop:'30px'}}>
 
-                                              <div style={{width:'50%' , float:'left'}}>
-                                              <HomeBubble width='300px' height='300px' marginTop="200px" marginLeft="6%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
-                                              </div>
+                                                      <button onClick={this.showSignIn} > Sign Up </button>
+
+                                                      <span >  <h1 style={{textAlign:'center'}}> or  </h1> </span>
+
+                                                      <button id="dark-home-button" onClick={this.showSignIn} >  Sign In </button>
+
+                                                      </div>
 
 
-
+                                                </div>
 
                               </div>
+
+
+
+
 
             </div>
         </div>

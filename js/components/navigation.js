@@ -30,7 +30,7 @@ import {hashHistory} from 'react-router'
 
                    return(
                      <div className="navigation">
-                         <h1> CrossEver</h1><h2 style={{color:'black'}}>Game</h2>
+                         <h1> CROSSEVER</h1><h2 style={{color:'black'}}>  </h2>
 
                                    <div className="user-info">
 
