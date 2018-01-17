@@ -20,19 +20,40 @@ var showSignIn= function(){
 
 };
 
+
+
+
+
+class Connectors extends React.Component {
+  render(){
+    return(
+      <div   style={{position:'absolute', marginTop:'500px' }}>
+      <svg width="894px" height="349px" viewBox="0 0 894 349" version="1.1" >
+          <title>Path 5</title>
+          <desc>Created with Sketch.</desc>
+          <defs></defs>
+          <g id="Landing-Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-2.000000, -456.000000)">
+              <polyline id="Path-5" stroke="#979797" stroke-width="3" points="3.46320526 792.970096 293.724074 674.412528 601.771531 802.601422 893.198492 752.540666 792.124917 457.076667"></polyline>
+          </g>
+      </svg>
+      </div>
+
+    )
+  }
+}
+
 class DiagonalLine extends React.Component {
   render(){
     return(
             <div>
-            <svg  style={{position:'absolute'}} width="100%"  height="100vh" viewBox="0 0 1021 495" version="1.1" >
+                  <svg style={{position:'absolute' , top:'-155px'}} width="100%"  height="200vh" viewBox="0 0 1026 645" version="1.1">
 
-            <title>Path 2</title>
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g id="Landing-Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-3.000000, -66.000000)">
-            <polyline id="Path-2" stroke="#929191" stroke-width="2" points="3.81008061 559.109683 643.898436 471.534727 1026.90787 64.627794"></polyline>
-            </g>
-            </svg>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Crossever" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <path d="M762.869371,242.165916 L876.172146,495.510391 L606.465487,559.911122 L240.888384,420.592694 L130.522978,644.991528 M0.437339847,290.82441 L751.710317,242.586595 L1025.05548,1.13920631" id="horizontalBend" stroke="#979797"></path>
+                  </g>
+                  </svg>
             </div>
     )
   }
@@ -43,7 +64,7 @@ class HomeBubble extends React.Component{
 
     return (
 
-      <div style={{  zIndex:'3', backgroundImage: this.props.url , width:this.props.width , height:this.props.height , marginTop: this.props.marginTop}}  className="home-bubble">
+      <div style={{  zIndex:'3', backgroundImage: this.props.url , width:this.props.width , height:this.props.height , marginTop: this.props.marginTop ,marginLeft: this.props.marginLeft}}  className="home-bubble">
 
       </div>
 
@@ -73,9 +94,7 @@ export class Home extends React.Component{
             <div className="home">
 
               <DiagonalLine/>
-
-
-                              <div  style={{padding:'10%'}} className="home-content">
+                              <div  style={{paddingLeft:'10%' , paddingTop:'50px'}} className="home-content">
 
 
                                       <div className="log-in-window-container">
@@ -100,8 +119,11 @@ export class Home extends React.Component{
                                               </div>
 
                                               <div style={{width:'50%' , float:'left'}}>
-                                              <HomeBubble width='300px' height='300px' marginTop="300px" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
+                                              <HomeBubble width='300px' height='300px' marginTop="200px" marginLeft="6%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
                                               </div>
+
+
+
 
                               </div>
 
