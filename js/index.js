@@ -12,9 +12,10 @@ import store from './store';
 
 
 import mainAppContainer from './components/mainapp.js';
-import AppContainer from './components/app.js'
-import HomeContainer from './components/home.js'
-import DashboardContainer from './components/dashboard.js'
+import AppContainer from './components/app.js';
+import HomeContainer from './components/home.js';
+import DashboardContainer from './components/dashboard.js';
+import logInPage from './components/loginpage.js'
 import { Provider } from 'react-redux';
 
 var routes = (
@@ -25,7 +26,8 @@ var routes = (
 
                       <Route path="/home" component={HomeContainer}/>
                       <Route path="/dashboard" component={DashboardContainer}/>
-                      
+                      <Route path="/loginpage" component={logInPage}/>
+
            </Route>
 
    </Router>

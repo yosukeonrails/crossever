@@ -20,8 +20,7 @@ var showSignIn= function(){
 
 };
 
-
-
+var bubbleDimensions;
 
 
 class Connectors extends React.Component {
@@ -64,7 +63,7 @@ class HomeBubble extends React.Component{
 
     return (
 
-      <div style={{  zIndex:'3', backgroundImage: this.props.url , width:this.props.width , height:this.props.height , marginTop: this.props.marginTop ,left: this.props.left}}  className="home-bubble">
+      <div style={{  backgroundImage: this.props.url , width:this.props.width , height:this.props.width , marginTop: this.props.marginTop ,left: this.props.left}}  className="home-bubble">
 
       </div>
 
@@ -76,54 +75,93 @@ class HomeBubble extends React.Component{
 export class Home extends React.Component{
 
   constructor(props){
-    super(props)
-    this.showSignIn= this.showSignIn.bind(this);
-  }
+
+      super(props)
+        this.showSignIn= this.showSignIn.bind(this);
+        this.updateDimensions = this.updateDimensions.bind(this);
+
+        this.state = {
+         height: window.innerHeight,
+         width: window.innerWidth
+       };
+   }
+
+    componentDidMount(){
+         this.setState({originWidth:$(window).width()})
+         window.addEventListener("resize", this.updateDimensions);
+    }
+
+
+
+    updateDimensions() {
+
+            this.setState({
+              height: window.innerHeight,
+              width: window.innerWidth
+            });
+      }
+
 
     showSignIn(){
         console.log(showSignIn)
       showSignIn();
-
     }
+
+    goTologIn(){
+      console.log('going to loging ')
+      hashHistory.push('/loginpage')
+    }
+
+
     render () {
 
+      var widthSubstraction=0;
+
+        if(this.state.width < 1200 ){
+            widthSubstraction = (1200 - this.state.width)/5;
+        }
+
+        bubbleDimensions = [{d:300},{d:200},{d:120},{d:150}]
 
       return(
 
         <div>
-        <DiagonalLine/>
-        <HomeBubble width='300px' height='300px' marginTop="300px" left="60%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
 
+        <DiagonalLine/>
+        <HomeBubble width={ (bubbleDimensions[0].d - widthSubstraction )+'px'}  marginTop="40vh" left="60%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
+        <HomeBubble width={ (bubbleDimensions[1].d - widthSubstraction )+'px'}   marginTop="100vh" left="53%" url="url(https://blznav.akamaized.net/img/games/cards/card-overwatch-7eff92e1257149aa.jpg)"/>
+        <HomeBubble width={ (bubbleDimensions[2].d - widthSubstraction )+'px'}  marginTop="85vh" left="19%" url="url(https://cdn.images.express.co.uk/img/dynamic/143/590x/PUBG-886916.jpg)"/>
+        <HomeBubble width={ (bubbleDimensions[3].d - widthSubstraction )+'px'}   marginTop="95vh" left="79%" url="url(http://torrentsgames.org/wp-content/uploads/2016/05/Black-Desert-PC.jpg)"/>
 
             <div className="home" >
 
-                              <div className="home-content"  style={{paddingLeft:'10%' , paddingTop:'50px'}} >
+                            <div className="home-content"  style={{paddingLeft:'10%' , paddingTop:'50px'}} >
 
 
-                                                <div className="log-in-window-container">
-                                                    <LogInWindowContainer/>
-                                                </div>
+                                <div className="log-in-window-container">
+                                    <LogInWindowContainer/>
+                                </div>
 
 
-                                                <div className="welcome-message">
+                                <div className="welcome-message">
 
 
-                                                      <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
-                                                      <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
+                                      <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
+                                      <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
 
 
-                                                      <div style={{width:'30%' , marginTop:'30px'}}>
+                                      <div style={{width:'30%' , marginTop:'30px'}}>
 
-                                                      <button onClick={this.showSignIn} > Sign Up </button>
+                                      <button style={{zIndex:'2'}} onClick={this.showSignIn} > Sign Up </button>
 
-                                                      <span >  <h1 style={{textAlign:'center'}}> or  </h1> </span>
+                                      <span>  <h1 style={{textAlign:'center', margin:'0'}}> or  </h1> </span>
 
-                                                      <button id="dark-home-button" onClick={this.showSignIn} >  Sign In </button>
+                                      <button style={{zIndex:'2', marginTop:'5px'}}  id="dark-home-button" onClick={this.goTologIn} >  Sign In </button>
 
-                                                      </div>
+                                      </div>
 
 
-                                                </div>
+                                </div>
 
                               </div>
 
