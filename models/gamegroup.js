@@ -1,5 +1,5 @@
-var mongoose= require('mongoose');
-var bcrypt = require('bcrypts');
+var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 
 var GroupSchema= new mongoose.Schema({
   name:{
@@ -11,6 +11,9 @@ var GroupSchema= new mongoose.Schema({
     type:String,
     require:true,
     unique:true
+  },
+  gameData:{
+    type:Object
   },
   members:{
     type:Object

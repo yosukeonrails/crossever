@@ -34,8 +34,20 @@ export class SetupStep2 extends React.Component{
     this.onChange= this.onChange.bind(this);
     this.onType=this.onType.bind(this);
     this.state = { address: 'San Francisco, CA' }
+  }
 
+  componentDidMount(){
+           console.log('NO user '+ this.props.loggedUser)
+           // check if user is logged and make the userinfodata , if not redirect
 
+           if(this.props.loggedUser){
+                 // if mannyally logged,
+                 if(this.props.loggedUser.facebookId ==="guest"){
+                   console.log('manually logged , make user different') }
+                   else{
+                    console.log('make sure to have a user')
+                 }
+           }
   }
 
   onType(address){

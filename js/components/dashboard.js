@@ -24,15 +24,17 @@ export class Dashboard extends React.Component{
 
 
     super(props)
-      this.nextStep= this.nextStep.bind(this);
 
+    this.nextStep= this.nextStep.bind(this);
     if(this.props.manuallyLogged !== true){ this.props.dispatch(getFacebookUser()); }
 
   }
 
   componentWillMount(){
-     this.setState({step:0})
+
+       this.setState({step:0})
        this.setState({warning:''})
+
     }
 
     nextStep(){
@@ -55,17 +57,12 @@ export class Dashboard extends React.Component{
     render () {
 
 
-
-
-
         var setUpMessage= "Let'get you all set up. We just need to ask you a few questions!"
 
         var username="";
 
         if(this.props.loggedUser){
-
-        username= this.props.loggedUser.first_name;
-
+            username= this.props.loggedUser.first_name;
         }
 
 
@@ -76,12 +73,12 @@ export class Dashboard extends React.Component{
         var step4 = (<SetupStep4Container/>)
         var buttonWord= 'next'
         var stepArray=[step1, step2, step3 , step4];
-        console.log(this.state.warning)
-        if(this.state.step === 3 ){
 
-          console.log('set up is done');
-           buttonWord= 'Done'}
+        if(this.state.step === 3 ){ 
+           buttonWord= 'Done';
+         }
         console.log(stepArray)
+
 
       return(
 

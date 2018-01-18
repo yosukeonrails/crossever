@@ -14,6 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 
 var User= require('./models/user.js');
+var GameGroup= require('./models/gamegroup.js');
 
 mongoose.Promise = global.Promise;
 
@@ -293,6 +294,33 @@ app.post('/login',
 
     });
 
+//# Group
+    app.post('/gamegroup', function(req, res){
+
+        // what you will find by
+          var query={
+            gameID:req.body.gameID
+          }
+
+          var data={
+            $set:{
+              name:req.body.name,
+              gameID:req.body.gameID,
+              gameData:req.body.gameData,
+              members:req.body.members
+            }
+          }
+
+      GameGroup.findOneAndUpdate(query, data, {upsert:true,new:true}, function(err, data){
+
+          if(err){ console.log(err)}
+
+        console.log(data)
+        res.status(201).json(data);
+
+      })
+
+    })
 
 
 // # FACEBOOK LOGIN ENDS

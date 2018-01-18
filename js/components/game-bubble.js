@@ -29,6 +29,7 @@ export class GameBubble extends React.Component{
 
   }
 
+
   componentWillMount(){
     this.setState({ hoverStyle:' '  });
          this.setState({selected: false});
@@ -54,13 +55,14 @@ export class GameBubble extends React.Component{
                  list.push(this.props.data)
                  this.props.dispatch(addToSelectedGame(list))
 
+
       } else {
         // if exists
               this.setState({hoverStyle: ' '})
               console.log(this.props.gameIdList[foundIndex])
               console.log(list)
               var dis = this
-              
+
               list.map(function(game, i){
 
                    if(game._id === dis.props.gameIdList[foundIndex]){
@@ -69,6 +71,7 @@ export class GameBubble extends React.Component{
               })
 
              this.props.dispatch(addToSelectedGame(list))
+             
 
       }
 
@@ -81,9 +84,6 @@ export class GameBubble extends React.Component{
 
        console.log(gameIdList)
        this.props.dispatch(addToGameIdList(gameIdList));
-
-
-
 
    }
 

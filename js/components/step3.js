@@ -67,8 +67,6 @@ this.setState({hoverClass:'game-image'})
 
   handleFormSubmit(event){
      event.preventDefault()
-
-
    }
 
     render () {
@@ -109,8 +107,6 @@ this.setState({hoverClass:'game-image'})
         var warning = ''
         if(this.props.warning.length !== 0 ){ warning = <div className="step3-warning"> <h2>{this.props.warning}</h2>  </div>}
 
-
-
       return(
 
         <div className="setp3-container">
@@ -130,8 +126,6 @@ this.setState({hoverClass:'game-image'})
             </div>
 
             {warning}
-
-
 
         </div>
 

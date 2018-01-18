@@ -4,6 +4,43 @@ import { push } from 'react-router-redux';
 require('isomorphic-fetch');
  import ClientId from '../env.js';
 
+
+
+
+ export var CREATE_GAME_GROUP= 'CREATE_GAME_GROUP';
+
+ export function createGameGroup(group) {
+
+ var fetchData={
+ method:'POST',
+ headers:{
+  'Content-Type':'application/json'
+ },
+ body:JSON.stringify({
+
+   name:group.name,
+   gameID:group.gameID,
+   gameData:group.gameData,
+   members:group.members
+
+ })
+
+ };
+
+ return {
+ type: CREATE_GAME_GROUP,
+ promise: fetch('/gamegroup', fetchData).then(function(data){
+
+
+ return data.json();
+
+ })
+ };
+ }
+
+
+
+
 export var SET_USER_INFO= 'SET_USER_INFO'
 
 export function setUserInfo(userInfoData){
