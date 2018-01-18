@@ -9,6 +9,13 @@ var router = require('react-router');
 var Router = router.Router;
 var Route = router.Route;
 var Link = router.Link;
+
+var currentTyped=[];
+var timerIsOn= false;
+var bufferTime = 0;
+var start= 0;
+var end= 0;
+
 import {setUserInfo} from '../actions/index.js'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
@@ -25,19 +32,41 @@ export class SetupStep2 extends React.Component{
 
     this.handleFormSubmit= this.handleFormSubmit.bind(this);
     this.onChange= this.onChange.bind(this);
+    this.onType=this.onType.bind(this);
     this.state = { address: 'San Francisco, CA' }
+
 
   }
 
+  onType(address){
+        // creating a delay
+
+    this.setState({ address:address})
+    
+     var dis= this;
+     var d= new Date();
+     start= d.getTime();
+
+     setTimeout(function(){
+
+       var d= new Date();
+        end= d.getTime();
+       var buffer= end - start; // star will be the current start
+
+      if(buffer> 2000) { dis.onChange(address) }
+      // set Time out will only take the CURRENT V
+     },2000)
+
+
+  }
 
   onChange(address){
 
-    this.setState({ address:address })
+    // add a delay so it doesnt do this every time its typed
+
 
     var locationData='';
     var dis= this;
-
-
 
     geocodeByAddress(address).then(function(results){
 
@@ -115,7 +144,7 @@ export class SetupStep2 extends React.Component{
 
       const inputProps = {
            value: this.state.address,
-           onChange: this.onChange,
+           onChange: this.onType,
          }
 
       return(
