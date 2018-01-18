@@ -41,19 +41,50 @@ export class SetupStep2 extends React.Component{
 
     geocodeByAddress(address).then(function(results){
 
-        console.log(results);
+
         locationData= results[0];
-
-        console.log(locationData);
-
-
         var userInformation = dis.props.userInformation;
-        console.log(dis.props.userInformation)
+        var addressSummary= {};
 
-        Object.assign(userInformation, {locationData:locationData}) ;
+        if(locationData.address_components){
+
+
+          var addressInfo= locationData.address_components;
+
+          addressInfo.map(function(location){
+
+                    for( var i=0 ; i<location.types.length ; i++){
+
+                                      switch (location.types[i]) {
+
+                                        case "neighborhood":
+                                            addressSummary["region"]= location.long_name
+
+                                        case "locality" :
+                                            addressSummary["city"]= location.long_name
+
+                                        case "administrative_area_level_1":
+
+                                            addressSummary["state"]= location.long_name
+
+                                        case "country":
+                                            addressSummary["country"]= location.long_name
+
+
+                                          break;
+                                        default:
+
+                                      }
+
+                        }
+
+          })
+
+        }
+
+        Object.assign(userInformation, {locationData:locationData, locationSummary:addressSummary}) ;
 
         dis.props.dispatch(setUserInfo(userInformation));
-        console.log(userInformation);
 
     })
 
@@ -73,6 +104,9 @@ export class SetupStep2 extends React.Component{
        console.log(results[0]);
 
      })
+
+     console.log('here is info')
+     console.log(this.props.userInformation)
 
 
    }

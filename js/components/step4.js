@@ -36,8 +36,27 @@ componentDidMount(){
     render () {
 
 
+      console.log(this.props.userInformation.locationData)
+
+      if(this.props.userInformation.locationData.address_components){
+        var adressInfo= this.props.userInformation.locationData.address_components;
+
+        adressInfo.map(function(location){
+            console.log(location.types)
+
+          for(var i=0 ; i>location.types.length ; i++){
+
+              console.log(location.types[i])
 
 
+          }
+
+        })
+      }
+
+      var locationSummary={
+
+      }
 
 
       return(
@@ -61,6 +80,7 @@ componentDidMount(){
             manuallyLogged:state.manuallyLogged,
             topGames:state.topGames,
             foundGames:state.foundGames,
+            userInformation:state.userInformation
         }
 
   }
