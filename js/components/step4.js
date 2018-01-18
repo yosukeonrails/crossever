@@ -22,41 +22,26 @@ import SelectedGamesContainer from './selected-games.js'
 export class SetupStep4 extends React.Component{
 
   constructor(props){
-
     super(props)
-
   }
+
+
 
 componentDidMount(){
 
+
+    // 1.make sure that all of the data is good to go
+    console.log(this.props.userInformation);
+    console.log(this.props.selectedGameDataArray);
+    //2. create group data
+       var gameGroup= {
+
+       }
+    //3. create city data for group
   }
 
 
-
     render () {
-
-
-      console.log(this.props.userInformation.locationData)
-
-      if(this.props.userInformation.locationData.address_components){
-        var adressInfo= this.props.userInformation.locationData.address_components;
-
-        adressInfo.map(function(location){
-            console.log(location.types)
-
-          for(var i=0 ; i>location.types.length ; i++){
-
-              console.log(location.types[i])
-
-
-          }
-
-        })
-      }
-
-      var locationSummary={
-
-      }
 
 
       return(
@@ -78,8 +63,8 @@ componentDidMount(){
         return {
             loggedUser:state.loggedUser,
             manuallyLogged:state.manuallyLogged,
-            topGames:state.topGames,
             foundGames:state.foundGames,
+            selectedGameDataArray:state.selectedGameDataArray,
             userInformation:state.userInformation
         }
 

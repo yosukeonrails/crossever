@@ -42,7 +42,7 @@ export class SetupStep2 extends React.Component{
         // creating a delay
 
     this.setState({ address:address})
-    
+
      var dis= this;
      var d= new Date();
      start= d.getTime();
@@ -53,9 +53,9 @@ export class SetupStep2 extends React.Component{
         end= d.getTime();
        var buffer= end - start; // star will be the current start
 
-      if(buffer> 2000) { dis.onChange(address) }
+      if(buffer> 400) { dis.onChange(address) }
       // set Time out will only take the CURRENT V
-     },2000)
+    },400)
 
 
   }
