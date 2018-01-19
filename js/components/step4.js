@@ -13,7 +13,7 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame,createGameGroup,getGameGroupById} from '../actions/index.js'
+import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
 
@@ -101,7 +101,7 @@ export class SetupStep4 extends React.Component{
           group.members= [user]
           dis.createGroup(group)
          // create city
-
+          dis.checkCityExistance(user, group, city)
        }
          else {
          //update by taking its members and pushing user
@@ -109,7 +109,7 @@ export class SetupStep4 extends React.Component{
           // check existance of city group
           var gameCityID= user.userInfo.locationSummary
 
-            dis.checkCityExistance()
+            dis.checkCityExistance(user, group, city)
         }
 
       })
@@ -118,10 +118,27 @@ export class SetupStep4 extends React.Component{
 
     }
 
-    checkCityExistance(){
-      console.log('checking city existance');
+    checkCityExistance(user, group , city){
+
+      var dis= this;
+         this.props.dispatch(getGameCityById(city.gameCityID)).then(function(res){
+
+              if(res.payload.length===0){
+                 // if i doesnt exist yet add member and create
+                city.members=[user];
+                dis.createCity(city);
+              } else {
+                dis.updateGameCity(res.payload[0] , user )
+              }
+
+         })
+
     }
 
+    createCity(city){
+        console.log('creating city')
+        this.props.dispatch(createGameCity(city))
+    }
 
     createGroup(group){
 
@@ -131,7 +148,7 @@ export class SetupStep4 extends React.Component{
     }
 
     updateGroup( group, user){
-
+        console.log('updating group')
       var groupData= {
         name: group.name,
         gameData:group.gameData,
@@ -144,6 +161,25 @@ export class SetupStep4 extends React.Component{
       group.members.push(user);
 
       this.props.dispatch(createGameGroup(groupData))
+
+    }
+
+    updateGameCity( city, user){
+
+      console.log('updating city')
+      var cityData= {
+        name:city.name,
+        gameCityID:city.gameCityID,
+        gameID:city.gameID,
+        cityID:city.cityID,
+        location:city.location,
+        members:city.members
+      }
+      // see if there is a duplicate first..may not need though
+
+      city.members.push(user);
+
+      this.props.dispatch(createGameCity(cityData))
 
     }
 

@@ -352,8 +352,8 @@ app.post('/login',
               var data={
                 $set:{
                   gameCityID:req.body.gameCityID,
-                  cityName:req.body.cityName,
-                  gameID:req.body.game,
+                  name:req.body.name,
+                  gameID:req.body.gameID,
                   cityID:req.body.cityID,
                   location:req.body.location,
                   members:req.body.members
@@ -374,18 +374,18 @@ app.post('/login',
 
 
 
-            app.get('/gamecity/:gameid/:cityid', function(req, res){
+    app.get('/gamecity/:gamecityid', function(req, res){
 
-              GameCity.find({ gameID:req.params.gameid , cityID:req.params.cityid}, function(err, data){
+      GameCity.find({ gameCityID:req.params.gamecityid }, function(err, data){
 
-                if(err){
+        if(err){
 
-                }
+        }
 
-                res.json(data);
-            });
+        res.json(data);
+    });
 
-            });
+    });
 
 
 // # FACEBOOK LOGIN ENDS

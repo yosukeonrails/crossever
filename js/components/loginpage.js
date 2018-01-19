@@ -7,19 +7,12 @@ var Router = router.Router;
 var Route = router.Route;
 var Link = router.Link;
 
-import {push} from 'react-router-redux'
-import {hashHistory} from 'react-router'
+//import BlueTriangle from './bluetriangle.svg';
+import {push} from 'react-router-redux';
+import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
-import LogInWindowContainer  from './log-in-window.js'
+import LogInWindowContainer  from './log-in-window.js';
 
-class BlueTriangle extends React.Component {
-  render(){
-    return(
-      <h1>Triangle</h1>
-
-    )
-  }
-}
 
 
 export class LogInPage extends React.Component {

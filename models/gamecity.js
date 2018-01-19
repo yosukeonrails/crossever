@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 var GameCitySchema= new mongoose.Schema({
-  cityName:{
+  name:{
     type:String
   },
   gameCityID:{

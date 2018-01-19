@@ -17,6 +17,56 @@ export function getGameGroupById(gameid){
 }
 
 
+export var GET_GAMECITY_BY_ID= 'GET_GAMECITY_BY_ID';
+
+export function getGameCityById(gameCityID){
+  return{
+    type:GET_GAMECITY_BY_ID,
+    promise:fetch('/gamecity/'+gameCityID).then(function(data){
+      return data.json();
+    })
+  }
+}
+
+
+
+ export var CREATE_GAMECITY= 'CREATE_GAMECITY';
+
+ export function createGameCity(city) {
+
+ var fetchData={
+ method:'POST',
+ headers:{
+  'Content-Type':'application/json'
+ },
+ body:JSON.stringify({
+
+   gameCityID:city.gameCityID,
+   name:city.name,
+   gameID:city.gameID,
+   cityID:city.cityID,
+   location:city.location,
+   members:city.members
+
+ })
+
+ };
+
+ return {
+ type: CREATE_GAMECITY,
+ promise: fetch('/gamecity', fetchData).then(function(data){
+
+
+ return data.json();
+
+ })
+ };
+ }
+
+
+
+
+
  export var CREATE_GAME_GROUP= 'CREATE_GAME_GROUP';
 
  export function createGameGroup(group) {
