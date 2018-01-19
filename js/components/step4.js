@@ -13,7 +13,7 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame,createGameGroup} from '../actions/index.js'
+import {getTopGames,searchGame,createGameGroup,getGameGroupById} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
 
@@ -26,25 +26,41 @@ export class SetupStep4 extends React.Component{
     }
 
     componentDidMount(){
-        // get all games into a checked games array
-         console.log(this.props.selectedGameDataArray)
+
          var dis= this;
 
+         //1. GET Game by game
+
+
          var members=[];
+         var cityMembers=[];
+
          var loggedUser= this.props.loggedUser;
          var userInfo= this.props.userInformation;
+         var location=userInfo.locationSummary;
+
+         var user= {
+           name:loggedUser.first_name,
+           username:loggedUser.username,
+           facebookId:loggedUser.facebookId,
+           userInfo:userInfo
+         }
+
 
          this.props.selectedGameDataArray.map(function(game){
 
-
            // checks if game exists
+            // find One, if found get the members and make = members and push user to member and update group
+            // add also to city
+
+
+
+            var str=location.country+location.state+location.city
+            var cityID= str.replace(/ /g,'').toLowerCase();
+            var gameCityID= cityID+game._id;
+            var cityName= game.name+' '+location.city;
            // if not , create
-           var user= {
-             name:loggedUser.first_name,
-             username:loggedUser.username,
-             facebookId:loggedUser.facebookId,
-             userInfo:userInfo
-           }
+
            var group= {
              name: game.name,
              gameData:game,
@@ -52,25 +68,86 @@ export class SetupStep4 extends React.Component{
              members:members
            }
 
+          var city= {
+            name:cityName,
+            gameCityID:gameCityID,
+            gameID:game._id,
+            cityID:cityID,
+            location:location,
+            members:cityMembers
+          }
+            console.log(city);
+            console.log(group);
 
-                dis.props.dispatch(createGameGroup(group))
+           dis.checkGroupExistance(user,group,city)
+            //    dis.props.dispatch(createGameGroup(group))
+            //    dis.props.dispatch(createCity(city))
+
                 console.log('dispateched')
          })
     }
 
 
 
-    checkGroupExistance(){
+    checkGroupExistance(user,group,city){
+
+
+      var dis= this;
+      this.props.dispatch(getGameGroupById(group.gameID)).then(function(res){
+
+       if(res.payload.length==0){
+
+          // add only one member and then create group
+          group.members= [user]
+          dis.createGroup(group)
+         // create city
+
+       }
+         else {
+         //update by taking its members and pushing user
+          dis.updateGroup(res.payload[0] ,user )
+          // check existance of city group
+          var gameCityID= user.userInfo.locationSummary
+
+            dis.checkCityExistance()
+        }
+
+      })
+
+
 
     }
 
-    createGroup(){
+    checkCityExistance(){
+      console.log('checking city existance');
+    }
+
+
+    createGroup(group){
+
+      console.log('creating group');
+      this.props.dispatch(createGameGroup(group))
 
     }
 
-    addMemberToGroup(){
+    updateGroup( group, user){
+
+      var groupData= {
+        name: group.name,
+        gameData:group.gameData,
+        gameID:group.gameID,
+        members:group.members
+      }
+
+      // see if there is a duplicate first..may not need though
+
+      group.members.push(user);
+
+      this.props.dispatch(createGameGroup(groupData))
 
     }
+
+
 
     render () {
 

@@ -15,6 +15,7 @@ var mongoose = require('mongoose');
 
 var User= require('./models/user.js');
 var GameGroup= require('./models/gamegroup.js');
+var GameCity= require('./models/gamecity.js')
 
 mongoose.Promise = global.Promise;
 
@@ -296,7 +297,6 @@ app.post('/login',
 
 //# Group
     app.post('/gamegroup', function(req, res){
-
         // what you will find by
           var query={
             gameID:req.body.gameID
@@ -321,6 +321,71 @@ app.post('/login',
       })
 
     })
+
+
+      app.get('/gamegroup/:gameid', function(req, res){
+
+        GameGroup.find({ gameID:req.params.gameid }, function(err, data){
+
+          if(err){
+
+          }
+          console.log(data)
+          res.json(data);
+      });
+
+      });
+
+
+
+
+
+    //# GameCity
+
+        app.post('/gamecity', function(req, res){
+
+            // what you will find by
+              var query={
+                gameCityID:req.body.gameCityID
+              }
+
+              var data={
+                $set:{
+                  gameCityID:req.body.gameCityID,
+                  cityName:req.body.cityName,
+                  gameID:req.body.game,
+                  cityID:req.body.cityID,
+                  location:req.body.location,
+                  members:req.body.members
+                }
+              }
+
+          GameCity.findOneAndUpdate(query, data, {upsert:true,new:true}, function(err, data){
+
+              if(err){ console.log(err)}
+
+            console.log(data)
+            res.status(201).json(data);
+
+          })
+
+        })
+
+
+
+
+            app.get('/gamecity/:gameid/:cityid', function(req, res){
+
+              GameCity.find({ gameID:req.params.gameid , cityID:req.params.cityid}, function(err, data){
+
+                if(err){
+
+                }
+
+                res.json(data);
+            });
+
+            });
 
 
 // # FACEBOOK LOGIN ENDS

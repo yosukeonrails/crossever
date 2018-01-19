@@ -5,6 +5,16 @@ require('isomorphic-fetch');
  import ClientId from '../env.js';
 
 
+export var GET_GAMEGROUP_BY_ID= 'GET_GAMEGROUP_BY_ID';
+
+export function getGameGroupById(gameid){
+  return{
+    type:GET_GAMEGROUP_BY_ID,
+    promise:fetch('/gamegroup/'+gameid).then(function(data){
+      return data.json();
+    })
+  }
+}
 
 
  export var CREATE_GAME_GROUP= 'CREATE_GAME_GROUP';
