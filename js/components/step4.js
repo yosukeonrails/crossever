@@ -34,26 +34,17 @@ export class SetupStep4 extends React.Component{
          var members=[];
          var cityMembers=[];
 
-         var loggedUser= this.props.loggedUser;
-         var userInfo= this.props.userInformation;
-         var location=userInfo.locationSummary;
-
-
-         userInfo.gamesArray= this.props.selectedGameDataArray;
-         this.props.dispatch( setUserInfo(userInfo))
-
          var user= {
-           name:loggedUser.first_name,
-           username:loggedUser.username,
-           facebookId:loggedUser.facebookId,
-           userInfo:userInfo
+           name:this.props.loggedUser.first_name,
+           username:this.props.loggedUser.username,
+           userID:this.props.loggedUser.userID,
+           details:this.props.userInformation.details
          }
 
+         var loggedUser= this.props.loggedUser;
+         var userInfo= this.props.userInformation;
+         var location=this.props.userInformation.details. locationSummary;
 
-         //
-
-
-         this.updateOrCreateUser(loggedUser, userInfo);
 
          this.props.selectedGameDataArray.map(function(game){
 
@@ -61,7 +52,7 @@ export class SetupStep4 extends React.Component{
             // find One, if found get the members and make = members and push user to member and update group
             // add also to city
 
-            var str=location.country+location.state+location.city
+            var str=location.country+ location.state+location.city
             var cityID= str.replace(/ /g,'').toLowerCase();
             var gameCityID= cityID+game._id;
             var cityName= game.name+' '+location.city;
@@ -101,7 +92,7 @@ export class SetupStep4 extends React.Component{
 
 
         var userData= {
-          userID:loggedUser.facebookId,
+          userID:loggedUser.userID,
           username:loggedUser.username,
           userInformation:userInfo
         }
@@ -129,7 +120,7 @@ export class SetupStep4 extends React.Component{
          //update by taking its members and pushing user
           dis.updateGroup(res.payload[0] ,user )
           // check existance of city group
-          var gameCityID= user.userInfo.locationSummary
+          var gameCityID= user.details.locationSummary
 
             dis.checkCityExistance(user, group, city)
         }

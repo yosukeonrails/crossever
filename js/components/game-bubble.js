@@ -77,7 +77,7 @@ export class GameBubble extends React.Component{
 
        this.props.dispatch(addToGameIdList(gameIdList));
 
-
+       console.log(setUpData)
        Object.assign(setUpData , {games:this.props.selectedGameDataArray})
        this.props.dispatch(setUpInformation(setUpData));
    }

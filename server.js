@@ -123,7 +123,8 @@ app.post('/user', function(req, res) {
         password: password,
         first_name:req.body.first_name,
         last_name:req.body.last_name,
-        facebookId:req.body.facebookId
+        facebookId:req.body.facebookId,
+        userID:req.body.username
     });
 
     console.log(req.body);
@@ -259,6 +260,7 @@ app.post('/login',
       username:profile.displayName,
       facebookId:profile.id,
       token:profile.accessToken,
+      userID:profile.id
       // email:profile.email
     };
 

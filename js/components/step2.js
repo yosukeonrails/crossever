@@ -51,7 +51,7 @@ export class SetupStep2 extends React.Component{
 
   onType(address){
         // creating a delay
-    this.setState({ address:address})
+
 
      var dis= this;
      var d= new Date();
@@ -72,6 +72,7 @@ export class SetupStep2 extends React.Component{
 
   onChange(address){
 
+    this.setState({ address:address})
     // add a delay so it doesnt do this every time its typed
     var locationData='';
     var dis= this;
@@ -147,7 +148,7 @@ export class SetupStep2 extends React.Component{
 
       const inputProps = {
            value: this.state.address,
-           onChange: this.onType,
+           onChange: this.onChange,
          }
 
       return(

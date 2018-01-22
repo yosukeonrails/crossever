@@ -69,7 +69,7 @@ export class SetUp extends React.Component{
 
         this.props.dispatch(createUserInformation({
               username:dv.username,
-              userID:this.props.loggedUser.facebookId,
+              userID:this.props.loggedUser.userID,
               details:null
         }))
 
