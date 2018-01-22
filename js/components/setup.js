@@ -63,6 +63,13 @@ export class SetUp extends React.Component{
 
     nextStep(){
 
+
+      if(this.state.step=== 3 ){
+
+            hashHistory.push('/userdashboard')
+
+         }
+
       this.setState({step:this.state.step+1})
       // once set up begins and there is data to bind to userInfo
       if(this.state.step === 0){
@@ -72,11 +79,9 @@ export class SetUp extends React.Component{
               userID:this.props.loggedUser.userID,
               details:null
         }))
-
       }
 
       if(this.props.setUpInformation ){
-
 
           var userInfo= this.props.userInformation;
           var data= this.props.setUpInformation;

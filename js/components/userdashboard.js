@@ -67,7 +67,7 @@ export class UserDashboard extends React.Component{
 
           <div className="dashboard-page">
 
-
+              <SideBarContainer/>
 
           </div>
 
