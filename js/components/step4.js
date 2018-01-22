@@ -13,10 +13,10 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity,createUserInformation,setUserInfo} from '../actions/index.js'
+import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity,createUserInformation,setUserInfo,setUpInformation} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
-
+var memberOf= {group:[], city:[] }
 
 export class SetupStep4 extends React.Component{
 
@@ -97,8 +97,6 @@ export class SetupStep4 extends React.Component{
           userInformation:userInfo
         }
 
-      console.log(userData)
-
         this.props.dispatch(createUserInformation(userData));
     }
 
@@ -128,7 +126,6 @@ export class SetupStep4 extends React.Component{
       })
 
 
-
     }
 
     checkCityExistance(user, group , city){
@@ -149,13 +146,20 @@ export class SetupStep4 extends React.Component{
     }
 
     createCity(city){
+
+        // addding a member Of object to user Info //
+
         console.log('creating city')
+        memberOf.city.push(city.gameCityID);
         this.props.dispatch(createGameCity(city))
+
     }
 
     createGroup(group){
 
       console.log('creating group');
+      console.log(group)
+      memberOf.group.push(group.gameID);
       this.props.dispatch(createGameGroup(group))
 
     }
@@ -172,10 +176,12 @@ export class SetupStep4 extends React.Component{
       // see if there is a duplicate of the user in the group member
 
       group.members.push(user);
-
+      memberOf.group.push(group.gameID);
       this.props.dispatch(createGameGroup(groupData))
 
     }
+
+
 
     updateGameCity( city, user){
 
@@ -192,15 +198,35 @@ export class SetupStep4 extends React.Component{
     // see if there is a duplicate of the user in the city member
 
       city.members.push(user);
-
+      memberOf.city.push(city.gameCityID);
       this.props.dispatch(createGameCity(cityData))
+
 
     }
 
 
+    updateUserSetUp(memberOf){
+        console.log(this.props.setUpInformation)
+        var setUp=  this.props.setUpInformation
+        Object.assign(setUp , {memberOf:memberOf});
+        console.log(setUp)
+
+        this.props.dispatch(setUpInformation(setUp));
+    }
+
 
     render () {
 
+      console.log('rendering')
+      console.log(this.props.setUpInformation)
+      console.log(memberOf)
+      if(this.props.setUpInformation){
+        if(!this.props.setUpInformation.memberOf){
+            this.updateUserSetUp(memberOf)
+        }
+        this.updateUserSetUp(memberOf)} else{
+        console.log('it has user so move on')
+      }
 
       return(
 
@@ -223,7 +249,8 @@ export class SetupStep4 extends React.Component{
             manuallyLogged:state.manuallyLogged,
             foundGames:state.foundGames,
             selectedGameDataArray:state.selectedGameDataArray,
-            userInformation:state.userInformation
+            userInformation:state.userInformation,
+            setUpInformation:state.setUpInformation
         }
 
   }

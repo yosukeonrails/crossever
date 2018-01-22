@@ -63,8 +63,18 @@ export class SetUp extends React.Component{
 
     nextStep(){
 
+      if(this.props.setUpInformation ){
 
-      if(this.state.step=== 3 ){
+          var userInfo= this.props.userInformation;
+          var data= this.props.setUpInformation;
+
+          Object.assign(userInfo, {details:data} );
+
+          this.props.dispatch(createUserInformation(userInfo));
+
+      }
+
+        if(this.state.step=== 3 ){
 
             hashHistory.push('/userdashboard')
 
@@ -81,16 +91,7 @@ export class SetUp extends React.Component{
         }))
       }
 
-      if(this.props.setUpInformation ){
 
-          var userInfo= this.props.userInformation;
-          var data= this.props.setUpInformation;
-
-          Object.assign(userInfo, {details:data} );
-
-          this.props.dispatch(createUserInformation(userInfo));
-
-      }
 
 
 
