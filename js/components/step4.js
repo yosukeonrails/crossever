@@ -13,10 +13,9 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity} from '../actions/index.js'
+import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity,createUserInformation,setUserInfo} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
-
 
 
 export class SetupStep4 extends React.Component{
@@ -39,6 +38,10 @@ export class SetupStep4 extends React.Component{
          var userInfo= this.props.userInformation;
          var location=userInfo.locationSummary;
 
+
+         userInfo.gamesArray= this.props.selectedGameDataArray;
+         this.props.dispatch( setUserInfo(userInfo))
+
          var user= {
            name:loggedUser.first_name,
            username:loggedUser.username,
@@ -47,13 +50,16 @@ export class SetupStep4 extends React.Component{
          }
 
 
+         //
+
+
+         this.updateOrCreateUser(loggedUser, userInfo);
+
          this.props.selectedGameDataArray.map(function(game){
 
            // checks if game exists
             // find One, if found get the members and make = members and push user to member and update group
             // add also to city
-
-
 
             var str=location.country+location.state+location.city
             var cityID= str.replace(/ /g,'').toLowerCase();
@@ -88,6 +94,22 @@ export class SetupStep4 extends React.Component{
     }
 
 
+
+    updateOrCreateUser(loggedUser, userInfo){
+
+        console.log('creating user')
+
+
+        var userData= {
+          userID:loggedUser.facebookId,
+          username:loggedUser.username,
+          userInformation:userInfo
+        }
+
+      console.log(userData)
+
+        this.props.dispatch(createUserInformation(userData));
+    }
 
     checkGroupExistance(user,group,city){
 
@@ -156,7 +178,7 @@ export class SetupStep4 extends React.Component{
         members:group.members
       }
 
-      // see if there is a duplicate first..may not need though
+      // see if there is a duplicate of the user in the group member
 
       group.members.push(user);
 
@@ -175,7 +197,8 @@ export class SetupStep4 extends React.Component{
         location:city.location,
         members:city.members
       }
-      // see if there is a duplicate first..may not need though
+
+    // see if there is a duplicate of the user in the city member
 
       city.members.push(user);
 

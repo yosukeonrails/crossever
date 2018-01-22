@@ -165,7 +165,10 @@ export class SetupStep2 extends React.Component{
         <form onSubmit={this.handleFormSubmit}>
             <h1> Where are you located? </h1>
             <p> You can input just city and state or your address for better results.</p>
+
+              <div className="places-input">
                <PlacesAutocomplete inputProps={inputProps} />
+              </div>
 
              </form>
         </div>

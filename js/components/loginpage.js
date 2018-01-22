@@ -8,6 +8,8 @@ var Route = router.Route;
 var Link = router.Link;
 
 //import BlueTriangle from './bluetriangle.svg';
+import BlueTriangle from 'babel!svg-react!./bluetriangle.svg';
+
 import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
@@ -33,6 +35,9 @@ export class LogInPage extends React.Component {
    render(){
      return(
         <div>
+            <div style={{position:'absolute', width:"100%"}} >
+              <BlueTriangle/>
+            </div>
 
             <div className="log-in-box">
 

@@ -5,6 +5,47 @@ require('isomorphic-fetch');
  import ClientId from '../env.js';
 
 
+export var GET_USER_INFORMATION= 'GET_USER_INFORMATION';
+
+ export function getUserInformation(userID){
+   return {
+     type:GET_USER_INFORMATION,
+     promise:fetch('/userinformation/'+userID).then(function(data){
+        return  data.json();
+     })
+   }
+ }
+
+export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
+
+ export function createUserInformation(userData) {
+
+ var fetchData={
+ method:'POST',
+ headers:{
+  'Content-Type':'application/json'
+ },
+ body:JSON.stringify({
+
+   userID:userData.userID,
+   username:userData.username,
+   userInformation:userData.userInformation
+ })
+
+ };
+
+ return {
+ type: CREATE_USER_INFORMATION,
+ promise: fetch('/userinformation', fetchData).then(function(data){
+   console.log(data)
+ return data.json();
+ })
+ };
+ }
+
+
+
+
 export var GET_GAMEGROUP_BY_ID= 'GET_GAMEGROUP_BY_ID';
 
 export function getGameGroupById(gameid){

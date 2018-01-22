@@ -156,7 +156,7 @@ h1{
 
 .navigation{
 background: linear-gradient(to left,#4971a5,#005490);
-padding-top: 15px;
+padding-top: 10px;
 height: 60px;
 width: 100%;
 z-index: 3;
@@ -224,6 +224,44 @@ box-shadow: 2px 4px 4px 2px #191919;
 
 }
 
+// SIDE bar
+.side-bar-container{
+  height: 100vh;
+  width: 200px;
+  overflow: hidden;
+  background: linear-gradient(#1d2454,#4a689e);
+}
+
+.side-bar-profile-picture{
+  width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-top: 80px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 70px;
+    border: 2px solid #ffffff;
+}
+
+.side-bar-blue-triangle{
+  position: relative;
+    top: 0;
+}
+
+.side-bar-greetings{
+h1{
+  color: #fff;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  }
+}
 .welcome-message{
 
     color: #828080;
@@ -260,8 +298,8 @@ box-shadow: 2px 4px 4px 2px #191919;
 }
 
 .user-picture-thumbnail{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
     margin-left: 20px;
     background-position: center;
@@ -308,7 +346,7 @@ input{
 
 
 .dashboard-page {
-  padding: 80px;
+  padding: 0px;
 
 }
 
@@ -323,19 +361,29 @@ input{
 }
 
 .setup-window{
-  width: 90%;
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  margin-top: 10px;
-  font-family: @mont;
-  padding: 30px;
-  transform: translate(-50%,-50%);
-  background-color: #efefef;
-  text-align: center;
-  padding-bottom: 100px;
-  border-radius: 10px;
+  width: 100%;
+  position: absolute;
+  top:0;
+    margin-top: 10px;
+    margin-left: auto;
+    height: 100vh;
+    margin-right: auto;
+    font-family: inherit;
+    padding: 30px;
+    background-color: #efefef;
+    text-align: center;
+    padding-bottom: 50px;
+ h1{
+   font-family: inherit;
+    font-weight: 200;
+    font-size: 50px;
+ }
 
+ h2{
+   font-family: inherit;
+    font-weight: 200;
+    font-size: 25px;
+ }
   button{
     width: 200px;
     height: 40px;
@@ -345,21 +393,35 @@ input{
     background-color: #45abbd;
     margin-top: 30px;
   }
+
+}
+
+//STEp 1//
+
+.step1-container{
+  padding-top: 80px;
 }
 // STEP 2//
 
  .step2-page{
+     padding-top: 80px;
    input{
      text-align: center;
    }
  }
 
+.places-input{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
 // STEP 3//
 
 .game-image{
-  width: 100px;
+  width: 80px;
   margin-left: auto;
-  height: 100px;
+  margin-top: 30px;
+  height: 80px;
   border-radius: 50%;
   background-size: cover;
   margin-right: auto;
@@ -376,28 +438,26 @@ input{
 
 .step3-result{
   background-color: #252525;
-  width: 60%;
-  border-radius: 10px;
-  overflow: scroll;
-  height: 500px;
-  padding-top: 50px;
-  margin-top: 20px;
-  color: #fff;
-  float: left;
+      width: 60%;
+      border-radius: 10px;
+      overflow: scroll;
+      height: 60vh;
+      padding-top: 10px;
+      margin-top: 20px;
+      color: #fff;
+      float: left;
 
 }
 
 .step3-selection{
   width: 35%;
-float: left;
-background-color: #252525;
-height: 500px;
-margin-left: 35px;
-margin-top: 20px;
-border-radius: 10px;
-overflow: scroll;
-padding-top: 50px;
-margin-bottom: 20px;
+  float: left;
+  background-color: #252525;
+  height: 50vh;
+  margin-left: 35px;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: scroll;
 }
 
 .step3-warning{

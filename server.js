@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 var User= require('./models/user.js');
 var GameGroup= require('./models/gamegroup.js');
 var GameCity= require('./models/gamecity.js')
-
+var UserInformation= require('./models/userinformation.js')
 mongoose.Promise = global.Promise;
 
 //
@@ -289,11 +289,15 @@ app.post('/login',
 
     app.get('/user', function(req, res){
 
-            console.log('/user at enpoint fetch');
-            console.log(req.user);
+
          res.json(req.user);
 
     });
+
+//*Facebook login ends
+
+
+
 
 //# Group
     app.post('/gamegroup', function(req, res){
@@ -387,8 +391,43 @@ app.post('/login',
 
     });
 
+    //*    USER INFORMATION
 
-// # FACEBOOK LOGIN ENDS
+  app.get('/userinformation/:userID' , function(req, res){
+       UserInformation.find({userID:req.params.userID}, function(err,data){
+            if(err){
+              console.log(err)
+            }
+            console.log(data)
+            res.json(data);
+       })
+  })
+
+    app.post('/userinformation', function(req, res){
+
+          var query= {userID:req.body.userID}
+
+          var userData={
+            $set:{
+              userID:req.body.userID,
+              username:req.body.username,
+              userInformation:req.body.userInformation
+
+            }
+          }
+
+      UserInformation.findOneAndUpdate(query, userData, {upsert:true,new:true}, function(err, data){
+
+          if(err){ console.log(err)}
+
+          console.log(data)
+          res.status(201).json(data);
+
+      })
+
+    })
+
+
 
 
 

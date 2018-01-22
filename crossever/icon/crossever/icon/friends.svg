@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>crossever/icon/friends</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-4.3%" y="-0.7%" width="108.7%" height="102.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="55.6500123%" y1="50%" x2="110.715278%" y2="111.092577%" id="linearGradient-2">
+            <stop stop-color="#FFC475" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="30.0134228" cy="30.0134228" r="30.0134228"></circle>
+        <linearGradient x1="41.5988275%" y1="43.7830118%" x2="73.7266431%" y2="74.7484429%" id="linearGradient-5">
+            <stop stop-color="#E2A94E" offset="0%"></stop>
+            <stop stop-color="#FFBCBC" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Desktop-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-91.000000, -515.000000)">
+        <g id="Path-+-Path-+-Hello-Yumi!-+-larm-rmah-225596-+-crossever+icons-+-navigation-+messages-+--+-Path-+-Rectangle-10-Mask-+-crossever/icon/friends-Mask" filter="url(#filter-1)" transform="translate(0.000000, 64.000000)">
+            <g id="crossever/icon/friends" transform="translate(97.000000, 454.000000)">
+                <g id="Line-3-+-Rectangle-10-+-Rectangle-+-Rectangle-2-Mask">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <use id="Mask" fill="url(#linearGradient-2)" xlink:href="#path-3"></use>
+                    <rect id="Line-3" fill="url(#linearGradient-5)" mask="url(#mask-4)" x="-8.68476563" y="-19.5934881" width="54.1743125" height="80.0811777"></rect>
+                    <rect id="Rectangle-3" fill="#FFFFFF" mask="url(#mask-4)" x="23.8062672" y="25.8509773" width="12.5603619" height="36.950832" rx="2.04471007"></rect>
+                    <rect id="Rectangle-3-Copy" fill="#FFFFFF" mask="url(#mask-4)" x="7.15648525" y="34.6140205" width="12.5603619" height="36.950832" rx="2.04471007"></rect>
+                    <rect id="Rectangle-3-Copy-2" fill="#FFFFFF" mask="url(#mask-4)" x="40.4560492" y="34.6140205" width="12.5603619" height="36.950832" rx="2.04471007"></rect>
+                    <circle id="Oval-3" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF" mask="url(#mask-4)" cx="30.0864482" cy="20.7392021" r="5.11177518"></circle>
+                    <circle id="Oval-3-Copy" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF" mask="url(#mask-4)" cx="13.4366662" cy="29.5022453" r="5.11177518"></circle>
+                    <circle id="Oval-3-Copy-2" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF" mask="url(#mask-4)" cx="46.7362302" cy="29.5022453" r="5.11177518"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

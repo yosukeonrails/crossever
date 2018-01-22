@@ -56,6 +56,7 @@ export class GameBubble extends React.Component{
                  this.props.dispatch(addToSelectedGame(list))
 
 
+
       } else {
         // if exists
               this.setState({hoverStyle: ' '})
@@ -71,7 +72,8 @@ export class GameBubble extends React.Component{
               })
 
              this.props.dispatch(addToSelectedGame(list))
-             
+
+
 
       }
 
