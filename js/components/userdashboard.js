@@ -30,17 +30,27 @@ export class UserDashboard extends React.Component{
 
                 if(dis.props.loggedUser){
                    dis.props.dispatch(getUserInformation(dis.props.loggedUser.facebookId)).then(function(data){
-                        console.log(dis.props.userInformation.userID)
 
-                          if(dis.props.userInformation.userID === dis.props.loggedUser.facebookId){
-                                console.log('we found userInfo')
-                           }
+
                    })
                 }
 
             })
 
       }
+
+    checkForUserInformation(){
+
+      if(this.props.loggedUser){
+          if(this.props.userInformation){
+            if(this.props.userInformation.length === 0 ){
+                  this.redirectToSetup();
+            }
+          }
+      }
+
+
+    }
 
 
     redirectToSetup(){
@@ -49,7 +59,9 @@ export class UserDashboard extends React.Component{
 
     render () {
 
-        this.redirectToSetup();
+
+      this.checkForUserInformation();
+
 
       return(
 

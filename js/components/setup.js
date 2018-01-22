@@ -80,10 +80,8 @@ export class SetUp extends React.Component{
 
           var userInfo= this.props.userInformation;
           var data= this.props.setUpInformation;
-          console.log(userInfo)
 
           Object.assign(userInfo, {details:data} );
-          console.log(userInfo);
 
           this.props.dispatch(createUserInformation(userInfo));
 
@@ -98,6 +96,7 @@ export class SetUp extends React.Component{
     render () {
 
       this.getUser();
+
 
       var stepsArray=[<StepOne username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container/>]
 

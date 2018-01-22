@@ -7,7 +7,8 @@ import {handle} from 'redux-pack';
 var stateDefault = {
 
     selectedGameDataArray: [],
-    gameIdList : []
+    gameIdList : [],
+    loggedUser:null
 };
 
 
