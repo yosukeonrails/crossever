@@ -29,7 +29,7 @@ export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
 
    userID:userData.userID,
    username:userData.username,
-   userInformation:userData.userInformation
+   details:userData.details
  })
 
  };
@@ -139,19 +139,17 @@ export function getGameCityById(gameCityID){
  };
  }
 
+export var SET_UP_INFORMATION = 'SET_UP_INFORMATION';
 
+export function setUpInformation(data){
 
-
-export var SET_USER_INFO= 'SET_USER_INFO'
-
-export function setUserInfo(userInfoData){
-
-  return {
-     type:SET_USER_INFO,
-     userInfoData:userInfoData
+  return{
+    type:SET_UP_INFORMATION,
+    setUpInformation:data
   }
-
 }
+
+
 
 export var GET_TOP_GAMES= 'GET_TOP_GAMES'
 

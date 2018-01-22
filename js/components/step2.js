@@ -16,7 +16,7 @@ var bufferTime = 0;
 var start= 0;
 var end= 0;
 
-import {setUserInfo} from '../actions/index.js'
+import {setUpInformation} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -37,7 +37,6 @@ export class SetupStep2 extends React.Component{
   }
 
   componentDidMount(){
-           console.log('NO user '+ this.props.loggedUser)
            // check if user is logged and make the userinfodata , if not redirect
 
            if(this.props.loggedUser){
@@ -52,7 +51,6 @@ export class SetupStep2 extends React.Component{
 
   onType(address){
         // creating a delay
-
     this.setState({ address:address})
 
      var dis= this;
@@ -75,16 +73,13 @@ export class SetupStep2 extends React.Component{
   onChange(address){
 
     // add a delay so it doesnt do this every time its typed
-
-
     var locationData='';
     var dis= this;
 
     geocodeByAddress(address).then(function(results){
 
-
         locationData= results[0];
-        var userInformation = dis.props.userInformation;
+       var setUpData = {};
         var addressSummary= {};
 
         if(locationData.address_components){
@@ -123,9 +118,10 @@ export class SetupStep2 extends React.Component{
 
         }
 
-        Object.assign(userInformation, {locationData:locationData, locationSummary:addressSummary}) ;
-
-        dis.props.dispatch(setUserInfo(userInformation));
+        Object.assign(setUpData, {locationData:locationData, locationSummary:addressSummary}) ;
+        console.log(setUpData)
+        console.log('attaching')
+        dis.props.dispatch(setUpInformation(setUpData));
 
     })
 
@@ -142,12 +138,7 @@ export class SetupStep2 extends React.Component{
 
      geocodeByAddress(this.state.address).then(function(results){
 
-       console.log(results[0]);
-
      })
-
-     console.log('here is info')
-     console.log(this.props.userInformation)
 
 
    }
@@ -186,7 +177,7 @@ export class SetupStep2 extends React.Component{
         return {
             loggedUser:state.loggedUser,
             manuallyLogged:state.manuallyLogged,
-            userInformation:state.userInformation
+            setUpInformation:state.setUpInformation
 
         }
 

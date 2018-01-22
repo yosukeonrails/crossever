@@ -32,36 +32,26 @@ export class SetupStep3 extends React.Component{
 componentDidMount(){
 
     this.props.dispatch(getTopGames());
-  this.setState({emptyString:true})
-this.setState({hoverClass:'game-image'})
+    this.setState({emptyString:true})
+    this.setState({hoverClass:'game-image'})
   }
 
   submitSearch(){
-    console.log(this.state.searchString);
+  
       this.props.dispatch(searchGame(this.state.searchString))
   }
 
    handleInput(event){
 
-        console.log(event.target.value)
-
-        if(event.target.value.length === 0 || ! event.target.value){
-
-            this.setState({emptyString:true})
-
-        } else {this.setState({emptyString:false})}
-
+        if(event.target.value.length === 0 || !event.target.value){  this.setState({emptyString:true}) } else { this.setState({emptyString:false} )}
 
         this.setState({searchString:event.target.value})
-
-          this.props.dispatch(searchGame(event.target.value))
+        this.props.dispatch(searchGame(event.target.value))
 
    }
 
    hoverGame(i){
-      console.log(i)
         this.setState({hoverClass:'game-image select-game-hover'})
-
    }
 
 
@@ -71,14 +61,14 @@ this.setState({hoverClass:'game-image'})
 
     render () {
 
+      //render top games if the search is empty
 
       if(this.props.topGames && this.state.emptyString === true){
 
         var dis= this;
         var gameList= this.props.topGames.map(function(game, i){
-          var hoverStyle=''
 
-
+                var hoverStyle=''
                 // if found inside selectedData with same id , then seleted === false
                 var selected= false;
                 var imageURL= 'url('+game.game.box.large+')';
@@ -97,15 +87,15 @@ this.setState({hoverClass:'game-image'})
 
                   var imageURL= 'url('+game.box.large+')';
                   var selected= false;
-                  console.log(game)
+
                     return(
                     <GameBubbleContainer name={game.name} selected={false} imageURL={imageURL} id={i} key={i} data={game}  />
                     )
               })
         }
 
-        var warning = ''
-        if(this.props.warning.length !== 0 ){ warning = <div className="step3-warning"> <h2>{this.props.warning}</h2>  </div>}
+      //  var warning = ''
+    //    if(this.props.warning.length !== 0 ){ warning = <div className="step3-warning"> <h2>{this.props.warning}</h2>  </div>}
 
       return(
 
@@ -114,7 +104,7 @@ this.setState({hoverClass:'game-image'})
 
           <div className="step3-nav">
               <h1>What games do you play?</h1>
-            <label>search :</label><input onChange={this.handleInput}></input> <button onClick={this.submitSearch}>find</button>
+              <label>search :</label><input onChange={this.handleInput}></input> <button onClick={this.submitSearch}>find</button>
           </div>
 
             <div className="step3-result">
@@ -124,8 +114,6 @@ this.setState({hoverClass:'game-image'})
             <div className="step3-selection">
               <SelectedGamesContainer/>
             </div>
-
-            {warning}
 
         </div>
 

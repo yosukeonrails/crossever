@@ -14,7 +14,8 @@ import store from './store';
 import mainAppContainer from './components/mainapp.js';
 import AppContainer from './components/app.js';
 import HomeContainer from './components/home.js';
-import DashboardContainer from './components/dashboard.js';
+import UserDashboardContainer from './components/userdashboard.js';
+import SetUpContainer from './components/setup.js'
 import logInPage from './components/loginpage.js'
 import { Provider } from 'react-redux';
 
@@ -25,8 +26,9 @@ var routes = (
            <IndexRoute component={mainAppContainer} />
 
                       <Route path="/home" component={HomeContainer}/>
-                      <Route path="/dashboard" component={DashboardContainer}/>
+                      <Route path="/userdashboard" component={UserDashboardContainer}/>
                       <Route path="/loginpage" component={logInPage}/>
+                      <Route path="/setup" component={SetUpContainer}/>
 
            </Route>
 

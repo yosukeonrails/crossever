@@ -1,5 +1,5 @@
 var actions = require('../actions/index');
-import {LOG_IN, GET_FACEBOOK_USER, GET_TOP_GAMES,SEARCH_GAME, SET_USER_INFO, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION} from '../actions/index';
+import {LOG_IN, GET_FACEBOOK_USER, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -7,12 +7,7 @@ import {handle} from 'redux-pack';
 var stateDefault = {
 
     selectedGameDataArray: [],
-    gameIdList : [],
-    userInformation:{
-      userID:null,
-      userInformation:null,
-      username:null
-    }
+    gameIdList : []
 };
 
 
@@ -83,7 +78,15 @@ var reducer = function(state, action) {
 
           });
 
+          case CREATE_USER_INFORMATION:
 
+          return handle(state, action , {
+
+            failure: s => ({ ...s, callError:action.payload }),
+
+            success: s => ({ ...s, userInformation:action.payload, manuallyLogged:false  }),
+
+          })
 
         case ADD_TO_SELECTED_GAME:
 
@@ -97,9 +100,9 @@ var reducer = function(state, action) {
 
 
 
-          case SET_USER_INFO:
+          case SET_UP_INFORMATION:
 
-                return  { ...state ,  userInformation: action.userInfoData }
+                return  { ...state ,  setUpInformation: action.setUpInformation }
 
 
 

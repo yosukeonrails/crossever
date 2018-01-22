@@ -14,7 +14,7 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame, addToSelectedGame, addToGameIdList} from '../actions/index.js'
+import {getTopGames,searchGame, addToSelectedGame, addToGameIdList, setUpInformation} from '../actions/index.js'
 
 
 export class GameBubble extends React.Component{
@@ -35,7 +35,6 @@ export class GameBubble extends React.Component{
          this.setState({selected: false});
   }
   submitSearch(){
-    console.log(this.state.searchString);
       this.props.dispatch(searchGame(this.state.searchString))
   }
 
@@ -45,9 +44,7 @@ export class GameBubble extends React.Component{
       var list = this.props.selectedGameDataArray
       var gameId=this.props.data._id;
       var foundIndex= this.props.gameIdList.indexOf(this.props.data._id) ;
-
-
-
+      var setUpData= this.props.setUpInformation;
       //if already added delete
       if( foundIndex === -1 ){
           // if adding
@@ -55,26 +52,19 @@ export class GameBubble extends React.Component{
                  list.push(this.props.data)
                  this.props.dispatch(addToSelectedGame(list))
 
-
-
       } else {
-        // if exists
+        // if exists take the one that was found and take out from the list
+
               this.setState({hoverStyle: ' '})
-              console.log(this.props.gameIdList[foundIndex])
-              console.log(list)
               var dis = this
 
               list.map(function(game, i){
-
                    if(game._id === dis.props.gameIdList[foundIndex]){
                         list.splice( i ,1)
                    }
               })
 
              this.props.dispatch(addToSelectedGame(list))
-
-
-
       }
 
 
@@ -84,9 +74,12 @@ export class GameBubble extends React.Component{
              gameIdList.push(id);
        })
 
-       console.log(gameIdList)
+
        this.props.dispatch(addToGameIdList(gameIdList));
 
+
+       Object.assign(setUpData , {games:this.props.selectedGameDataArray})
+       this.props.dispatch(setUpInformation(setUpData));
    }
 
    hoverGame(action){
@@ -154,7 +147,8 @@ export class GameBubble extends React.Component{
 
         return {
             selectedGameDataArray:state.selectedGameDataArray,
-            gameIdList:state.gameIdList
+            gameIdList:state.gameIdList,
+            setUpInformation:state.setUpInformation
         }
 
   }

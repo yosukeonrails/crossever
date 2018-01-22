@@ -283,7 +283,7 @@ app.post('/login',
        // Successful authentication, redirect home.
        console.log('sucessful login');
 
-          res.redirect('/#/dashboard');
+          res.redirect('/#/userdashboard');
      });
 
 
@@ -411,7 +411,7 @@ app.post('/login',
             $set:{
               userID:req.body.userID,
               username:req.body.username,
-              userInformation:req.body.userInformation
+              details:req.body.details
 
             }
           }

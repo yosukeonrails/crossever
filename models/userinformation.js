@@ -13,7 +13,7 @@ var UserInformationSchema= new mongoose.Schema({
     type:String,
     require:true
   },
-  userInformation:{
+  details:{
     type:Object
   }
 
