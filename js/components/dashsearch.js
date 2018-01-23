@@ -43,10 +43,15 @@ export class DashSearch extends React.Component{
       return(
 
           <div className="dash-search">
-            <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>Your Games</h1> </div>
-            <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/> </div>
 
-          <div className="dash-results">
+          <div className="dash-search-top">
+              <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>Your Games</h1> </div>
+            <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/> </div>
+          </div>
+
+
+
+            <div className="dash-results">
                 {myCities}
           </div>
 

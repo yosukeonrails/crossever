@@ -156,15 +156,15 @@ h1{
 }
 
 .navigation{
-background: linear-gradient(to left,#4971a5,#005490);
-padding-top: 10px;
-height: 60px;
-width: 100%;
-z-index: 3;
-position: fixed;
-top: 0;
-padding-right: 40px;
-box-shadow: 2px 4px 4px 2px #191919;
+  background: linear-gradient(to left,#4971a5,#005490);
+  padding-top: 10px;
+  height: 60px;
+  width: 100%;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  padding-right: 40px;
+  box-shadow: 2px 1px 15px 2px #1d1d1d;
 
   h1{
         font-size: 25px;
@@ -229,7 +229,16 @@ box-shadow: 2px 4px 4px 2px #191919;
 
 .dash-search{
   margin-left: 200px;
-  padding-top: 60px;
+
+.dash-search-top{
+  padding-top: 50px;
+  background: linear-gradient(#181c5d,#755656);
+  padding-bottom: 30px;
+  box-shadow: 1px 1px 1px #000;
+  width: 100%;
+  position: relative;
+  top: 0;
+}
 
   .input-container{
     width: 450px;
@@ -281,11 +290,12 @@ float: left;
 // DASH results
 
 .dash-results{
-  overflow: scroll;
-margin-right: auto;
-margin-left: auto;
-width: 100%;
-height: 60vh;
+    overflow: scroll;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    padding-bottom: 100px;
+    height: 66vh;
 }
 
 // GAme card
@@ -297,10 +307,10 @@ height: 60vh;
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
-  height: 200px;
+  height: 215px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0px 6px 9px #484848;
+  box-shadow: 0 6px 9px #484848;
 
  h1{
     color: #fff;
@@ -331,6 +341,75 @@ height: 60vh;
 .game-card-bottom{
   height: 100px;
   width: 100%;
+
+.game-card-numbers{
+
+    width: 100%;
+    height: 50px;
+
+   #number{
+     width: 33%;
+ display: block;
+ float: left;
+ height: 10px;
+   }
+  h1{
+    color: #f9f9f9;
+  background-color: #3e449a;
+  border-radius: 50%;
+  font-weight: 400;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  margin: 0;
+  position: relative;
+  left: 60%;
+  top: -15px;
+
+  }
+
+}
+  h2{
+    font-size: 15px;
+    color: #4a4a4a;
+    float: left;
+    margin: 0;
+    font-weight: 300;
+    text-align: center;
+    width: 33%;
+  }
+
+  }
+
+  .game-card-labels{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .game-card-icon-container{
+    width: 70%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .card-icon{
+      border: 0;
+      width: 33%;
+      float: left;
+    }
+
+    img{
+        width: 50px;
+        height: 50px;
+        box-shadow: 1px 2px 3px #929292;
+        border-radius: 50%;
+        position: relative;
+        left: 33%;
+    }
+
+
+
   }
 
 }
@@ -338,12 +417,13 @@ height: 60vh;
 // SIDE bar
 .side-bar-container{
   height: 100vh;
-width: 200px;
-overflow: hidden;
-top: 0;
-position: absolute;
-background: linear-gradient(#1d2454,#4a689e);
-box-shadow: 4px 12px 20px 0 #252525;
+    width: 200px;
+    z-index: 3;
+    overflow: hidden;
+    top: 0;
+    position: fixed;
+    background: linear-gradient(#1d2454,#4a689e);
+    box-shadow: 4px 12px 20px 0 #252525;
 }
 
 .side-bar-profile-picture{
@@ -475,7 +555,6 @@ input{
 
 
 .dashboard-page {
-  padding: 0;
   background: linear-gradient(#31292b,#45678a);
   height: 100vh;
 }
