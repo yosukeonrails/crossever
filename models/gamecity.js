@@ -23,6 +23,9 @@ var GameCitySchema= new mongoose.Schema({
   },
   members:{
     type:Object
+  },
+  gameData:{
+    type:Object
   }
 
 })

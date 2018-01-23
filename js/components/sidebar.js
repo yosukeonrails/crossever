@@ -38,7 +38,11 @@ export class SideBar extends React.Component{
 
                 <div className="side-bar-greetings"><h1> Hello {' '+username+'! '}</h1> </div>
 
-
+                <div className="side-bar-buttons">
+                    <img src="/assets/icons/messageicon.png" />
+                      <img src="/assets/icons/gameicon.png" />
+                        <img src="/assets/icons/friends.png" />
+                </div>
 
           </div>
      )

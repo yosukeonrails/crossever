@@ -67,6 +67,7 @@ export class SetupStep4 extends React.Component{
 
           var city= {
             name:cityName,
+            gameData:game,
             gameCityID:gameCityID,
             gameID:game._id,
             cityID:cityID,
@@ -231,7 +232,11 @@ export class SetupStep4 extends React.Component{
       return(
 
         <div>
+
+        <div className="step-4">
         <h1> All done! Enjoy CrossEver by meeting gamers around your city! </h1>
+        </div>
+
         </div>
 
     );

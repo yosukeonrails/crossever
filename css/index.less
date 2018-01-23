@@ -51,6 +51,7 @@
 //
 // MAP
 
+
 /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
     #map {
@@ -224,12 +225,125 @@ box-shadow: 2px 4px 4px 2px #191919;
 
 }
 
+//DASH BOARD content
+
+.dash-search{
+  margin-left: 200px;
+  padding-top: 60px;
+
+  .input-container{
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+
+    img{
+      position: relative;
+      top: -35px;
+      float: right;
+      right: 10px;
+      width: 30px;
+    }
+  }
+    img{
+      width: 80px;
+float: left;
+    }
+
+    input{
+      width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 1px solid #737373;
+    border-radius: 10px;
+    height: 40px;
+    }
+
+    h1{
+      color: #fff;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 300;
+    float: left;
+    margin: 0;
+    margin-top: 20px;
+    margin-left: 30px;
+    }
+}
+
+.dash-search-tag{
+  width: 315px;
+  height: 100px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// DASH results
+
+.dash-results{
+  overflow: scroll;
+margin-right: auto;
+margin-left: auto;
+width: 100%;
+height: 60vh;
+}
+
+// GAme card
+
+.game-card{
+  width: 70%;
+  max-width: 700px;
+  min-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  height: 200px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 6px 9px #484848;
+
+ h1{
+    color: #fff;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+ }
+ .game-card-image{
+      width: 80px;
+      height: 80px;
+      background-size: cover;
+      background-position: center;
+      float: left;
+      border-radius: 50%;
+      position: relative;
+      top: 40px;
+      box-shadow: 1px 1px 9px #5a5a5a;
+      margin-left: 30px;
+ }
+ .game-card-top{
+   height: 100px;
+    width: 100%;
+    background: linear-gradient(#5d94b1,#1a0d8c);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+ }
+
+.game-card-bottom{
+  height: 100px;
+  width: 100%;
+  }
+
+}
+
 // SIDE bar
 .side-bar-container{
   height: 100vh;
-  width: 200px;
-  overflow: hidden;
-  background: linear-gradient(#1d2454,#4a689e);
+width: 200px;
+overflow: hidden;
+top: 0;
+position: absolute;
+background: linear-gradient(#1d2454,#4a689e);
+box-shadow: 4px 12px 20px 0 #252525;
 }
 
 .side-bar-profile-picture{
@@ -261,6 +375,21 @@ h1{
   font-weight: 300;
   text-align: center;
   }
+}
+
+.side-bar-buttons{
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+img{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    position: relative;
+    margin-top: 30px;
+    display: block;
+}
 }
 .welcome-message{
 
@@ -346,8 +475,9 @@ input{
 
 
 .dashboard-page {
-  padding: 0px;
-
+  padding: 0;
+  background: linear-gradient(#31292b,#45678a);
+  height: 100vh;
 }
 
 .dashboard-page h2{
@@ -399,7 +529,7 @@ input{
 //STEp 1//
 
 .step1-container{
-  padding-top: 80px;
+  margin-top: 30vh;
 }
 // STEP 2//
 
@@ -490,6 +620,12 @@ h2{
 
 }
 
+
+//=step-4
+
+.step-4{
+    margin-top: 30vh;
+}
 //-- Log In Page--//
 
 .log-in-box {

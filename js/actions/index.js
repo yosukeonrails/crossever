@@ -86,6 +86,7 @@ export function getGameCityById(gameCityID){
    name:city.name,
    gameID:city.gameID,
    cityID:city.cityID,
+   gameData:city.gameData,
    location:city.location,
    members:city.members
 

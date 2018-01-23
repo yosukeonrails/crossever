@@ -8,7 +8,8 @@ var stateDefault = {
 
     selectedGameDataArray: [],
     gameIdList : [],
-    loggedUser:null
+    loggedUser:null,
+    userInformation:null
 };
 
 
@@ -75,7 +76,7 @@ var reducer = function(state, action) {
 
             failure: s => ({ ...s, callError:action.payload }),
 
-            success: s => ({ ...s, userInformation:action.payload, manuallyLogged:false  }),
+            success: s => ({ ...s, userInformation:action.payload[0], manuallyLogged:false  }),
 
           });
 
@@ -104,8 +105,6 @@ var reducer = function(state, action) {
           case SET_UP_INFORMATION:
 
                 return  { ...state ,  setUpInformation: action.setUpInformation }
-
-
 
 
 

@@ -362,7 +362,8 @@ app.post('/login',
                   gameID:req.body.gameID,
                   cityID:req.body.cityID,
                   location:req.body.location,
-                  members:req.body.members
+                  members:req.body.members,
+                  gameData:req.body.gameData
                 }
               }
 
