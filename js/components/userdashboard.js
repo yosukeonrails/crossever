@@ -115,7 +115,7 @@ export class UserDashboard extends React.Component{
     getUserInformation(){
       console.log('getting user info')
       var dis= this;
-        this.props.dispatch(getUserInformation(dis.props.loggedUser.facebookId));
+        this.props.dispatch(getUserInformation(dis.props.loggedUser.userID));
 
     }
 
@@ -143,7 +143,7 @@ export class UserDashboard extends React.Component{
     var dis=this;
 
 
-      if(this.props.loggedUser === null ){   this.getLoggedUser(); } else {
+      if(this.props.loggedUser === null    ){     console.log('logged user is null'); this.getLoggedUser(); } else {
 
         if(this.props.userInformation === null){   this.getUserInformation(); }
 

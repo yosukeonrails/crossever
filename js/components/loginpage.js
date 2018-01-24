@@ -13,14 +13,18 @@ import BlueTriangle from 'babel!svg-react!./bluetriangle.svg';
 import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
-import LogInWindowContainer  from './log-in-window.js';
-
+import LogInWindowContainer from './log-in-window.js';
+import {LogInUser} from '../actions'
 
 
 export class LogInPage extends React.Component {
 
    constructor(props){
        super(props)
+
+       this.handleUsername= this.handleUsername.bind(this);
+       this.handlePassword= this.handlePassword.bind(this);
+       this.submitLogin= this.submitLogin.bind(this);
    }
 
    facebooklogin(){
@@ -32,7 +36,45 @@ export class LogInPage extends React.Component {
       2. if fail, sing up page*/
    }
 
+
+   handleUsername(e){
+       console.log(e.target.value)
+
+      this.setState({
+        username:e.target.value
+      })
+
+   }
+   handlePassword(e){
+
+     this.setState({
+       password:e.target.value
+     })
+
+   }
+
+  submitLogin(){
+
+      console.log(this.state);
+      this.props.dispatch(LogInUser(
+        {username:this.state.username,
+           password:this.state.password
+         }))
+
+  }
+
+  redirectToUserdashboard(){
+     hashHistory.push('/userdashboard')
+  }
+
    render(){
+
+
+      if(this.props.loggedUser){
+        this.redirectToUserdashboard();
+      }
+
+
      return(
         <div>
             <div style={{position:'absolute', width:"100%"}} >
@@ -55,14 +97,14 @@ export class LogInPage extends React.Component {
                 <div className="sign-in-credentials">
 
                       <h1>Username</h1>
-                      <input></input>
+                      <input onChange={this.handleUsername}></input>
 
                       <h1>Password</h1>
-                      <input></input>
+                      <input onChange={this.handlePassword} type="password"></input>
 
                 </div>
 
-            <button id="done-login-button"> Done </button>
+            <button  onClick={this.submitLogin} id="done-login-button"> Done </button>
 
 
             </div>
@@ -73,4 +115,13 @@ export class LogInPage extends React.Component {
    }
 }
 
-export default LogInPage;
+
+var mapStateToProps=function(state){
+    return{
+      loggedUser:state.loggedUser
+    }
+}
+
+var LogInPageContainer =  connect(mapStateToProps)(LogInPage)
+
+export default LogInPageContainer;

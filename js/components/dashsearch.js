@@ -34,7 +34,7 @@ export class DashSearch extends React.Component{
 
       console.log(city)
 
-      myCities.push(<GameCardContainer data={city} />)
+              myCities.push(<GameCardContainer data={city} />)
 
       })
       //  this.renderMyCities();

@@ -190,6 +190,7 @@ export class SetupStep4 extends React.Component{
       var cityData= {
         name:city.name,
         gameCityID:city.gameCityID,
+        gameData:city.gameData,
         gameID:city.gameID,
         cityID:city.cityID,
         location:city.location,

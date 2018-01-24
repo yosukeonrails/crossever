@@ -155,11 +155,15 @@ export class SetupStep2 extends React.Component{
 
         <div className="step2-page">
         <form onSubmit={this.handleFormSubmit}>
-            <h1> Where are you located? </h1>
+
+        <div className="step2-question">
+            <h1> Where are you located? </h1> <img src="/assets/icons/local.png"></img>
+        </div>
+
             <p> You can input just city and state or your address for better results.</p>
 
-              <div className="places-input">
-               <PlacesAutocomplete inputProps={inputProps} />
+              <div className="places-input" style={{ height: '9vh', fontSize: '4vh' , color:'#168bf7'}} >
+               <PlacesAutocomplete  inputProps={inputProps} />
               </div>
 
              </form>

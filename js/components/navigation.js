@@ -19,11 +19,18 @@ import {hashHistory} from 'react-router'
 
         if(this.props.loggedUser){
 
+            imageUrl="url(/assets/icons/user.png)"
+
+            if(this.props.loggedUser.facebookId !== 'guest'){
+
+                  imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=300&height=300)";
+            }
 
             user= this.props.loggedUser;
 
-            imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=300&height=300)";
+
             console.log(user);
+            console.log(imageUrl);
 
               userNav= (<div className="user-name">  <h3>Hello , {user.first_name} </h3></div>)
         }
@@ -47,7 +54,7 @@ import {hashHistory} from 'react-router'
 
 
   var mapStateToProps= function(state){
-
+    console.log(state)
 
   return {
     loggedUser:state.loggedUser

@@ -27,7 +27,9 @@ export class StepOne extends React.Component{
 
          return(
              <div>
-                 <div className="step1-container"><h1> Hello , {dv.username}  </h1> <h1> Welcome to CrossEver!</h1><h2></h2></div>
+                 <div className="step1-container"><h1> Hello , {dv.username}  </h1> <h1> Welcome to CrossEver!</h1>
+                 <h2>Hey! We need to get to know you a bit more ! Can we ask you some questions?</h2>
+                 </div>
 
              </div>
          )

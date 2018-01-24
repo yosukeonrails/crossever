@@ -45,13 +45,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
+
+      console.log('here we go~~~ at facebook!!!!!!')
       console.log(user);
+
     done(null, user._id);
 
 });
 
 // used to deserialize the user
 passport.deserializeUser(function(id, done) {
+
+    console.log('deserializing at facebook!')
 
     FacebookUser.findById(id, function(err, user) {
             console.log(user);
@@ -188,10 +193,14 @@ passport.use(new LocalStrategy(
 
 
 passport.serializeUser(function(user, done) {
+  console.log('here we go~~~ at local!!!!!!')
+  console.log(user);
     done(null, user.id);
+
 });
 
 passport.deserializeUser(function(id, done) {
+  console('deserializing!')
     User.getUserById(id, function(err, user) {
         done(err, user);
     });
@@ -291,8 +300,8 @@ app.post('/login',
 
     app.get('/user', function(req, res){
 
-
          res.json(req.user);
+         console.log(req.user)
 
     });
 

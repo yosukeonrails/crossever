@@ -17,18 +17,24 @@ export class SideBar extends React.Component{
    render(){
 
      var imageUrl;
-     var username;
-        if(this.props.loggedUser && this.props.loggedUser.facebookId!=="guest"){
-                username= this.props.loggedUser.first_name;
-               imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=600&height=600)";
-        } else {
-          console.log('image is undefined , no logged user or manually logged')
-        }
+    var username;
+
+    if(this.props.loggedUser){
+
+      if(this.props.loggedUser.facebookId !=="guest"){
+               username= this.props.loggedUser.first_name;
+             imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=600&height=600)";
+
+      } else {
+             username= this.props.loggedUser.first_name;
+            imageUrl="url(/assets/icons/user.png)";
+      }
+
+    }
+
 
      return (
           <div className="side-bar-container">
-
-
 
                 <div className="side-bar-blue-triangle">
                 <SideBarTriangle/>

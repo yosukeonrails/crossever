@@ -51,10 +51,8 @@ export class GameCard extends React.Component{
                       <div id="number"> <h1>3</h1></div>
                         <div id="number">  </div>
                     </div>
-
             </div>
-
-
+            
 
             <div className="game-card-labels">
                     <h2>members</h2>
