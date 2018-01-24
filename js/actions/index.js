@@ -107,6 +107,38 @@ export function getGameCityById(gameCityID){
 
 
 
+ /// UPDATE GAMEGROUP
+
+
+  export var UPDATE_CITY_GROUP= 'UPDATE_CITY_GROUP';
+
+  export function updateGameCity(city) {
+
+  var fetchData={
+  method:'PUT',
+  headers:{
+   'Content-Type':'application/json'
+  },
+  body:JSON.stringify({
+    gameCityID:city.gameCityID,
+    members:city.members
+  })
+
+  };
+
+  return {
+  type: UPDATE_CITY_GROUP,
+  promise: fetch('/gamecity', fetchData).then(function(data){
+
+
+  return data.json();
+
+  })
+  };
+  }
+
+ // UPDATE
+
 
 
  export var CREATE_GAME_GROUP= 'CREATE_GAME_GROUP';
@@ -139,6 +171,43 @@ export function getGameCityById(gameCityID){
  })
  };
  }
+
+
+
+ /// UPDATE GAMEGROUP
+
+
+  export var UPDATE_GAME_GROUP= 'UPDATE_GAME_GROUP';
+
+  export function updateGameGroup(group) {
+
+  var fetchData={
+  method:'PUT',
+  headers:{
+   'Content-Type':'application/json'
+  },
+  body:JSON.stringify({
+    gameID:group.gameID,
+    members:group.members
+  })
+
+  };
+
+  return {
+  type: UPDATE_GAME_GROUP,
+  promise: fetch('/gamegroup', fetchData).then(function(data){
+
+
+  return data.json();
+
+  })
+  };
+  }
+
+ // UPDATE
+
+
+
 
 export var SET_UP_INFORMATION = 'SET_UP_INFORMATION';
 

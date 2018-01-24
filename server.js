@@ -248,6 +248,15 @@ app.post('/login',
     });
 
 
+
+    app.get('/logout', function(req, res){
+      req.logout();
+      res.redirect('/');
+      console.log('logged out')
+    });
+
+
+
 /*login in user end*/
 
 
@@ -323,8 +332,8 @@ app.post('/login',
               gameID:req.body.gameID,
               gameData:req.body.gameData,
               members:req.body.members
-            }
           }
+        }
 
       GameGroup.findOneAndUpdate(query, data, {upsert:true,new:true}, function(err, data){
 
@@ -336,6 +345,27 @@ app.post('/login',
       })
 
     })
+
+  app.put('/gamegroup', function(req, res ){
+  console.log('gamegroup upating')
+        var query={
+            gameID:req.body.gameID
+        }
+
+        var data={$push: {members:req.body.members}  }
+
+
+    GameGroup.updateOne(query , data , function(err, data ){
+
+      if(err){ console.log(err)}
+
+    console.log('gamegroup upated')
+    console.log(data)
+    res.status(201).json(data);
+
+    })
+
+  })
 
 
       app.get('/gamegroup/:gameid', function(req, res){
@@ -378,6 +408,7 @@ app.post('/login',
 
           GameCity.findOneAndUpdate(query, data, {upsert:true,new:true}, function(err, data){
 
+              console.log('gamegroup upating')
               if(err){ console.log(err)}
 
             console.log(data)
@@ -386,6 +417,30 @@ app.post('/login',
           })
 
         })
+
+
+
+        app.put('/gamecity', function(req, res ){
+
+              var query={
+                  gameCityID:req.body.gameCityID
+              }
+
+              var data={ $push: {members:req.body.members}  }
+
+
+          GameCity.updateOne(query , data , function(err, data ){
+
+            if(err){ console.log(err)}
+
+            console.log('gamecity upated')
+          console.log(data)
+          res.status(201).json(data);
+
+          })
+
+        })
+
 
 
 

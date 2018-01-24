@@ -13,7 +13,7 @@ var Link = router.Link;
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity,createUserInformation,setUserInfo,setUpInformation} from '../actions/index.js'
+import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById, createGameCity,createUserInformation,setUserInfo,setUpInformation,updateGameGroup,updateGameCity} from '../actions/index.js'
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
 var memberOf= {group:[], city:[] }
@@ -34,6 +34,8 @@ export class SetupStep4 extends React.Component{
          var members=[];
          var cityMembers=[];
 
+    // 1. define user
+
          var user= {
            name:this.props.loggedUser.first_name,
            username:this.props.loggedUser.username,
@@ -41,28 +43,30 @@ export class SetupStep4 extends React.Component{
            details:this.props.userInformation.details
          }
 
+
          var loggedUser= this.props.loggedUser;
          var userInfo= this.props.userInformation;
          var location=this.props.userInformation.details. locationSummary;
 
 
+    //2. For each game selected,
+
          this.props.selectedGameDataArray.map(function(game){
 
-           // checks if game exists
-            // find One, if found get the members and make = members and push user to member and update group
-            // add also to city
+          // define Ids for group and city
 
             var str=location.country+ location.state+location.city
             var cityID= str.replace(/ /g,'').toLowerCase();
             var gameCityID= cityID+game._id;
             var cityName= game.name+' '+location.city;
-           // if not , create
+
+      // define group and city data.
 
            var group= {
              name: game.name,
              gameData:game,
              gameID:game._id,
-             members:members
+             members:[]
            }
 
           var city= {
@@ -72,16 +76,14 @@ export class SetupStep4 extends React.Component{
             gameID:game._id,
             cityID:cityID,
             location:location,
-            members:cityMembers
+            members:[]
           }
-            console.log(city);
-            console.log(group);
+
+        // 3. check if the group already exists
 
            dis.checkGroupExistance(user,group,city)
-            //    dis.props.dispatch(createGameGroup(group))
-            //    dis.props.dispatch(createCity(city))
 
-                console.log('dispateched')
+
          })
     }
 
@@ -103,25 +105,28 @@ export class SetupStep4 extends React.Component{
 
     checkGroupExistance(user,group,city){
 
-
       var dis= this;
-      this.props.dispatch(getGameGroupById(group.gameID)).then(function(res){
+       this.props.dispatch(getGameGroupById(group.gameID)).then(function(res){
 
+ // if there is no group yet
        if(res.payload.length==0){
+         // create a group
+        group.members=[user]
+        dis.createGroup(group)
 
-          // add only one member and then create group
-          group.members= [user]
-          dis.createGroup(group)
-         // create city
+      //then check if the city exists
           dis.checkCityExistance(user, group, city)
        }
-         else {
-         //update by taking its members and pushing user
-          dis.updateGroup(res.payload[0] ,user )
-          // check existance of city group
-          var gameCityID= user.details.locationSummary
 
-            dis.checkCityExistance(user, group, city)
+         else {
+// if it exists , updata the group by ading the user // ** might not need if $push in mongodb works
+
+          dis.updateGroup(res.payload[0] ,user )
+    // check existance of city group
+          //** might not need tis gameCityID
+          var gameCityID= user.details.locationSummary
+          dis.checkCityExistance(user, group, city)
+
         }
 
       })
@@ -132,14 +137,19 @@ export class SetupStep4 extends React.Component{
     checkCityExistance(user, group , city){
 
       var dis= this;
+
          this.props.dispatch(getGameCityById(city.gameCityID)).then(function(res){
 
               if(res.payload.length===0){
                  // if i doesnt exist yet add member and create
                 city.members=[user];
                 dis.createCity(city);
+
               } else {
+
+                // if does just update *** might not need this after the $push update
                 dis.updateGameCity(res.payload[0] , user )
+
               }
 
          })
@@ -167,18 +177,19 @@ export class SetupStep4 extends React.Component{
 
     updateGroup( group, user){
         console.log('updating group')
+
       var groupData= {
-        name: group.name,
-        gameData:group.gameData,
         gameID:group.gameID,
-        members:group.members
+        members:user
       }
 
       // see if there is a duplicate of the user in the group member
 
-      group.members.push(user);
+    //  group.members.push(user);
       memberOf.group.push(group.gameID);
-      this.props.dispatch(createGameGroup(groupData))
+      this.props.dispatch(updateGameGroup(groupData)).then(function(data){
+          console.log(data);
+      })
 
     }
 
@@ -186,32 +197,31 @@ export class SetupStep4 extends React.Component{
 
     updateGameCity( city, user){
 
-      console.log('updating city')
+
       var cityData= {
-        name:city.name,
         gameCityID:city.gameCityID,
-        gameData:city.gameData,
-        gameID:city.gameID,
-        cityID:city.cityID,
-        location:city.location,
-        members:city.members
+        members:user
       }
 
     // see if there is a duplicate of the user in the city member
 
-      city.members.push(user);
+    //  city.members.push(user);
       memberOf.city.push(city.gameCityID);
-      this.props.dispatch(createGameCity(cityData))
+
+      this.props.dispatch(updateGameCity(cityData)).then(function(data){
+            console.log(data)
+      })
 
 
     }
 
 
     updateUserSetUp(memberOf){
-        console.log(this.props.setUpInformation)
+
+
         var setUp=  this.props.setUpInformation
+
         Object.assign(setUp , {memberOf:memberOf});
-        console.log(setUp)
 
         this.props.dispatch(setUpInformation(setUp));
     }
@@ -222,12 +232,18 @@ export class SetupStep4 extends React.Component{
       console.log('rendering')
       console.log(this.props.setUpInformation)
       console.log(memberOf)
+
       if(this.props.setUpInformation){
+
         if(!this.props.setUpInformation.memberOf){
+
             this.updateUserSetUp(memberOf)
         }
+
         this.updateUserSetUp(memberOf)} else{
+
         console.log('it has user so move on')
+
       }
 
       return(

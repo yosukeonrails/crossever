@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 
+
+
   export class Navigation extends React.Component{
 
     constructor(props){
@@ -16,9 +18,13 @@ import {hashHistory} from 'react-router'
       var user="";
       var imageUrl="";
       var userNav=null;
+      var display = {
+        arrowDown:'none'
+      }
 
         if(this.props.loggedUser){
 
+            display.arrowDown='block'
             imageUrl="url(/assets/icons/user.png)"
 
             if(this.props.loggedUser.facebookId !== 'guest'){
@@ -43,7 +49,10 @@ import {hashHistory} from 'react-router'
 
                                        {userNav}
 
+
                                            <div className="user-picture-thumbnail" style={{backgroundImage:imageUrl}}  >
+                                           <div style={{display:display.arrowDown}}> <img src="assets/icons/arrowdown.png"/> </div>
+
                                            </div>
                                    </div>
                       </div>

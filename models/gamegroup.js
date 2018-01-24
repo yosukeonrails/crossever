@@ -16,7 +16,7 @@ var GroupSchema= new mongoose.Schema({
     type:Object
   },
   members:{
-    type:Object
+    type:Array
   }
 
 })
