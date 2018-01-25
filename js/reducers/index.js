@@ -39,6 +39,7 @@ var reducer = function(state, action) {
 
       case LOG_OUT:
 
+console.log('log out at reducers');
        return handle(state, action, {
 
          failure: s => ({ ...s, callError:action.payload }),
@@ -46,6 +47,9 @@ var reducer = function(state, action) {
          success: s => ({ ...s, loggedUser:null }),
 
        });
+
+
+
 
 
         case GET_FACEBOOK_USER:

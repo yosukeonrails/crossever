@@ -53,6 +53,7 @@ passport.serializeUser(function(user, done) {
 
 });
 
+
 // used to deserialize the user
 passport.deserializeUser(function(id, done) {
 
@@ -250,9 +251,10 @@ app.post('/login',
 
 
     app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-    console.log('user is logged out');
+
+          req.logout();
+          res.redirect('/#/loginpage');
+          console.log('user is logged out');
   });
 
 
@@ -274,11 +276,12 @@ app.post('/login',
 
 
     let userData= {
-      first_name:profile._json.first_name,
-      username:profile.displayName,
-      facebookId:profile.id,
-      token:profile.accessToken,
-      userID:profile.id
+
+          first_name:profile._json.first_name,
+          username:profile.displayName,
+          facebookId:profile.id,
+          token:profile.accessToken,
+          userID:profile.id
       // email:profile.email
     };
 
@@ -303,14 +306,16 @@ app.post('/login',
        // Successful authentication, redirect home.
        console.log('sucessful login');
 
-          res.redirect('/#/userdashboard');
+       res.redirect('/#/userdashboard');
+
      });
 
 
     app.get('/user', function(req, res){
 
+        console.log('GOT USER')
          res.json(req.user);
-         console.log(req.user)
+         console.log(req.user);
 
     });
 

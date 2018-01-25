@@ -36,7 +36,7 @@ var display={
 
     logOut(){
       var dis=this;
-       hashHistory.push('/loginpage');
+       
        this.props.dispatch(logOut()).then(function(data){
 
             console.log(data)

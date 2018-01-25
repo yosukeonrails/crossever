@@ -323,11 +323,13 @@ method: 'GET',
 credentials: 'include'
 }).then(function(data){
     console.log('loggint out from action');
+    console.log(data)
          return data.json();
   })
 };
 
 }
+
 
 
 
