@@ -308,6 +308,34 @@ credentials: 'include'
 }
 
 
+
+
+
+export var LOG_OUT= 'LOG_OUT'
+
+export function logOut(){
+
+  return{
+  type:LOG_OUT,
+  promise: fetch('/logout',
+  {
+method: 'GET',
+credentials: 'include'
+}).then(function(data){
+    console.log('loggint out from action');
+         return data.json();
+  })
+};
+
+}
+
+
+
+
+
+
+
+
  export var LOG_IN='LOG_IN';
 
 

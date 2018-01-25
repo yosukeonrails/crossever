@@ -250,10 +250,10 @@ app.post('/login',
 
 
     app.get('/logout', function(req, res){
-      req.logout();
-      res.redirect('/');
-      console.log('logged out')
-    });
+    req.logout();
+    res.redirect('/');
+    console.log('user is logged out');
+  });
 
 
 

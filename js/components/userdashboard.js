@@ -43,6 +43,9 @@ export class UserDashboard extends React.Component{
 
       }
 
+      redirectToLogIn(){
+           hashHistory.push('/loginpage')
+      }
 
 
       getGroupsAndCities(){
@@ -51,7 +54,8 @@ export class UserDashboard extends React.Component{
         var dis= this
 
 
-        if(this.state.got_Groups_and_Cities === false ){
+
+      if(this.state.got_Groups_and_Cities === false ){
 
           var dis=this;
         console.log(this.props.userInformation);
@@ -106,8 +110,15 @@ export class UserDashboard extends React.Component{
 
     getLoggedUser(){
       console.log('getting logged User')
+
       var dis=this;
-      this.props.dispatch(getFacebookUser());
+      this.props.dispatch(getFacebookUser()).then(function(data){
+          console.log(data)
+          if(data.error){
+            hashHistory.push('/loginpage')
+          }
+
+      });
     }
 
 
@@ -143,7 +154,12 @@ export class UserDashboard extends React.Component{
     var dis=this;
 
 
-      if(this.props.loggedUser === null    ){     console.log('logged user is null'); this.getLoggedUser(); } else {
+        if(this.props.loggedUser === 'loggedOut'){
+             this.redirectToLogIn();
+        }
+
+
+      if(this.props.loggedUser === null ){     console.log('logged user is null'); this.getLoggedUser(); } else {
 
         if(this.props.userInformation === null){   this.getUserInformation(); }
 

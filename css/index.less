@@ -509,6 +509,48 @@ img{
   overflow: hidden;
 }
 
+.navigation-menu{
+  background-color: #fff;
+  width: 140px;
+  margin: 0;
+  padding: 0;
+  box-shadow: 1px 3px 8px dimgrey;
+  border-radius: 1px;
+  position: absolute;
+  top: 60px;
+  border: 1px solid #909090;
+  right: 150px;
+hr{
+  margin-left: auto;
+margin-right: auto;
+width: 115px;
+margin-top: 10px;
+margin-bottom: 10px;
+}
+ul{
+  padding: 0px;
+
+}
+
+
+li{
+    list-style: none;
+    margin-top: 5px;
+    text-align: center;
+    background-color: white;
+    font-family: inherit;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+li:hover{
+  cursor: pointer;
+  color: white;
+  background-color: #3445c7;
+}
+
+}
+
 .user-picture-thumbnail{
     height: 40px;
     width: 40px;
@@ -517,11 +559,27 @@ img{
     background-position: center;
     background-size: contain;
     border-radius: 50%;
+
+
+    .arrowdown{
+      img{
+        width: 20px;
+        position: absolute;
+        right: 60px;
+        top: 15px;
+      }
+
+      img:hover{
+        cursor:pointer;
+      }
+    }
 }
 
+
 .user-info{
-  float: right;
+  right: 95px;
   height: 50px;
+  position: absolute;
   width: 300px;
   background-color: rgba(27,26,26,0);
     h3{

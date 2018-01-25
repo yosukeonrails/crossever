@@ -1,5 +1,5 @@
 var actions = require('../actions/index');
-import {LOG_IN, GET_FACEBOOK_USER, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION} from '../actions/index';
+import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -35,6 +35,17 @@ var reducer = function(state, action) {
 
       });
 
+
+
+      case LOG_OUT:
+
+       return handle(state, action, {
+
+         failure: s => ({ ...s, callError:action.payload }),
+
+         success: s => ({ ...s, loggedUser:null }),
+
+       });
 
 
         case GET_FACEBOOK_USER:
