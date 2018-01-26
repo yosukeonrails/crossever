@@ -26,29 +26,36 @@ mongoose.Promise = global.Promise;
 //     console.error('Could not connect.  Error:', err);
 // });
 
-
-
+// app.use(express.static('build'));
 // app.use(express.static('build'));
 
 var jsonParser = bodyParser.json();
 
 app.use(jsonParser);
 app.use(bodyParser.json());
+
 app.use(express.static('build'));
 
-
 app.use(require('cookie-parser')());
+
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+//
+// app.use(passport.initialize());
+// app.use(passport.session());
 
+
+
+//app.use(express.cookieParser());
+//app.use(express.bodyParser());
+//app.use(express.session({ secret: 'anything' }));
 app.use(passport.initialize());
 app.use(passport.session());
+//app.use(app.router);
 
 passport.serializeUser(function(user, done) {
-
-      console.log('here we go~~~ at facebook!!!!!!')
       console.log(user);
-
+      console.log('serializing at fb')
     done(null, user._id);
 
 });
@@ -67,7 +74,42 @@ passport.deserializeUser(function(id, done) {
 });
 
 
+// // used to deserialize the user
+// passport.deserializeUser(function(user, done) {
+//
+//     console.log('deserializing at fb')
+//
+//     FacebookUser.findById(user, function(err, user) {
+//             console.log(user);
+//             console.log(err)
+//         done(err, user);
+//     });
+//
+//   done(null, user._id);
+//
+// });
+//
 
+
+  //
+  //   app.get('/logout', function(req, res){
+  //
+  //         req.logout();
+  //         res.redirect('/');
+  //         console.log('user is logged out');
+  //
+  // });
+
+  app.get('/logout', function (req, res){
+    req.session.destroy(function (err) {
+      console.log('session destroyed')
+      res.redirect('/'); //Inside a callback… bulletproof!
+    });
+  });
+
+
+
+/* user sign up start*////// LOCAL STRATEGY //////////
 
 app.post('/user', function(req, res) {
 
@@ -180,8 +222,6 @@ passport.use(new LocalStrategy(
                     console.log(user)
 
                     return done(null, user);
-
-
                 } else {
                     console.log('Invalid Password');
                     return done(null, false, {
@@ -192,20 +232,21 @@ passport.use(new LocalStrategy(
         });
     }));
 
-
-passport.serializeUser(function(user, done) {
-  console.log('here we go~~~ at local!!!!!!')
-  console.log(user);
-    done(null, user.id);
-
-});
-
-passport.deserializeUser(function(id, done) {
-  console('deserializing!')
-    User.getUserById(id, function(err, user) {
-        done(err, user);
-    });
-});
+//
+//
+// passport.serializeUser(function(user, done) {
+//   console.log('here we go~~~ at local!!!!!!')
+//   console.log(user);
+//     done(null, user.id);
+//
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   console.log('deserializing!')
+//     User.getUserById(id, function(err, user) {
+//         done(err, user);
+//     });
+// });
 
 
 function isLoggedIn(req, res, next) {
@@ -237,8 +278,10 @@ app.post('/login',
 
     function(req, res) {
 
-        res.json(req.user);
+        console.log('here is the user')
+        console.log(req.user)
 
+       res.json(req.user);
     });
 
 
@@ -248,14 +291,6 @@ app.post('/login',
 
     });
 
-
-
-    app.get('/logout', function(req, res){
-
-          req.logout();
-          res.redirect('/#/loginpage');
-          console.log('user is logged out');
-  });
 
 
 
@@ -314,8 +349,10 @@ app.post('/login',
     app.get('/user', function(req, res){
 
         console.log('GOT USER')
+
          res.json(req.user);
-         console.log(req.user);
+
+        console.log(req.user);
 
     });
 
@@ -462,6 +499,42 @@ app.post('/login',
     });
 
     });
+
+
+
+    app.get('/gamecity/member/:userid', function(req, res){
+
+      var userID= req.params.userid;
+
+      GameCity.find( { members: { $all: [userID] } } , function(err, data){
+
+        if(err){
+
+        }
+
+        res.json(data);
+    });
+
+    });
+
+
+    app.get('/gamegroup/member/:userid', function(req, res){
+
+      var userID= req.params.userid;
+
+      GameGroup.find( { members: { $all: [userID] } } , function(err, data){
+
+
+        if(err){
+
+        }
+
+        res.json(data);
+    });
+
+    });
+
+
 
     //*    USER INFORMATION
 

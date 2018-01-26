@@ -12,6 +12,7 @@ import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import LogInWindowContainer  from './log-in-window.js'
+import {changeDisplaySettings} from '../actions'
 
 var showSignIn= function(){
 
@@ -77,8 +78,15 @@ export class Home extends React.Component{
   constructor(props){
 
       super(props)
+
         this.showSignIn= this.showSignIn.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
+
+        var display={}
+
+        Object.assign(display, this.props.display_settings);
+        display.sidebar.display='none'
+        this.props.dispatch(changeDisplaySettings(display));
 
         this.state = {
          height: window.innerHeight,
@@ -180,7 +188,8 @@ export class Home extends React.Component{
   var mapStateToProps= function(state){
 
         return {
-            loggedUser:state.loggedUser
+            loggedUser:state.loggedUser,
+            display_settings:state.display_settings
         }
   }
 

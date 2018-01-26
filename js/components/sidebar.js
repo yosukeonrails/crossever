@@ -12,13 +12,15 @@ import SideBarTriangle from 'babel!svg-react!./sidebar-triangle.svg';
 export class SideBar extends React.Component{
    constructor (props){
      super(props)
+
    }
 
    render(){
-
-     var imageUrl;
+   console.log('why not re-render?')
+   console.log(this.props)
+    var imageUrl;
     var username;
-
+    var sidebarDisplay=this.props.display_settings.sidebar.display;
     if(this.props.loggedUser){
 
       if(this.props.loggedUser.facebookId !=="guest"){
@@ -34,7 +36,8 @@ export class SideBar extends React.Component{
 
 
      return (
-          <div className="side-bar-container">
+
+          <div style={{display:sidebarDisplay}} className="side-bar-container">
 
                 <div className="side-bar-blue-triangle">
                 <SideBarTriangle/>
@@ -61,7 +64,8 @@ var mapStateToProps= function(state){
   return {
       loggedUser:state.loggedUser,
       manuallyLogged:state.manuallyLogged,
-      userInformation:state.userInformation
+      userInformation:state.userInformation,
+      display_settings:state.display_settings
   }
 }
 

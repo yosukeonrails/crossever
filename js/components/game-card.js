@@ -20,9 +20,15 @@ export class GameCard extends React.Component{
   constructor(props){
 
     super(props)
+    
 
     }
 
+    goToForum(){
+      var dis=this;
+       hashHistory.push('/city/'+dis.props.data.cityID+'/game/'+this.props.data.gameID)
+      //    hashHistory.push('/grouppage/'+dis.props.id);
+    }
 
     render () {
 
@@ -44,15 +50,15 @@ export class GameCard extends React.Component{
 
                     <div className="card-icon"><img src="/assets/icons/group.png"></img></div>
                     <div className="card-icon"><img src="/assets/icons/groupfriend.png"></img></div>
-                    <div className="card-icon"><img src="/assets/icons/forum.png"></img></div>
+                    <div className="card-icon" id="forum-button"><img onClick={this.goToForum} src="/assets/icons/forum.png"></img></div>
 
                     <div className="game-card-numbers">
                       <div id="number"> <h1>{this.props.data.members.length}</h1></div>
                       <div id="number"> <h1>3</h1></div>
-                        <div id="number">  </div>
+                      <div id="number">  </div>
                     </div>
             </div>
-            
+
 
             <div className="game-card-labels">
                     <h2>members</h2>

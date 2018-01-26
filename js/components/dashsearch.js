@@ -8,7 +8,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation} from '../actions'
+import {getFacebookUser, getUserInformation,changeDisplaySettings} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -20,13 +20,20 @@ export class DashSearch extends React.Component{
 
     super(props)
 
+    var display= {}
+    
+    Object.assign(display, this.props.display_settings);
+    display.sidebar.display='block'
+    this.props.dispatch(changeDisplaySettings(display));
+
     }
+
 
     render () {
 
       var myCities= [];
 
-      var cities= this.props.cities;
+      var cities=this.props.cities;
 
       console.log(cities)
 
@@ -67,6 +74,7 @@ export class DashSearch extends React.Component{
 
         return {
             loggedUser:state.loggedUser,
+            display_settings:state.display_settings
         }
 
   }

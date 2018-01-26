@@ -36,10 +36,10 @@ var display={
 
     logOut(){
       var dis=this;
-       
+
        this.props.dispatch(logOut()).then(function(data){
 
-            console.log(data)
+             window.location.href='/';
        })
     }
 

@@ -5,6 +5,17 @@ require('isomorphic-fetch');
  import ClientId from '../env.js';
 
 
+ export var CHANGE_DISPLAY_SETTINGS= 'CHANGE_DISPLAY_SETTINGS'
+
+ export function changeDisplaySettings(display){
+
+     return {
+        type:CHANGE_DISPLAY_SETTINGS,
+        display_settings:display
+     }
+
+ }
+
 export var GET_USER_INFORMATION= 'GET_USER_INFORMATION';
 
  export function getUserInformation(userID){
@@ -44,6 +55,28 @@ export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
  }
 
 
+ export var GET_GAMECITY_BY_USER= 'GET_GAMECITY_BY_USER';
+
+ export function getGameCityByUser(userID){
+   return{
+     type:GET_GAMECITY_BY_USER,
+     promise:fetch('/gamecity/member/'+userID).then(function(data){
+       return data.json();
+     })
+   }
+ }
+
+
+  export var GET_GROUPGAME_BY_USER= 'GET_GROUPGAME_BY_USER';
+
+  export function getGameGroupByUser(userID){
+    return{
+      type:GET_GROUPGAME_BY_USER,
+      promise:fetch('/gamegroup/member/'+userID).then(function(data){
+        return data.json();
+      })
+    }
+  }
 
 
 export var GET_GAMEGROUP_BY_ID= 'GET_GAMEGROUP_BY_ID';
@@ -300,7 +333,8 @@ method: 'GET',
 credentials: 'include'
 }).then(function(data){
 
-         return data.json();
+
+        return data.json();
   })
 
 };

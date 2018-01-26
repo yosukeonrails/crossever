@@ -111,7 +111,10 @@ export class SetupStep4 extends React.Component{
  // if there is no group yet
        if(res.payload.length==0){
          // create a group
-        group.members=[user]
+
+
+
+        group.members=[user.userID]
         dis.createGroup(group)
 
       //then check if the city exists
@@ -121,7 +124,7 @@ export class SetupStep4 extends React.Component{
          else {
 // if it exists , updata the group by ading the user // ** might not need if $push in mongodb works
 
-          dis.updateGroup(res.payload[0] ,user )
+          dis.updateGroup(res.payload[0] , user )
     // check existance of city group
           //** might not need tis gameCityID
           var gameCityID= user.details.locationSummary
@@ -142,7 +145,7 @@ export class SetupStep4 extends React.Component{
 
               if(res.payload.length===0){
                  // if i doesnt exist yet add member and create
-                city.members=[user];
+                city.members=[user.userID];
                 dis.createCity(city);
 
               } else {
@@ -162,6 +165,7 @@ export class SetupStep4 extends React.Component{
 
         console.log('creating city')
         memberOf.city.push(city.gameCityID);
+
         this.props.dispatch(createGameCity(city))
 
     }
@@ -171,6 +175,7 @@ export class SetupStep4 extends React.Component{
       console.log('creating group');
       console.log(group)
       memberOf.group.push(group.gameID);
+
       this.props.dispatch(createGameGroup(group))
 
     }
@@ -180,7 +185,7 @@ export class SetupStep4 extends React.Component{
 
       var groupData= {
         gameID:group.gameID,
-        members:user
+        members:user.userID
       }
 
       // see if there is a duplicate of the user in the group member
@@ -200,7 +205,7 @@ export class SetupStep4 extends React.Component{
 
       var cityData= {
         gameCityID:city.gameCityID,
-        members:user
+        members:user.userID
       }
 
     // see if there is a duplicate of the user in the city member
@@ -217,7 +222,6 @@ export class SetupStep4 extends React.Component{
 
 
     updateUserSetUp(memberOf){
-
 
         var setUp=  this.props.setUpInformation
 

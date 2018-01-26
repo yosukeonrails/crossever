@@ -1,5 +1,5 @@
 var actions = require('../actions/index');
-import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION} from '../actions/index';
+import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT,CHANGE_DISPLAY_SETTINGS, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION, GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -9,7 +9,10 @@ var stateDefault = {
     selectedGameDataArray: [],
     gameIdList : [],
     loggedUser:null,
-    userInformation:null
+    userInformation:null,
+    display_settings:{
+      sidebar:{display:'none'}
+    }
 };
 
 
@@ -39,12 +42,13 @@ var reducer = function(state, action) {
 
       case LOG_OUT:
 
-console.log('log out at reducers');
+        console.log('log out at reducers');
+
        return handle(state, action, {
 
-         failure: s => ({ ...s, callError:action.payload }),
+         failure: s => ({ ...s, logOutError:action.payload }),
 
-         success: s => ({ ...s, loggedUser:null }),
+         success: s => ({ ...s, loggedUser:"" }),
 
        });
 
@@ -74,6 +78,30 @@ console.log('log out at reducers');
 
         });
 
+        //--
+
+        case GET_GAMECITY_BY_USER:
+
+        return handle(state, action, {
+
+        failure: s => ({ ...s, callError:action.payload }),
+
+        success: s => ({ ...s, userGameCity:action.payload.top }),
+
+        });
+
+        case GET_GAMECITY_BY_USER:
+
+        return handle(state, action, {
+
+        failure: s => ({ ...s, callError:action.payload }),
+
+        success: s => ({ ...s, userGameGroup:action.payload.top }),
+
+        });
+
+
+          //--
 
         case SEARCH_GAME:
 
@@ -104,6 +132,11 @@ console.log('log out at reducers');
             success: s => ({ ...s, userInformation:action.payload, manuallyLogged:false  }),
 
           })
+
+        case CHANGE_DISPLAY_SETTINGS:
+
+              return {...state, display_settings:action.display_settings}
+
 
         case ADD_TO_SELECTED_GAME:
 

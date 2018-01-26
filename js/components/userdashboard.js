@@ -14,11 +14,12 @@ var my_cities=[];
 var my_groups=[];
 //import messageIcon from '../assets.js'
 
-import {getFacebookUser, getUserInformation,getGameCityById,getGameGroupById} from '../actions'
+import {getFacebookUser, getUserInformation,getGameCityById,getGameGroupById,getGameCityByUser,getGameGroupByUser} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import SideBarContainer from './sidebar.js';
+
+
 import DashSearchContainer from './dashsearch.js'
 
 
@@ -57,47 +58,30 @@ export class UserDashboard extends React.Component{
 
       if(this.state.got_Groups_and_Cities === false ){
 
-          var dis=this;
-        console.log(this.props.userInformation);
+            this.props.dispatch(getGameCityByUser(this.props.loggedUser.userID)).then(function(data){
 
-        var memberOf= this.props.userInformation.details.memberOf;
+            console.log(data)
+             my_cities=data.payload
+             gotAllCities = true
 
-                      memberOf.group.map(function(group,i){
+              //     if(data.payload[0].length === 0){  gotAllCities = false }
 
-                        dis.props.dispatch(getGameGroupById(group)).then(function(data){
+                   dis.checkStatus();
+              })
 
-                              my_groups.push(data.payload[0])
+            this.props.dispatch(getGameGroupByUser(this.props.loggedUser.userID)).then(function(data){
+
+              my_groups=data.payload
+              gotAllGroups = true
+
+            //   if(data.payload[0].length === 0){  gotAllCities = false }
+
+              dis.checkStatus();
+            })
+
+      }
 
 
-                              if(i === memberOf.group.length-1){
-                                  console.log('got all groups')
-                                  console.log(my_groups)
-                                  gotAllGroups=true;
-                                  dis.checkStatus();
-                              }
-
-
-                          })
-
-
-                      })
-
-                    memberOf.city.map(function(city,j){
-
-                      dis.props.dispatch(getGameCityById(city)).then(function(data){
-
-                            my_cities.push(data.payload[0])
-
-                            if(j === memberOf.city.length-1){
-                              console.log('got all cities')
-                                  console.log(my_cities)
-                                gotAllCities= true;
-                                dis.checkStatus();
-                            }
-                        })
-                    })
-
-              }
       }
 
     checkStatus(){
@@ -113,10 +97,13 @@ export class UserDashboard extends React.Component{
 
       var dis=this;
       this.props.dispatch(getFacebookUser()).then(function(data){
+
           console.log(data)
+
           if(data.error){
             hashHistory.push('/loginpage')
           }
+
 
       });
     }
@@ -154,11 +141,6 @@ export class UserDashboard extends React.Component{
     var dis=this;
 
 
-        if(this.props.loggedUser === 'loggedOut'){
-             this.redirectToLogIn();
-        }
-
-
       if(this.props.loggedUser === null ){     console.log('logged user is null'); this.getLoggedUser(); } else {
 
         if(this.props.userInformation === null){   this.getUserInformation(); }
@@ -169,8 +151,11 @@ export class UserDashboard extends React.Component{
 
       var dashContainer=null;
 
+
        if(this.state.got_Groups_and_Cities===true){
+
           dashContainer=   <DashSearchContainer cities={my_cities} groups={my_groups}/>
+
        }
 
 
@@ -178,7 +163,7 @@ export class UserDashboard extends React.Component{
 
           <div className="dashboard-page">
 
-            <SideBarContainer/>
+
 
             {dashContainer}
 
