@@ -6,18 +6,22 @@ var UserSchema = new mongoose.Schema({
 
   username: {
      type: String,
-     required: true,
      unique: true
- },
-
- password: {
+  },
+  password: {
      type: String,
-     required: true
- } ,
+  },
+
   facebookId:String,
   first_name:String,
   last_name:String,
+  userID:String,
+  nickname:String,
+  facebookId:String,
+  token:String,
+  first_name:String,
   userID:String
+
 });
 
 

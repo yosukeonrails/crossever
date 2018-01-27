@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
@@ -8,7 +7,7 @@ var mongoose = require('mongoose');
 var config= require('./config');
 var passport= require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var FacebookUser= require('./models/facebookuser.js');
+//var FacebookUser= require('./models/facebookuser.js');
 
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
@@ -66,7 +65,7 @@ passport.deserializeUser(function(id, done) {
 
     console.log('deserializing at facebook!')
 
-    FacebookUser.findById(id, function(err, user) {
+    User.findById(id, function(err, user) {
             console.log(user);
         done(err, user);
     });
@@ -313,7 +312,7 @@ app.post('/login',
     let userData= {
 
           first_name:profile._json.first_name,
-          username:profile.displayName,
+          nickname:profile.displayName,
           facebookId:profile.id,
           token:profile.accessToken,
           userID:profile.id
@@ -321,7 +320,7 @@ app.post('/login',
     };
 
 
-    FacebookUser.findOneAndUpdate({ facebookId: profile.id },{$set:userData}, { upsert: true, new: true } , function (err, user) {
+    User.findOneAndUpdate({ facebookId: profile.id },{$set:userData}, { upsert: true, new: true } , function (err, user) {
 
           return done(err, user);
 

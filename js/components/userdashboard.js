@@ -28,8 +28,8 @@ export class UserDashboard extends React.Component{
   constructor(props){
 
     super(props)
-      this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
 
+      this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
 
     }
 

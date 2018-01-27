@@ -30,7 +30,7 @@ var routes = (
                       <Route path="/home" component={HomeContainer}/>
                       <Route path="/userdashboard" component={UserDashboardContainer}/>
                       <Route path="/loginpage" component={LogInPageContainer}/>
-                      <Route path="/city/:cityID/forum/:gameID" component={CityForumContainer}/>
+                      <Route path="/gamecity/:city_id" component={CityForumContainer}/>
                       <Route path="/setup" component={SetUpContainer}/>
 
            </Route>

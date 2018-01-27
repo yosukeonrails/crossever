@@ -4,11 +4,6 @@ var bcrypt = require('bcryptjs');
 
 var FacebookUserSchema = new mongoose.Schema({
 
-      username:String,
-      facebookId:String,
-      token:String,
-      first_name:String,
-      userID:String
 
 });
 

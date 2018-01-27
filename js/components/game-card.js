@@ -20,13 +20,15 @@ export class GameCard extends React.Component{
   constructor(props){
 
     super(props)
-    
+
+    this.goToForum= this.goToForum.bind(this)
+
 
     }
 
     goToForum(){
       var dis=this;
-       hashHistory.push('/city/'+dis.props.data.cityID+'/game/'+this.props.data.gameID)
+       hashHistory.push('/gamecity/'+dis.props.data.gameCityID)
       //    hashHistory.push('/grouppage/'+dis.props.id);
     }
 
