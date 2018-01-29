@@ -5,6 +5,23 @@ require('isomorphic-fetch');
  import ClientId from '../env.js';
 
 
+
+// POSTS//
+
+export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
+
+  export function getPostByGroupID(groupID){
+    return {
+      type:GET_POSTS_BY_GROUPID,
+      promise:fetch('/postmessage/'+groupID).then(function(data){
+         return  data.json();
+      })
+    }
+  }
+
+
+
+// display
  export var CHANGE_DISPLAY_SETTINGS= 'CHANGE_DISPLAY_SETTINGS'
 
  export function changeDisplaySettings(display){

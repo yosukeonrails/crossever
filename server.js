@@ -11,7 +11,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-
+var Post= require('./models/post.js')
 var User= require('./models/user.js');
 var GameGroup= require('./models/gamegroup.js');
 var GameCity= require('./models/gamecity.js')
@@ -359,6 +359,54 @@ app.post('/login',
 
 
 
+
+
+//* Posts
+  app.get('/postmessage/:groupID', function(req,res){
+
+      Post.find({ groupID:req.params.groupID }, function(err, data){
+
+        if(err){
+
+        }
+        console.log(data)
+        res.json(data);
+    });
+
+
+  })
+
+   app.post('/postmessage', function(req, res){
+
+      var query= {
+        groupID :req.body.groupID
+      }
+      console.log(req)
+
+         var postData = {
+            $set:{
+
+              //  postID=req.body.postID,
+                groupID: req.body.groupID,
+                user: req.body.user,
+                tag: req.body.tag,
+                groupType: req.body.groupType,
+                title:req.body.title,
+                message: req.body.message,
+                likes: req.body.likes,
+                popularity: req.body.popularity,
+                topic: req.body.topic
+            },
+             $setOnInsert: { time: new Date() }
+
+         }
+
+         Post.findOneAndUpdate(query, postData, {upsert:true, new:true}, function(err, data){
+             if(err){console.log(err)};
+             console.log(data);
+             res.status(201).json(data);
+         })
+   })
 
 //# Group
     app.post('/gamegroup', function(req, res){
