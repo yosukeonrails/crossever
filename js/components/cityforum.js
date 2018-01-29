@@ -13,14 +13,13 @@ import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import PostCreatorContainer from './postcreator.js'
-
+import GroupPostContainer from './grouppost'
 var city=null;
 var imageUrl=null;
 var cityName=null;
-var posts=null;
 var post_creator=null;
 var noPostDisplay='none';
-
+var posts= [];
 export class NoPost extends React.Component {
 
 
@@ -78,8 +77,13 @@ export class CityForum extends React.Component{
     }
 
     showPosts(){
-      console.log('showing posts')
+
         posts=[];
+        this.props.posts.map(function(post){
+                posts.push(<GroupPostContainer data={post} />)
+        })
+
+
     }
 
     getPosts(){
@@ -96,12 +100,13 @@ export class CityForum extends React.Component{
 
       console.log(this.props)
 
-      var posts= this.props.posts;
+      posts= this.props.posts;
 
       if(posts.length === 0){
           noPostDisplay='block';
       } else {
           noPostDisplay='none';
+          this.showPosts();
       }
 
       if(city===null){
@@ -135,6 +140,7 @@ export class CityForum extends React.Component{
                                             </div>
 
                                               <div id="city-forum-filter-right">
+
                                                       <div className="city-forum-filter-buttons">
                                                       <div id="filter-button"><img src="/assets/icons/teamrequest.png"/></div>
                                                       <div id="filter-button"><img src="/assets/icons/events.png"/></div>
@@ -159,6 +165,10 @@ export class CityForum extends React.Component{
 
                       <div style={{display:noPostDisplay}}>
                         <NoPost createPost={this.createPost} />
+                      </div>
+
+                      <div>
+                          {posts}
                       </div>
 
                       <div className="post-creator-container" style={{display:this.props.display_settings.postCreator.display}}>

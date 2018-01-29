@@ -35,6 +35,7 @@ export class PostCreator extends React.Component{
     super(props)
     this.submitForm= this.submitForm.bind(this);
     this.selectTopic= this.selectTopic.bind(this);
+    this.cancel= this.cancel.bind(this);
 
   }
 
@@ -69,6 +70,16 @@ export class PostCreator extends React.Component{
           submit_color= "";
           canSubmit= false;
         }
+
+    }
+
+    cancel(){
+
+      var dis= this;
+      let display={}
+      Object.assign(display, dis.props.display_settings);
+      display.postCreator.display='none'
+      dis.props.dispatch(changeDisplaySettings(display));
 
     }
 
@@ -156,11 +167,25 @@ export class PostCreator extends React.Component{
                 </div>
 
                 <h1>Topic</h1>
-                  <div className="post-topic">
-                      <div id="topic-image"><img  onClick={this.selectTopic} style={{filter:this.state.team.color}}  id="team" src="/assets/icons/teamrequest.png"/><h2 style={this.state.team.tagColor} >Team Request</h2></div>
-                        <div id="topic-image"><img  onClick={this.selectTopic} style={{filter:this.state.events.color}} id="events" src="/assets/icons/events.png"/><h2 style={this.state.events.tagColor} >Events</h2></div>
-                          <div id="topic-image"><img   onClick={this.selectTopic}  style={{filter:this.state.general.color}} id="general" src="/assets/icons/discussion.png"/><h2 style={this.state.general.tagColor} >General</h2></div>
-                  </div>
+
+                      <div className="post-topic">
+
+                              <div id="topic-image">
+                              <img   onClick={this.selectTopic}  style={{filter:this.state.general.color}} id="general" src="/assets/icons/discussion.png"/>
+                              <h2 style={this.state.general.tagColor} >General</h2>
+                              </div>
+
+                              <div id="topic-image">
+                              <img  onClick={this.selectTopic} style={{filter:this.state.team.color}}  id="team" src="/assets/icons/teamrequest.png"/>
+                              <h2 style={this.state.team.tagColor} >Team Request</h2>
+                              </div>
+
+                              <div id="topic-image">
+                              <img  onClick={this.selectTopic} style={{filter:this.state.events.color}} id="events" src="/assets/icons/events.png"/>
+                              <h2 style={this.state.events.tagColor} >Events</h2>
+                              </div>
+
+                      </div>
 
                   <div className="post-creator-title">
                     <h1>Title</h1>
@@ -172,10 +197,10 @@ export class PostCreator extends React.Component{
                     <textarea  onChange={ (event)=>{this.handleInput('message',event) } } rows="20" cols="50" ></textarea>
                   </div>
 
-                      <div className="button-container">
-                      <button id="cancel">Cancel</button>
-                      <button style={{backgroundColor:submit_color}} onClick={this.submitForm} id="submit"  >Submit</button>
-                      </div>
+                  <div className="button-container">
+                  <button onClick={this.cancel} id="cancel">Cancel</button>
+                  <button style={{backgroundColor:submit_color}} onClick={this.submitForm} id="submit"  >Submit</button>
+                  </div>
             </div>
 
 
