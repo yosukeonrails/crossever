@@ -7,6 +7,42 @@ require('isomorphic-fetch');
 
 
 // POSTS//
+export var POST_POST= 'POST_POST';
+
+ export function postPost(data) {
+
+ var fetchData={
+ method:'POST',
+ headers:{
+  'Content-Type':'application/json'
+ },
+ body:JSON.stringify({
+
+   groupID:data.groupID,
+   user:data.user,
+   title:data.title,
+   message:data.message,
+   topic:data.topic,
+   likes:data.likes,
+   popularity:data.popularity,
+   groupType:data.groupType,
+   tag:data.tag
+
+ })
+
+ };
+
+ return {
+
+ type: POST_POST,
+ promise: fetch('/postmessage', fetchData).then(function(data){
+   console.log(data)
+ return data.json();
+
+ })
+ };
+ }
+
 
 export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
 

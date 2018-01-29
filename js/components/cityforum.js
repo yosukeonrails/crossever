@@ -19,6 +19,7 @@ var imageUrl=null;
 var cityName=null;
 var posts=null;
 var post_creator=null;
+var noPostDisplay='none';
 
 export class NoPost extends React.Component {
 
@@ -59,7 +60,7 @@ export class CityForum extends React.Component{
           city = data.payload[0];
           cityName=city.name;
           imageUrl= 'url('+city.gameData.box.large+')';
-          post_creator= <PostCreatorContainer group={city}/>
+          post_creator= <PostCreatorContainer type="city" group={city}/>
 
           dis.setState({gotCity:true})
 
@@ -77,7 +78,8 @@ export class CityForum extends React.Component{
     }
 
     showPosts(){
-
+      console.log('showing posts')
+        posts=[];
     }
 
     getPosts(){
@@ -92,15 +94,14 @@ export class CityForum extends React.Component{
 
     render () {
 
-      console.log(this.props.display_settings)
+      console.log(this.props)
+
       var posts= this.props.posts;
 
-      if(posts.length === 0 ){
-
-        posts= <NoPost createPost={this.createPost} />
+      if(posts.length === 0){
+          noPostDisplay='block';
       } else {
-
-        this.showPosts();
+          noPostDisplay='none';
       }
 
       if(city===null){
@@ -156,9 +157,9 @@ export class CityForum extends React.Component{
 
                     <div className="post-results">
 
-
-                        {posts}
-
+                      <div style={{display:noPostDisplay}}>
+                        <NoPost createPost={this.createPost} />
+                      </div>
 
                       <div className="post-creator-container" style={{display:this.props.display_settings.postCreator.display}}>
                           {post_creator}
