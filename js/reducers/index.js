@@ -12,7 +12,8 @@ var stateDefault = {
     userInformation:null,
     posts:[],
     display_settings:{
-      sidebar:{display:'none'}
+      sidebar:{display:'none'},
+      postCreator:{display:'none'}
     }
 };
 

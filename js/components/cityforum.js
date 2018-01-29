@@ -12,18 +12,24 @@ import {getFacebookUser,changeDisplaySettings, getUserInformation,getGameCityByI
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
+import PostCreatorContainer from './postcreator.js'
 
 var city=null;
 var imageUrl=null;
 var cityName=null;
 var posts=null;
+var post_creator=null;
 
 export class NoPost extends React.Component {
+
+
+
     render(){
+
        return (
           <div className="no-posts">
               <h1> There are no posts yet.</h1>
-                  <button>Create post</button>
+                  <button onClick={this.props.createPost}>Create post</button>
           </div>
        )
     }
@@ -34,12 +40,12 @@ export class CityForum extends React.Component{
   constructor(props){
   super(props)
   this.getCity = this.getCity.bind(this)
-
+  this.createPost= this.createPost.bind(this)
   this.getCity();
   //this.setState({gotCity:false});
   this.getPosts();
 
-  var display={}
+          var display={}
           Object.assign(display, this.props.display_settings);
           display.sidebar.display='block'
           this.props.dispatch(changeDisplaySettings(display));
@@ -53,9 +59,21 @@ export class CityForum extends React.Component{
           city = data.payload[0];
           cityName=city.name;
           imageUrl= 'url('+city.gameData.box.large+')';
+          post_creator= <PostCreatorContainer group={city}/>
+
           dis.setState({gotCity:true})
+
         });
 
+    }
+
+    createPost(){
+
+          console.log('showing creator')
+          var display={}
+          Object.assign(display, this.props.display_settings);
+          display.postCreator.display='block'
+          this.props.dispatch(changeDisplaySettings(display));
     }
 
     showPosts(){
@@ -74,11 +92,12 @@ export class CityForum extends React.Component{
 
     render () {
 
+      console.log(this.props.display_settings)
       var posts= this.props.posts;
 
       if(posts.length === 0 ){
-      
-        posts= <NoPost/>
+
+        posts= <NoPost createPost={this.createPost} />
       } else {
 
         this.showPosts();
@@ -139,6 +158,11 @@ export class CityForum extends React.Component{
 
 
                         {posts}
+
+
+                      <div className="post-creator-container" style={{display:this.props.display_settings.postCreator.display}}>
+                          {post_creator}
+                      </div>
 
 
                     </div>
