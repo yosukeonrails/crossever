@@ -378,14 +378,7 @@ app.post('/login',
 
    app.post('/postmessage', function(req, res){
 
-      var query= {
-        groupID :req.body.groupID
-      }
-      console.log(req)
-
          var postData = {
-            $set:{
-
               //  postID=req.body.postID,
                 groupID: req.body.groupID,
                 user: req.body.user,
@@ -395,13 +388,11 @@ app.post('/login',
                 message: req.body.message,
                 likes: req.body.likes,
                 popularity: req.body.popularity,
-                topic: req.body.topic
-            },
-             $setOnInsert: { time: new Date() }
-
+                topic: req.body.topic,
+                time: new Date()
          }
 
-         Post.findOneAndUpdate(query, postData, {upsert:true, new:true}, function(err, data){
+         Post.create( postData , function(err, data){
              if(err){console.log(err)};
              console.log(data);
              res.status(201).json(data);

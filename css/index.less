@@ -769,6 +769,26 @@ button:focus {outline:0;}
 
 
 //  POST
+.post-results{
+  padding-bottom: 100px;
+  
+  button:focus {outline:0;}
+
+   button{
+     display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      width: 200px;
+      height: 35px;
+      border-radius: 20px;
+      background-color: #2aa768;
+      border: 0;
+      color: white;
+   }
+
+}
+
 .group-post{
 
   width: 70%;
@@ -778,8 +798,10 @@ button:focus {outline:0;}
   min-height: 250px;
   border-radius: 10px;
   box-shadow: -1px 4px 18px 0 #292929;
-  overflow: hidden;
+  min-width: 450px;
+  padding-bottom: 30px;
   margin-top: 20px;
+  overflow: hidden;
 
   .group-post-top{
     background: linear-gradient(#e45555, #7b2254);
@@ -838,11 +860,11 @@ button:focus {outline:0;}
     .group-post-bottom{
 
         h2{
-          font-size: 15px;
-          font-weight: 300;
-          padding: 10px;
-          padding-left: 30px;
-          padding-right: 30px;
+          font-size: 17px;
+        font-weight: 300;
+        padding: 3%;
+        padding-left: 30px;
+        padding-right: 30px;
         }
 
         .post-bottom-number-container{
@@ -862,29 +884,37 @@ button:focus {outline:0;}
 
           .post-bottom-icons-container{
 
-              width:40%;
+              width: 50%;
               float: left;
+              padding-left: 10%;
+              padding-top: 15px;
 
 
               img{
-                float: none;
+                float: left;
                   display: block;
+              }
+
+              #post-bottom-icons{
+                  width: 100%;
                   margin-left: auto;
                   margin-right: auto;
               }
 
-              #post-bottom-icons{
-                    width: 70%;
-                    margin-left: auto;
-                    margin-right: auto;
-
-              }
-
                       #post-bottom-icon{
-                        width:50%;
-                        float: left;
-                        h3{text-align: center;
-                            margin-top: 5px;
+                          float: left;
+                          margin-left: 30px;
+                          display: block;
+
+                        h3{
+                          text-align: center;
+
+                        }
+                        h2{
+                            margin: 0;
+                            float: left;
+                            padding: 0;
+                            margin-top: 15px;
                         }
                       }
               }
@@ -892,8 +922,9 @@ button:focus {outline:0;}
             .group-post-user{
 
 
-              width: 60%;
-              float: left;
+                width: 50%;
+                float: left;
+                padding-top: 10px;
 
                 .group-post-user-left{
                   float: left;
@@ -914,12 +945,16 @@ button:focus {outline:0;}
                     font-weight: 200;
                     text-align: right;
                 }
-                img{
-                  float: left;
-                  width: 45px;
-                  margin-left: 10px;
-                  position: relative;
-                  top: 10px;
+                .group-post-user-picture{
+                      float: left;
+                      width: 45px;
+                      height: 45px;
+                      border-radius: 50%;
+                      margin-left: 10px;
+                      background-position: center;
+                      position: relative;
+                      top: 10px;
+                      background-size: cover;
                 }
             }
 
@@ -1135,9 +1170,9 @@ input{
 .dashboard-page {
   background: linear-gradient(#31292b,#45678a);
   position: absolute;
-  height: 100vh;
   top: 0;
   width: 100%;
+  padding-bottom: 100px;
 }
 
 .dashboard-page h2{

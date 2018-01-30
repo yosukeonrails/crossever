@@ -19,6 +19,7 @@ var imageUrl=null;
 var cityName=null;
 var post_creator=null;
 var noPostDisplay='none';
+var displayCreateButton= 'none';
 var posts= [];
 export class NoPost extends React.Component {
 
@@ -104,8 +105,10 @@ export class CityForum extends React.Component{
 
       if(posts.length === 0){
           noPostDisplay='block';
+
       } else {
           noPostDisplay='none';
+          displayCreateButton='block';
           this.showPosts();
       }
 
@@ -168,6 +171,7 @@ export class CityForum extends React.Component{
                       </div>
 
                       <div>
+                        <button style={{display:displayCreateButton}} onClick={this.createPost}>Create post</button>
                           {posts}
                       </div>
 
