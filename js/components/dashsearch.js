@@ -21,9 +21,9 @@ export class DashSearch extends React.Component{
     super(props)
 
     var display= {}
-    
+
     Object.assign(display, this.props.display_settings);
-    display.sidebar.display='block'
+    display.sidebar.display='block';
     this.props.dispatch(changeDisplaySettings(display));
 
     }

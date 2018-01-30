@@ -8,101 +8,69 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,changeDisplaySettings} from '../actions'
+import {getFacebookUser, getUserInformation, getPostByID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-var imageUrl= 'url(/assets/icons/user.png)'
 
+var openPost=[];
+var imageUrl= 'url(/assets/icons/user.png)'
 var matchingData= {
   team:{image: "/assets/icons/teamrequest.png",name:"Team Request"},
 events:{image: "/assets/icons/events.png",name:"Events"},
 general:{image: "/assets/icons/discussion.png",name:"General Discussion"},
 }
 
+export class OpenPost extends React.Component{
 
-export class GroupPost extends React.Component{
 
-  constructor(props){
+    constructor(props){
+      super(props)
 
-    super(props)
-      this.redirectToPost= this.redirectToPost.bind(this);
       this.checkUserType = this.checkUserType.bind(this);
-      this.hoveredGroup= this.hoveredGroup.bind(this);
-      this.hoveredOut= this.hoveredOut.bind(this);
-
-      var display= {}
-      Object.assign(display, this.props.display_settings);
-      display.sidebar.display='block';
-      display.viewPort.marginLeft='200px';
-      this.props.dispatch(changeDisplaySettings(display));
 
 
-    }
-
-    checkUserType(){
-
-          if(this.props.data.user.facebookId !== 'guest'){
-             imageUrl ='url(https://graph.facebook.com/'+this.props.data.user.facebookId+'/picture?width=300&height=300)'
-          }
-          else {
-             imageUrl= 'url(/assets/icons/user.png)'
-          }
+      }
 
 
-    }
+      checkUserType(){
 
-    hoveredGroup(e){
+            if(this.props.data.user.facebookId !== 'guest'){
+               imageUrl ='url(https://graph.facebook.com/'+this.props.data.user.facebookId+'/picture?width=300&height=300)'
+            } else {
+               imageUrl= 'url(/assets/icons/user.png)'
+            }
 
-
-      $("#"+this.props.key_id).css("width", "72%");
-        $("#"+this.props.key_id).css("border", "1px solid white");
-    }
-
-
-    hoveredOut(e){
-
-      $("#"+this.props.key_id).css("width", "70%");
-      $("#"+this.props.key_id).css("border", "none");
-  }
+      }
 
 
-    redirectToPost(){
+      render () {
 
-        hashHistory.push('/crossever_post/'+this.props.data._id);
-
-    }
-
-
-    render () {
-
-      console.log(this.props)
 
       this.checkUserType()
 
-      return(
+        return(
 
-
-          <div id={this.props.key_id} onMouseOut={this.hoveredOut} onMouseOver={this.hoveredGroup} onClick= {this.redirectToPost} className="group-post">
+          <div className="group-post">
 
                <div className= "group-post-top">
 
                    <div className="post-type">
                       <img src={matchingData[this.props.data.topic].image}></img>
-                      <h3>{matchingData[this.props.data.topic].name}</h3>
+                      <h3 >{matchingData[this.props.data.topic].name}</h3>
                    </div>
                    <div className="post-title">
-                        <h1> {this.props.data.title} </h1>
+                          <h1> {this.props.data.title} </h1>
                    </div>
                    <div className="post-location">
                             <h3></h3>
                    </div>
 
-               </div>
+                   </div>
 
                <div className= "group-post-bottom">
 
-
+                  <h2>{this.props.data.message}</h2>
 
                   <div className="post-bottom-icons-container">
 
@@ -120,13 +88,54 @@ export class GroupPost extends React.Component{
                         <h3>Today @ 12:43 AM</h3></div>
 
                       <div className="group-post-user-right">
-                          <div className="group-post-user-picture" style={{backgroundImage:imageUrl}}></div>
+                            <div className="group-post-user-picture" style={{backgroundImage:imageUrl}}></div>
                       </div>
 
 
                   </div>
 
                </div>
+
+          </div>
+
+      );
+    }
+
+
+
+}
+
+export class PostPage extends React.Component{
+
+  constructor(props){
+
+    super(props)
+
+      this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
+
+      })
+
+    }
+
+    getPostByID(){
+
+    }
+
+    render () {
+
+      if(this.props.openPost !== null){
+
+          openPost= <OpenPost data={this.props.openPost} />;
+
+      }
+
+      return(
+
+          <div className="open-post">
+
+
+              {openPost}
+
 
           </div>
 
@@ -140,11 +149,11 @@ export class GroupPost extends React.Component{
 
         return {
             loggedUser:state.loggedUser,
-            display_settings:state.display_settings
+            openPost:state.openPost
         }
 
   }
 
-   var GroupPostContainer = connect(mapStateToProps)(GroupPost);
+   var PostPageContainer = connect(mapStateToProps)(PostPage);
 
-export default GroupPostContainer;
+export default PostPageContainer;

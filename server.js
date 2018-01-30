@@ -362,7 +362,22 @@ app.post('/login',
 
 
 //* Posts
-  app.get('/postmessage/:groupID', function(req,res){
+
+app.get('/post/id/:id', function(req,res){
+
+    Post.findOne({ _id:req.params.id }, function(err, data){
+
+      if(err){
+
+      }
+      console.log(data)
+      res.json(data);
+  });
+
+
+})
+
+  app.get('/post/group/:groupID', function(req,res){
 
       Post.find({ groupID:req.params.groupID }, function(err, data){
 
@@ -376,7 +391,7 @@ app.post('/login',
 
   })
 
-   app.post('/postmessage', function(req, res){
+   app.post('/post', function(req, res){
 
          var postData = {
               //  postID=req.body.postID,

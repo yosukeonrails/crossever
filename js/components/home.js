@@ -82,10 +82,11 @@ export class Home extends React.Component{
         this.showSignIn= this.showSignIn.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
 
-        var display={}
+        var display={};
 
         Object.assign(display, this.props.display_settings);
         display.sidebar.display='none'
+        display.viewPort.marginLeft='0px'
         this.props.dispatch(changeDisplaySettings(display));
 
         this.state = {

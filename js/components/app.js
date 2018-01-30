@@ -20,8 +20,18 @@ export class App extends React.Component{
               return(
                         <div>
                                 <NavigationContainer/>
-                                    {this.props.children}
                                  <SideBarContainer/>
+
+                                <div style={{marginLeft:this.props.display_settings.viewPort.marginLeft}} className="view-port">
+
+                                <div className="app-content">
+                                    {this.props.children}
+                                </div>
+
+                                </div>
+
+
+
                         </div>
               );
         }
@@ -32,7 +42,8 @@ var mapStateToProps= function(state){
 
 
 return {
-  loggedUser:state.loggedUser
+  loggedUser:state.loggedUser,
+  display_settings:state.display_settings
 }
 }
 

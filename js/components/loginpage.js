@@ -14,7 +14,7 @@ import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
 import LogInWindowContainer from './log-in-window.js';
-import {LogInUser} from '../actions'
+import {LogInUser, changeDisplaySettings} from '../actions'
 
 
 export class LogInPage extends React.Component {
@@ -25,6 +25,12 @@ export class LogInPage extends React.Component {
        this.handleUsername= this.handleUsername.bind(this);
        this.handlePassword= this.handlePassword.bind(this);
        this.submitLogin= this.submitLogin.bind(this);
+
+       var display={}
+       Object.assign(display, this.props.display_settings);
+       display.viewPort.marginLeft='0px'
+       this.props.dispatch(changeDisplaySettings(display));
+
    }
 
 
@@ -126,7 +132,8 @@ export class LogInPage extends React.Component {
 var mapStateToProps=function(state){
   console.log(state)
     return{
-      loggedUser:state.loggedUser
+      loggedUser:state.loggedUser,
+      display_settings:state.display_settings
     }
 }
 

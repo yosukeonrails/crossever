@@ -35,7 +35,7 @@ export var POST_POST= 'POST_POST';
  return {
 
  type: POST_POST,
- promise: fetch('/postmessage', fetchData).then(function(data){
+ promise: fetch('/post', fetchData).then(function(data){
    console.log(data)
  return data.json();
 
@@ -49,11 +49,24 @@ export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
   export function getPostByGroupID(groupID){
     return {
       type:GET_POSTS_BY_GROUPID,
-      promise:fetch('/postmessage/'+groupID).then(function(data){
+      promise:fetch('/post/group/'+groupID).then(function(data){
          return  data.json();
       })
     }
   }
+
+
+  export var GET_POSTS_BY_ID= 'GET_POSTS_BY_ID';
+
+    export function getPostByID(id){
+      return {
+        type:GET_POSTS_BY_ID,
+        promise:fetch('/post/id/'+id).then(function(data){
+           return  data.json();
+        })
+      }
+    }
+
 
 
 

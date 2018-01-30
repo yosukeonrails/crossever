@@ -18,6 +18,7 @@ import UserDashboardContainer from './components/userdashboard.js';
 import SetUpContainer from './components/setup.js'
 import LogInPageContainer from './components/loginpage.js';
 import CityForumContainer from './components/cityforum.js';
+import PostPageContainer from './components/postpage.js'
 
 import { Provider } from 'react-redux';
 
@@ -32,6 +33,7 @@ var routes = (
                       <Route path="/loginpage" component={LogInPageContainer}/>
                       <Route path="/gamecity/:city_id" component={CityForumContainer}/>
                       <Route path="/setup" component={SetUpContainer}/>
+                      <Route path="/crossever_post/:id" component={PostPageContainer}/>
 
            </Route>
 

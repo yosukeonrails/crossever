@@ -14,7 +14,7 @@ var my_cities=[];
 var my_groups=[];
 //import messageIcon from '../assets.js'
 
-import {getFacebookUser, getUserInformation,getGameCityById,getGameGroupById,getGameCityByUser,getGameGroupByUser} from '../actions'
+import {getFacebookUser, changeDisplaySettings,getUserInformation,getGameCityById,getGameGroupById,getGameCityByUser,getGameGroupByUser} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -30,6 +30,13 @@ export class UserDashboard extends React.Component{
     super(props)
 
       this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
+
+    var display= {}
+
+    Object.assign(display, this.props.display_settings);
+    display.sidebar.display='block';
+    display.viewPort.marginLeft='200px';
+    this.props.dispatch(changeDisplaySettings(display));
 
     }
 
@@ -182,7 +189,8 @@ export class UserDashboard extends React.Component{
             manuallyLogged:state.manuallyLogged,
             topGames:state.topGames,
             selectedGameDataArray: state.selectedGameDataArray,
-            userInformation:state.userInformation
+            userInformation:state.userInformation,
+            display_settings:state.display_settings
         }
 
   }

@@ -50,7 +50,7 @@ export class CityForum extends React.Component{
           Object.assign(display, this.props.display_settings);
           display.sidebar.display='block'
           this.props.dispatch(changeDisplaySettings(display));
-          console.log(this.params)
+
     }
 
         getCity(){
@@ -80,8 +80,8 @@ export class CityForum extends React.Component{
     showPosts(){
 
         posts=[];
-        this.props.posts.map(function(post){
-                posts.push(<GroupPostContainer data={post} />)
+        this.props.posts.map(function(post,i){
+                posts.push(<GroupPostContainer key_id={"group-post-"+i} data={post} />)
         })
 
 
@@ -105,6 +105,7 @@ export class CityForum extends React.Component{
 
       if(posts.length === 0){
           noPostDisplay='block';
+            displayCreateButton='none';
 
       } else {
           noPostDisplay='none';

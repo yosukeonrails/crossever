@@ -1,5 +1,10 @@
 var actions = require('../actions/index');
-import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT,CHANGE_DISPLAY_SETTINGS,GET_POSTS_BY_GROUPID, GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION, ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,GET_USER_INFORMATION,CREATE_USER_INFORMATION, GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER} from '../actions/index';
+import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT,
+  CHANGE_DISPLAY_SETTINGS,GET_POSTS_BY_GROUPID,
+  GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION,
+   ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,
+   GET_USER_INFORMATION,CREATE_USER_INFORMATION,
+   GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER,GET_POSTS_BY_ID} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -11,9 +16,11 @@ var stateDefault = {
     loggedUser:null,
     userInformation:null,
     posts:[],
+    openPost:null,
     display_settings:{
       sidebar:{display:'none'},
-      postCreator:{display:'none'}
+      postCreator:{display:'none'},
+      viewPort:{marginLeft:'0'}
     }
 };
 
@@ -81,6 +88,15 @@ var reducer = function(state, action) {
         });
 
 
+        case GET_POSTS_BY_ID:
+
+        return handle(state, action, {
+
+        failure: s => ({ ...s, callError:action.payload }),
+
+        success: s => ({ ...s, openPost:action.payload }),
+
+        });
 
 
         case GET_POSTS_BY_GROUPID:

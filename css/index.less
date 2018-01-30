@@ -225,13 +225,22 @@ h1{
 
 }
 
+.view-port{
+
+  margin-left: 200px;
+  padding-top: 30px;
+
+}
+.app-content{
+  width: 100%;
+float: right;
+}
 //DASH BOARD content
 
 .dash-search{
-  margin-left: 200px;
 
 .dash-search-top{
-  padding-top: 80px;
+  padding-top: 30px;
   background: linear-gradient(#181c5d,#755656);
   padding-bottom: 30px;
   box-shadow: 1px 1px 1px #000;
@@ -428,7 +437,6 @@ h1{
   min-height: 100px;
   background: linear-gradient(#3980a5,#0b006d);
   padding-top: 30px;
-  margin-top: 60px;
   padding-bottom: 20px;
 
  .city-forum-image{
@@ -771,7 +779,7 @@ button:focus {outline:0;}
 //  POST
 .post-results{
   padding-bottom: 100px;
-  
+
   button:focus {outline:0;}
 
    button{
@@ -790,28 +798,29 @@ button:focus {outline:0;}
 }
 
 .group-post{
-
+  transition: 0.3s;
   width: 70%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  min-height: 250px;
   border-radius: 10px;
   box-shadow: -1px 4px 18px 0 #292929;
   min-width: 450px;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   margin-top: 20px;
   overflow: hidden;
 
   .group-post-top{
-    background: linear-gradient(#e45555, #7b2254);
-    min-height: 80px;
-    padding-top: 20px;
+    background: linear-gradient(#e45555,#7b2254);
+    min-height: 55px;
+    padding-top: 5px;
     h1{
         margin: 0;
-        font-size: 20px;
         text-align: center;
         float: none;
+        margin-top: 10px;
+        color: #fff;
+        font-size: 15px;
     }
     h3{
       color: white;
@@ -838,6 +847,7 @@ button:focus {outline:0;}
             margin-left: auto;
             margin-right: auto;
             display: block;
+            width: 20px;
             float: none;
         }
 
@@ -891,8 +901,9 @@ button:focus {outline:0;}
 
 
               img{
-                float: left;
-                  display: block;
+                    float: left;
+                    display: block;
+                    width: 20px;
               }
 
               #post-bottom-icons{
@@ -908,13 +919,13 @@ button:focus {outline:0;}
 
                         h3{
                           text-align: center;
+                          font-size: 11px;
 
                         }
                         h2{
-                            margin: 0;
-                            float: left;
-                            padding: 0;
-                            margin-top: 15px;
+                        float: none;
+                        text-align: right;
+                        font-size: 15px;
                         }
                       }
               }
@@ -943,12 +954,13 @@ button:focus {outline:0;}
                     float: none;
                     color: #6971ad;
                     font-weight: 200;
+                    font-size: 12px;
                     text-align: right;
                 }
                 .group-post-user-picture{
                       float: left;
-                      width: 45px;
-                      height: 45px;
+                      width: 30px;
+                      height: 30px;
                       border-radius: 50%;
                       margin-left: 10px;
                       background-position: center;
@@ -966,7 +978,11 @@ button:focus {outline:0;}
 
 }
 
-
+.open-post{
+    padding-top: 10vh;
+    background: linear-gradient(#251e1e,#2c2c5f);
+    min-height: 100vh;
+}
 
 
 // SIDE bar
@@ -1169,7 +1185,7 @@ input{
 
 .dashboard-page {
   background: linear-gradient(#31292b,#45678a);
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100%;
   padding-bottom: 100px;
