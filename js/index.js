@@ -19,6 +19,7 @@ import SetUpContainer from './components/setup.js'
 import LogInPageContainer from './components/loginpage.js';
 import CityForumContainer from './components/cityforum.js';
 import PostPageContainer from './components/postpage.js'
+import SignUpContainer from './components/signup.js'
 
 import { Provider } from 'react-redux';
 
@@ -31,6 +32,7 @@ var routes = (
                       <Route path="/home" component={HomeContainer}/>
                       <Route path="/userdashboard" component={UserDashboardContainer}/>
                       <Route path="/loginpage" component={LogInPageContainer}/>
+                      <Route path="/signup" component={SignUpContainer}/>
                       <Route path="/gamecity/:city_id" component={CityForumContainer}/>
                       <Route path="/setup" component={SetUpContainer}/>
                       <Route path="/crossever_post/:id" component={PostPageContainer}/>

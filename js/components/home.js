@@ -13,13 +13,13 @@ import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import LogInWindowContainer  from './log-in-window.js'
 import {changeDisplaySettings} from '../actions'
-
-var showSignIn= function(){
-
-        $('.field-container').css('display' , 'block');
-        $('.field-container').animate({opacity:'1'});
-
-};
+// 
+// var showSignIn= function(){
+// 
+//         $('.field-container').css('display' , 'block');
+//         $('.field-container').animate({opacity:'1'});
+// 
+// };
 
 var bubbleDimensions;
 
@@ -79,7 +79,7 @@ export class Home extends React.Component{
 
       super(props)
 
-        this.showSignIn= this.showSignIn.bind(this);
+      //  this.showSignIn= this.showSignIn.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
 
         var display={};
@@ -111,9 +111,8 @@ export class Home extends React.Component{
       }
 
 
-    showSignIn(){
-        console.log(showSignIn)
-      showSignIn();
+    goToSignIn(){
+            hashHistory.push('/signup')
     }
 
     goTologIn(){
@@ -161,7 +160,7 @@ export class Home extends React.Component{
 
                                       <div style={{width:'30%' , marginTop:'30px'}}>
 
-                                      <button style={{zIndex:'2'}} onClick={this.showSignIn} > Sign Up </button>
+                                      <button style={{zIndex:'2'}} onClick={this.goToSignIn} > Sign Up </button>
 
                                       <span>  <h1 style={{textAlign:'center', margin:'0'}}> or  </h1> </span>
 
