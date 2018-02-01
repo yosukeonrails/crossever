@@ -48,7 +48,8 @@ export class CityForum extends React.Component{
 
           var display={}
           Object.assign(display, this.props.display_settings);
-          display.sidebar.display='block'
+          display.sidebar.display='block';
+          display.postCreator.display='none';
           this.props.dispatch(changeDisplaySettings(display));
 
     }

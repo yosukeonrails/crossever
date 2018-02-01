@@ -434,6 +434,39 @@ credentials: 'include'
 
 
 
+ export var CREATE_USER='CREATE_USER';
+
+
+ export function createOneUser(data) {
+
+   var fetchData={
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+
+         username:data.username,
+         password:data.password,
+         facebookId:data.facebookId,
+         first_name:data.first_name,
+         last_name:data.last_name,
+         userID:data.userID
+
+      })
+   };
+
+   return {
+    type: CREATE_USER,
+
+    promise: fetch('/user', fetchData).then(function(data){
+
+
+       return data.json();
+
+      })
+  };
+}
 
 
 

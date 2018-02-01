@@ -63,8 +63,6 @@ var reducer = function(state, action) {
 
 
 
-
-
         case GET_FACEBOOK_USER:
 
     return handle(state, action, {
