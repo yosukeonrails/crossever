@@ -273,10 +273,11 @@ function isLoggedIn(req, res, next) {
 
 app.post('/login',
 
-    passport.authenticate('local'),
+    passport.authenticate('local',{failureRedirect:'/#/loginpage'}),
 
     function(req, res) {
 
+      console.log(res);
         console.log('here is the user')
         console.log(req.user)
 

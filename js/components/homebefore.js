@@ -1,5 +1,6 @@
 
 
+
 require('babel-polyfill');
 
 var React = require('react');
@@ -134,46 +135,42 @@ export class Home extends React.Component{
       return(
 
         <div>
+
+        <DiagonalLine/>
+        <HomeBubble width={ (bubbleDimensions[0].d - widthSubstraction )+'vw'}  marginTop="40vh" left="60%" url="url(https://source.unsplash.com/wuvr-X2Lt1U/1600x900)"/>
+        <HomeBubble width={ (bubbleDimensions[1].d - widthSubstraction )+'vw'}   marginTop="100vh" left="53%" url="url(https://blznav.akamaized.net/img/games/cards/card-overwatch-7eff92e1257149aa.jpg)"/>
+        <HomeBubble width={ (bubbleDimensions[2].d - widthSubstraction )+'vw'}  marginTop="85vh" left="19%" url="url(https://cdn.images.express.co.uk/img/dynamic/143/590x/PUBG-886916.jpg)"/>
+        <HomeBubble width={ (bubbleDimensions[3].d - widthSubstraction )+'vw'}   marginTop="95vh" left="79%" url="url(http://torrentsgames.org/wp-content/uploads/2016/05/Black-Desert-PC.jpg)"/>
+
             <div className="home" >
 
-                            <div className="home-content" >
-
-                                            <div className="home-top">
-
-                                                          <div className="welcome-message">
-                                                                  <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
-                                                                  <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
+                            <div className="home-content"  style={{paddingLeft:'10%' , paddingTop:'50px'}} >
 
 
-                                                                  <div style={{width:'30%' , marginTop:'30px'}}>
-
-                                                                  <button style={{zIndex:'2'}} onClick={this.goToSignIn} > Sign Up </button>
-
-                                                                  <span>  <h1 style={{textAlign:'center', margin:'0'}}> or  </h1> </span>
-
-                                                                  <button style={{zIndex:'2', marginTop:'5px'}}  id="dark-home-button" onClick={this.goTologIn} >  Sign In </button>
-
-                                                                  </div>
-                                                          </div>
-                                                          <div className="welcome-message">
-                                                                  <img id="big-controller" src="/assets/images/bigcontroller.png"></img>
-                                                                  <img id="small-controller"  src="/assets/images/smallcontroller.png"></img>
-                                                          </div>
-                                                </div>
-
-                                                <div className="home-bottom">
-
-                                                  <div  id="skaters" style={{backgroundImage:"url(/assets/images/skaters.png)"}}>  <h1>Crossover to real-life.</h1></div>
-                                                </div>
-
-                                                <div className="about-crossever">
-                                                  <h1> Crossever your local gaming community.</h1>
-                                                  <p>With the vision to bring back the good old times of computer gaming, we wanted to re-connect the so separated MMO community by connecting them to the community around them!  </p>
-                                                </div>
 
 
+                        <div className="home-top">
+                                <div className="welcome-message">
+
+
+                                      <h1>Making <br/> <span style={{color:'#4abbbd'}}> in-game built </span> <br/>  relationships <br/>  into <span style={{color:'#00b4ff'}}> real life </span> <br/  > relationships.</h1>
+                                      <h1 style={{fontSize:'25px'}}> <span style= {{color: "#00b4ff"}}>Crossever </span> is a platform that   <br/> let’s you find gamers in your area <br/> who plays the same game as you.</h1>
+
+
+                                      <div style={{width:'30%' , marginTop:'30px'}}>
+
+                                      <button style={{zIndex:'2'}} onClick={this.goToSignIn} > Sign Up </button>
+
+                                      <span>  <h1 style={{textAlign:'center', margin:'0'}}> or  </h1> </span>
+
+                                      <button style={{zIndex:'2', marginTop:'5px'}}  id="dark-home-button" onClick={this.goTologIn} >  Sign In </button>
+
+                                      </div>
+
+
+                                </div>
                               </div>
-
+                    </div>
 
 
 

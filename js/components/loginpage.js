@@ -62,13 +62,18 @@ export class LogInPage extends React.Component {
    }
 
   submitLogin(){
-   var dis=this;
+    var dis=this;
 
       //console.log(this.state);
       this.props.dispatch(LogInUser(
         {username:this.state.username,
            password:this.state.password
-         })).then(function(){
+         })).then(function(data,err){
+
+            if(err){
+              console.log(err)
+            }
+
            dis.redirectToUserdashboard()
          })
 
