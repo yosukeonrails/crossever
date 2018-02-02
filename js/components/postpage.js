@@ -8,11 +8,13 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation, getPostByID} from '../actions'
+import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-
+import CommentsContainer from './comments'
+import CommentWriter from './comment-writer'
+var comments=[];
 var openPost=[];
 var imageUrl= 'url(/assets/icons/user.png)'
 var matchingData= {
@@ -111,7 +113,12 @@ export class PostPage extends React.Component{
 
     super(props)
 
+      var dis= this;
       this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
+            console.log(data);
+          dis.props.dispatch(getCommentsByPostID(data.payload._id)).then(function(data){
+              console.log(data);
+          });
 
       })
 
@@ -121,21 +128,41 @@ export class PostPage extends React.Component{
 
     }
 
+    renderComments(){
+        comments=[];
+        this.props.comments.map(function(comment){
+
+            comments.push(  <CommentsContainer data={comment}/>)
+            
+        })
+    }
+
     render () {
 
       if(this.props.openPost !== null){
-
           openPost= <OpenPost data={this.props.openPost} />;
+      }
 
+      if(this.props.comments.length > 0){
+          this.renderComments();
       }
 
       return(
 
           <div className="open-post">
 
+       <div className="post-section">
+                  {openPost}
+      </div>
 
-              {openPost}
 
+        <div className="comments-section">
+              {comments}
+        </div>
+
+        <div className="comment-writer-section">
+              <CommentWriter/>
+        </div>
 
           </div>
 
@@ -149,7 +176,8 @@ export class PostPage extends React.Component{
 
         return {
             loggedUser:state.loggedUser,
-            openPost:state.openPost
+            openPost:state.openPost,
+            comments:state.comments
         }
 
   }

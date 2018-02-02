@@ -799,12 +799,12 @@ button:focus {outline:0;}
 }
 
 .group-post{
-  transition: 0.3s;
+  transition: .3s;
   width: 70%;
   margin-left: auto;
+  max-width: 700px;
   margin-right: auto;
   background-color: #fff;
-  //border-radius: 10px;
   box-shadow: -1px 4px 18px 0 #292929;
   min-width: 450px;
   padding-bottom: 10px;
@@ -876,9 +876,9 @@ button:focus {outline:0;}
         h2{
           font-size: 17px;
         font-weight: 300;
-        padding: 3%;
         padding-left: 30px;
         padding-right: 30px;
+        padding-top: 10px;
         }
 
         .post-bottom-number-container{
@@ -983,9 +983,127 @@ button:focus {outline:0;}
 }
 
 .open-post{
-    padding-top: 10vh;
-    background: linear-gradient(#251e1e,#2c2c5f);
-    min-height: 100vh;
+  background: linear-gradient(#251e1e,#2c2c5f);
+  padding-top: 30px;
+  overflow: scroll;
+  max-height: 85vh;
+  padding-bottom: 100px;
+  min-height: 85vh;
+}
+
+
+// comments
+// .comments-section{
+//   overflow: scroll;
+//     height: 45vh;
+// }
+
+.comment-connector{
+  height: 15px;
+  width: 50%;
+  float: left;
+  border-right: 1px solid #fff;
+}
+
+.comments{
+  width: 75%;
+  min-height: 63px;
+  background-color: #eaeaea;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 650px;
+  overflow: hidden;
+  min-width: 400px;
+  border-radius: 5px;
+
+      img{
+        width: 20px;
+      }
+
+}
+
+.comments-user-image{
+  float: left;
+  width: 15%;
+   h2{
+     font-size: 13px;
+     text-align: center;
+     margin: 0;
+     margin-top: 10px;
+     font-weight: 400;
+   }
+    img{
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      float: none;
+      border-radius: 50%;
+      margin-top: 5px;
+    }
+}
+
+.comment-text{
+    float: left;
+    width: 65%;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.bottom-comments{
+  width: 20%;
+  left: 0;
+  position: relative;
+  float: left;
+  padding-bottom: 10px;
+  margin-top: 20px;
+
+    h2{
+      font-size: 20px;
+      font-weight: 200;
+      float: left;
+      width: 50%;
+      text-align: center;
+      margin: 0;
+    }
+    img{
+      width: 20px;
+      float: left;
+    }
+}
+// Comment- CommentWriter
+
+.comment-writer{
+  width: 100%;
+position: fixed;
+padding-bottom: 15px;
+bottom: 0;
+margin-left: -11vh;
+border-top: 1px solid #484848;
+background: linear-gradient(rgb(43, 40, 74),rgba(25, 25, 25, 0.84));
+
+        textarea{
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+          display: block;
+          margin-top: 30px;
+          height: 60px;
+          border-radius: 5px;
+        }
+}
+
+.comment-writer-content{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+      button{
+            float: right;
+            background-color: #2a2f2c;
+            color: #fff;
+            width: 150px;
+            margin-top: 20px;
+            border-radius: 5px;
+      }
 }
 
 
@@ -1206,9 +1324,8 @@ input{
 }
 
 .setup-window{
-  width: 100%;
-  position: absolute;
-  top:0;
+    position: relative;
+    top: 0;
     margin-top: 10px;
     margin-left: auto;
     height: 100vh;
@@ -1399,12 +1516,13 @@ h2{
 .log-in-top{
   height: 110px;
   width: 400px;
-  background: linear-gradient(#2f2fff,#1f3b6f);
-  color: white;
+  background: linear-gradient(#5252c7,#1f3b6f);
+  color: #fff;
   padding-top: 20px;
   border-top-right-radius: 10px;
   text-align: center;
   border-top-left-radius: 10px;
+  
   h1{
     margin: 0;
   margin-top: 10px;
@@ -1458,12 +1576,12 @@ h2{
       height: 300px;
 
       input{
-            width: 300px;
-            height: 30px;
-            border-radius: 5px;
-            border: 1px solid #e0e0e0;
-            margin-top: 10px;
-            margin-bottom: 10px;
+          width: 300px;
+          height: 30px;
+          border-radius: 5px;
+          border: 1px solid #bbbbbb;
+          margin-top: 10px;
+          margin-bottom: 10px;
       }
 
   h1{

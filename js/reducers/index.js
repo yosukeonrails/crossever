@@ -3,7 +3,7 @@ import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT,
   CHANGE_DISPLAY_SETTINGS,GET_POSTS_BY_GROUPID,
   GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION,
    ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,
-   GET_USER_INFORMATION,CREATE_USER_INFORMATION,
+   GET_USER_INFORMATION,CREATE_USER_INFORMATION,GET_COMMENTS_BY_POST_ID,
    GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER,GET_POSTS_BY_ID} from '../actions/index';
 
 import {handle} from 'redux-pack';
@@ -16,6 +16,7 @@ var stateDefault = {
     loggedUser:null,
     userInformation:null,
     posts:[],
+    comments:[],
     openPost:null,
     display_settings:{
       sidebar:{display:'none'},
@@ -46,6 +47,21 @@ var reducer = function(state, action) {
         success: s => ({ ...s, loggedUser: action.payload , manuallyLogged:true  }),
 
       });
+
+      case GET_COMMENTS_BY_POST_ID:
+
+        console.log('log out at reducers');
+
+       return handle(state, action, {
+
+         failure: s => ({ ...s, logOutError:action.payload }),
+
+         success: s => ({ ...s, comments:action.payload }),
+
+       });
+
+
+
 
 
 

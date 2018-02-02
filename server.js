@@ -8,7 +8,7 @@ var config= require('./config');
 var passport= require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 //var FacebookUser= require('./models/facebookuser.js');
-
+var Comments= require('./models/comments.js');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var Post= require('./models/post.js')
@@ -414,7 +414,53 @@ app.get('/post/id/:id', function(req,res){
          })
    })
 
+/// Comments ///
+
+app.post('/comments', function(req, res){
+
+      var postData = {
+           //  postID=req.body.postID,
+             postID: req.body.postID,
+             user: req.body.user,
+            // tag: req.body.tag,
+            // groupType: req.body.groupType,
+             //title:req.body.title,
+             message: req.body.message,
+             likes: req.body.likes,
+             popularity: req.body.popularity,
+             //topic: req.body.topic,
+             time: new Date(),
+             reply:req.body.reply
+      }
+
+      Comments.create( postData , function(err, data){
+          if(err){console.log(err)};
+          console.log(data);
+          res.status(201).json(data);
+      })
+})
+
+
+
+app.get('/comments/id/:postID', function(req, res){
+
+  Comments.find({ postID:req.params.postID }, function(err, data){
+
+    if(err){
+
+    }
+    console.log(data)
+    res.json(data);
+});
+
+});
+
+
+
+
 //# Group
+
+
     app.post('/gamegroup', function(req, res){
         // what you will find by
           var query={

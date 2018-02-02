@@ -67,6 +67,51 @@ export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
       }
     }
 
+// ---COMMENTS -----//
+
+export var POST_COMMENT= 'POST_COMMENT';
+
+ export function postComment(data) {
+
+ var fetchData={
+ method:'POST',
+ headers:{
+  'Content-Type':'application/json'
+ },
+ body:JSON.stringify({
+   postID:data.postID,
+   message:data.message,
+   user:data.user,
+   likes:0,
+   popularity:0,
+   reply:[]
+ })
+
+ };
+
+ return {
+
+ type: POST_COMMENT,
+ promise: fetch('/comments', fetchData).then(function(data){
+   console.log(data)
+ return data.json();
+
+ })
+ };
+ }
+
+
+  export var GET_COMMENTS_BY_POST_ID= 'GET_COMMENTS_BY_POST_ID';
+
+    export function getCommentsByPostID(id){
+      return {
+        type:GET_COMMENTS_BY_POST_ID,
+        promise:fetch('/comments/id/'+id).then(function(data){
+           return  data.json();
+        })
+      }
+    }
+
 
 
 
