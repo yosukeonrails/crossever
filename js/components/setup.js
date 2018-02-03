@@ -10,11 +10,11 @@ var Link = router.Link;
 import SetupStep2Container from './step2';
 import SetupStep3Container from './step3';
 import SetupStep4Container from './step4';
-import {getFacebookUser, getUserInformation, createUserInformation} from '../actions'
+import {getFacebookUser, getUserInformation, createUserInformation,changeDisplaySettings} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-
+import LoadingContainer from './loading.js'
 //dv for default values''
 var dv= {
   username:null,
@@ -43,15 +43,33 @@ export class SetUp extends React.Component{
 
       super(props)
       this.nextStep= this.nextStep.bind(this);
+      this.setPercentage= this.setPercentage.bind(this);
     }
     componentWillMount(){
         this.props.dispatch(getFacebookUser())
 
         this.setState({step:0})
+        this.setState({
+            loadingDisplay:'none',
+            loadingPercentage:0
+        })
 
     }
 
+    setPercentage( display ,percentage){
 
+        console.log(this.state);
+        console.log('calling from chil')
+
+        if(Math.round(percentage) >= 100){
+            display='none'
+        }
+        this.setState({
+          loadingDisplay:display,
+          loadingPercentage:percentage
+        })
+
+    }
     getUser(){
 
           if(this.props.loggedUser){
@@ -67,12 +85,33 @@ export class SetUp extends React.Component{
 
       if(this.props.setUpInformation ){
 
+        var display={}
+
+          this.setState({
+            loadingDisplay:'block',
+            loadingPercentage:30
+          })
+
+
           var userInfo= this.props.userInformation;
           var data= this.props.setUpInformation;
 
           Object.assign(userInfo, {details:data} );
 
-          this.props.dispatch(createUserInformation(userInfo));
+          var dis= this;
+
+          this.setState({
+            loadingPercentage:50
+          })
+
+
+          this.props.dispatch(createUserInformation(userInfo))
+
+          this.setState({
+            loadingDisplay:'none',
+            loadingPercentage:0
+          })
+
 
       }
 
@@ -93,10 +132,6 @@ export class SetUp extends React.Component{
         }))
       }
 
-
-
-
-
     }
 
 
@@ -105,13 +140,17 @@ export class SetUp extends React.Component{
 
       this.getUser();
 
-
-      var stepsArray=[<StepOne username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container/>]
+      var stepsArray=[<StepOne username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container setPercentage={this.setPercentage} />]
 
       return(
+        <div>
+         <LoadingContainer display={this.state.loadingDisplay} percentage={this.state.loadingPercentage} />
+
         <div className="setup-window">
+
             {stepsArray[this.state.step]}
             <button onClick={this.nextStep}> Next </button>
+        </div>
         </div>
     );
   }
@@ -127,7 +166,8 @@ export class SetUp extends React.Component{
             topGames:state.topGames,
             selectedGameDataArray: state.selectedGameDataArray,
             setUpInformation:state.setUpInformation,
-            userInformation:state.userInformation
+            userInformation:state.userInformation,
+            display_settings:state.display_settings
         }
 
   }

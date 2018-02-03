@@ -10,6 +10,7 @@ var Router = router.Router;
 var Route = router.Route;
 var Link = router.Link;
 
+import LoadingContainer from './loading.js'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -17,14 +18,19 @@ import {getTopGames,searchGame,createGameGroup,getGameGroupById,getGameCityById,
 import GameBubbleContainer from './game-bubble.js'
 import SelectedGamesContainer from './selected-games.js'
 var memberOf= {group:[], city:[] }
-
+var bits = null;
+var percentage= 0;
 export class SetupStep4 extends React.Component{
 
     constructor(props){
-      super(props)
+      super(props);
+
     }
 
     componentDidMount(){
+
+      console.log(this.props);
+      this.props.setPercentage('block', 0);
 
          var dis= this;
 
@@ -34,7 +40,7 @@ export class SetupStep4 extends React.Component{
          var members=[];
          var cityMembers=[];
 
-    // 1. define user
+
 
          var user= {
            name:this.props.loggedUser.first_name,
@@ -51,40 +57,46 @@ export class SetupStep4 extends React.Component{
 
     //2. For each game selected,
 
-         this.props.selectedGameDataArray.map(function(game){
+         bits= (100/ this.props.selectedGameDataArray.length);
+         percentage= 0;
+         console.log(bits)
 
-          // define Ids for group and city
+                       this.props.selectedGameDataArray.map(function(game){
 
-            var str=location.country+ location.state+location.city
-            var cityID= str.replace(/ /g,'').toLowerCase();
-            var gameCityID= cityID+game._id;
-            var cityName= game.name+' '+location.city;
+                        // define Ids for group and city
 
-      // define group and city data.
+                          var str=location.country+ location.state+location.city
+                          var cityID= str.replace(/ /g,'').toLowerCase();
+                          var gameCityID= cityID+game._id;
+                          var cityName= game.name+' '+location.city;
 
-           var group= {
-             name: game.name,
-             gameData:game,
-             gameID:game._id,
-             members:[]
-           }
+                    // define group and city data.
 
-          var city= {
-            name:cityName,
-            gameData:game,
-            gameCityID:gameCityID,
-            gameID:game._id,
-            cityID:cityID,
-            location:location,
-            members:[]
-          }
+                         var group= {
+                           name: game.name,
+                           gameData:game,
+                           gameID:game._id,
+                           members:[]
+                         }
 
-        // 3. check if the group already exists
+                        var city= {
+                          name:cityName,
+                          gameData:game,
+                          gameCityID:gameCityID,
+                          gameID:game._id,
+                          cityID:cityID,
+                          location:location,
+                          members:[]
+                        }
 
-           dis.checkGroupExistance(user,group,city)
+                      // 3. check if the group already exists
+
+                         dis.checkGroupExistance(user,group,city)
 
 
-         })
+                       })
+
+
     }
 
 
@@ -105,6 +117,8 @@ export class SetupStep4 extends React.Component{
 
     checkGroupExistance(user,group,city){
 
+
+
       var dis= this;
        this.props.dispatch(getGameGroupById(group.gameID)).then(function(res){
 
@@ -116,6 +130,8 @@ export class SetupStep4 extends React.Component{
 
         group.members=[user.userID]
         dis.createGroup(group)
+
+
 
       //then check if the city exists
           dis.checkCityExistance(user, group, city)
@@ -139,6 +155,8 @@ export class SetupStep4 extends React.Component{
 
     checkCityExistance(user, group , city){
 
+
+
       var dis= this;
 
          this.props.dispatch(getGameCityById(city.gameCityID)).then(function(res){
@@ -160,28 +178,34 @@ export class SetupStep4 extends React.Component{
     }
 
     createCity(city){
-
+        var dis=this;
         // addding a member Of object to user Info //
 
         console.log('creating city')
         memberOf.city.push(city.gameCityID);
 
-        this.props.dispatch(createGameCity(city))
+        this.props.dispatch(createGameCity(city)).then(function(){
+          percentage= percentage+ (bits/2);
+          dis.props.setPercentage('block', percentage );
+        })
 
     }
 
     createGroup(group){
-
+        var dis=this;
       console.log('creating group');
       console.log(group)
       memberOf.group.push(group.gameID);
 
-      this.props.dispatch(createGameGroup(group))
+      this.props.dispatch(createGameGroup(group)).then(function(){
+        percentage= percentage+ (bits/2);
+        dis.props.setPercentage('block', percentage );
+      })
 
     }
 
     updateGroup( group, user){
-        console.log('updating group')
+      var dis=this;
 
       var groupData= {
         gameID:group.gameID,
@@ -193,7 +217,8 @@ export class SetupStep4 extends React.Component{
     //  group.members.push(user);
       memberOf.group.push(group.gameID);
       this.props.dispatch(updateGameGroup(groupData)).then(function(data){
-          console.log(data);
+        percentage= percentage+ (bits/2);
+        dis.props.setPercentage('block', percentage );
       })
 
     }
@@ -201,7 +226,7 @@ export class SetupStep4 extends React.Component{
 
 
     updateGameCity( city, user){
-
+        var dis=this;
 
       var cityData= {
         gameCityID:city.gameCityID,
@@ -214,7 +239,8 @@ export class SetupStep4 extends React.Component{
       memberOf.city.push(city.gameCityID);
 
       this.props.dispatch(updateGameCity(cityData)).then(function(data){
-            console.log(data)
+        percentage= percentage+ (bits/2);
+        dis.props.setPercentage('block', percentage );
       })
 
 

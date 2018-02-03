@@ -21,7 +21,8 @@ var stateDefault = {
     display_settings:{
       sidebar:{display:'none'},
       postCreator:{display:'none'},
-      viewPort:{marginLeft:'0'}
+      viewPort:{marginLeft:'0'},
+      loadingPage:{display:'none', percentage:0}
     }
 };
 
