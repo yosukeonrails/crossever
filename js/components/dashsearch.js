@@ -20,12 +20,19 @@ export class DashSearch extends React.Component{
 
     super(props)
 
+    this.addMoreGames = this.addMoreGames.bind(this);
+
     var display= {}
 
     Object.assign(display, this.props.display_settings);
     display.sidebar.display='block';
     this.props.dispatch(changeDisplaySettings(display));
 
+    }
+
+
+    addMoreGames(){
+        hashHistory.push('/moregames/'+this.props.loggedUser.userID)
     }
 
 
@@ -53,14 +60,18 @@ export class DashSearch extends React.Component{
 
           <div className="dash-search-top">
               <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>Your Games</h1> </div>
-            <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/> </div>
+                <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/>
+                <button onClick={this.addMoreGames}>Add More Games</button>
+                </div>
           </div>
 
 
 
             <div className="dash-results">
+
                 {myCities}
-          </div>
+
+            </div>
 
           </div>
 

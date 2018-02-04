@@ -107,12 +107,28 @@ export class GameBubble extends React.Component{
     render () {
 
      var gameIdList=[];
-
+     var bubbleImage=""
+     var h2Style={fontSize:"12px"};
+     var bubbleImageStyle = {backgroundImage:this.props.imageURL}
      hoverStyle = this.state.hoverStyle;
   //    console.log(gameIdList)
 
 
-//  console.log(this.props)
+    console.log(this.props)
+      if(this.props.styles){
+         console.log('explicit style')
+
+          let h2= this.props.styles.h2;
+          let newH2Style= Object.assign(h2Style , h2)
+          h2Style = newH2Style;
+
+
+          let bubbleImage= this.props.styles.bubbleImage
+          let newBubbleStyle= Object.assign(bubbleImageStyle , bubbleImage)
+
+          bubbleImageStyle = newBubbleStyle;
+            console.log(bubbleImageStyle)
+      }
 
       if( this.props.gameIdList.includes( this.props.data._id )){
           hoverStyle = ' select-game-hover '
@@ -122,14 +138,15 @@ export class GameBubble extends React.Component{
       }
 
 
+
       return(
 
         <div className="game-container" >
 
-          <div className={'game-image '+hoverStyle} key={this.props.key}  style={{backgroundImage:this.props.imageURL}}  onMouseOut={()=> this.hoverGame('out')}  onMouseOver={()=> this.hoverGame('in')} onClick={()=> this.selectGame() } >
+          <div className={'game-image '+hoverStyle} key={this.props.key}  style={bubbleImageStyle}  onMouseOut={()=> this.hoverGame('out')}  onMouseOver={()=> this.hoverGame('in')} onClick={()=> this.selectGame() } >
           </div>
 
-            <h2 style={{ fontSize:"12px"}}>
+            <h2 style={h2Style}>
                   {this.props.name}
             </h2>
 

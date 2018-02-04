@@ -10,7 +10,7 @@ var Link = router.Link;
 import SetupStep2Container from './step2';
 import SetupStep3Container from './step3';
 import SetupStep4Container from './step4';
-import {getFacebookUser, getUserInformation, createUserInformation,changeDisplaySettings} from '../actions'
+import {getFacebookUser, getUserInformation,addToSelectedGame, createUserInformation,changeDisplaySettings,setUpInformation} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -116,7 +116,9 @@ export class SetUp extends React.Component{
       }
 
         if(this.state.step=== 3 ){
-
+          console.log('making setup null')
+            this.props.dispatch(setUpInformation(null));
+            this.props.dispatch(addToSelectedGame([]))
             hashHistory.push('/userdashboard')
 
          }

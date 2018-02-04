@@ -37,7 +37,7 @@ componentDidMount(){
   }
 
   submitSearch(){
-  
+
       this.props.dispatch(searchGame(this.state.searchString))
   }
 
@@ -112,7 +112,7 @@ componentDidMount(){
             </div>
 
             <div className="step3-selection">
-              <SelectedGamesContainer/>
+              <SelectedGamesContainer styles={ {bubbleLeft:"none"}, {bubbleImage:{width:"80px",height:"80px", marginTop:"10px"}} }/>
             </div>
 
         </div>
