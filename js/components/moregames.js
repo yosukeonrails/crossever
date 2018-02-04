@@ -8,7 +8,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,getTopGames,addToSelectedGame, getGameGroupByUser,setUpInformation,createUserInformation} from '../actions'
+import {getFacebookUser, getUserInformation,getTopGames,searchGame,addToSelectedGame, getGameGroupByUser,setUpInformation,createUserInformation} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -25,6 +25,7 @@ export class MoreGames extends React.Component{
     this.getGroupByUser = this.getGroupByUser.bind(this);
     this.getTopGames = this.getTopGames.bind(this);
     this.setPercentage= this.setPercentage.bind(this);
+    this.handleInput = this.handleInput.bind(this);
 
     this.state= {
         topGames:[],
@@ -139,17 +140,58 @@ export class MoreGames extends React.Component{
       }
 
       addingIsDone(){
-        
+
           this.props.dispatch(setUpInformation(null));
           this.props.dispatch(addToSelectedGame([]))
           hashHistory.push('/userdashboard')
       }
 
+      handleInput(e){
+
+          console.log(e.target.value);
+
+          if(e.target.value.length === 0){
+              this.setState({emptyString:true})
+
+          } else{
+
+              this.props.dispatch(searchGame(e.target.value));
+              this.setState({emptyString:false})
+          }
+
+
+      }
+
       renderBubbles(topGames, emptyString){
 
         var gameList= [];
+        console.log(this.props.foundGames);
+        console.log(emptyString)
 
-        if(topGames && this.state.myGamesIDs && emptyString === true){
+
+        if(this.props.foundGames && this.state.myGamesIDs && emptyString === false){
+
+          console.log('running renderning search')
+          var dis= this;
+           gameList=[];
+           console.log(this.props.foundGames
+           )
+           this.props.foundGames.map(function(game, i){
+                  var hoverStyle=''
+                  // if found inside selectedData with same id , then seleted === false
+                  var selected= false;
+                  var imageURL= 'url('+game.box.large+')';
+                //  var stringID= game.game._id.toString();
+                //  console.log(stringID)
+                      if(dis.state.myGamesIDs.includes(game._id) === false ){
+
+                          gameList.push(<GameBubbleContainer name={game.name} selected={false} imageURL={imageURL} id={i} key={i} data={game} />)
+                      }
+
+                    })
+
+                return gameList
+            } else if (topGames && this.state.myGamesIDs && emptyString === true){
 
           var dis= this;
            gameList=[];
@@ -188,7 +230,7 @@ export class MoreGames extends React.Component{
 
         <div className="dash-search-top">
             <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>More Games</h1> </div>
-              <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/>
+              <div className="input-container"><input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
 
               </div>
         </div>
@@ -224,7 +266,8 @@ export class MoreGames extends React.Component{
             loggedUser:state.loggedUser,
             topGames:state.topGames,
             userInformation:state.userInformation,
-            setUpInformation:state.setUpInformation
+            setUpInformation:state.setUpInformation,
+            foundGames:state.foundGames
         }
 
   }

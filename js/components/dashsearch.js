@@ -21,15 +21,53 @@ export class DashSearch extends React.Component{
     super(props)
 
     this.addMoreGames = this.addMoreGames.bind(this);
-
+    this.handleInput = this.handleInput.bind(this);
     var display= {}
 
     Object.assign(display, this.props.display_settings);
     display.sidebar.display='block';
     this.props.dispatch(changeDisplaySettings(display));
 
+        this.state={
+          emptyString:true
+        }
+
     }
 
+    handleInput(e){
+
+    let string= e.target.value;
+    let games= [];
+
+    if(string.length === 0){
+
+        this.setState({
+          emptyString:true
+        })
+
+    }
+
+    if(string.length > 0){
+
+        this.props.cities.map(function(game){
+
+          let gameName= game.name.toLowerCase();
+
+            if(gameName.indexOf(string)!== -1){
+
+                games.push(game);
+            }
+
+        })
+
+        this.setState({
+          emptyString:false,
+          filteredCities:games
+        })
+    }
+
+
+    }
 
     addMoreGames(){
         hashHistory.push('/moregames/'+this.props.loggedUser.userID)
@@ -39,18 +77,36 @@ export class DashSearch extends React.Component{
     render () {
 
       var myCities= [];
+      var cities;
 
-      var cities=this.props.cities;
 
       console.log(cities)
 
-      cities.map(function(city){
+      if(this.state.emptyString === true){
 
-      console.log(city)
+        cities=this.props.cities;
+        cities.map(function(city){
+                console.log(city);
 
-              myCities.push(<GameCardContainer data={city} />)
+                myCities.push(<GameCardContainer data={city} />)
+        })
+      }
 
-      })
+      if(this.state.emptyString === false){
+
+        cities=this.state.filteredCities;
+
+        cities.map(function(city){
+                console.log(city);
+
+                myCities.push(<GameCardContainer data={city} />)
+        })
+
+      }
+
+
+
+
       //  this.renderMyCities();
 
 
@@ -60,7 +116,7 @@ export class DashSearch extends React.Component{
 
           <div className="dash-search-top">
               <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>Your Games</h1> </div>
-                <div className="input-container"><input placeholder="Search" ></input><img src="/assets/icons/search.png"/>
+                <div className="input-container"><input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
                 <button onClick={this.addMoreGames}>Add More Games</button>
                 </div>
           </div>
