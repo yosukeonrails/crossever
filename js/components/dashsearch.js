@@ -8,7 +8,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,changeDisplaySettings} from '../actions'
+import {getFacebookUser, getUserInformation,changeDisplaySettings,setUpInformation,addToGameIdList, addToSelectedGame} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -70,6 +70,11 @@ export class DashSearch extends React.Component{
     }
 
     addMoreGames(){
+
+        this.props.dispatch(setUpInformation(null));
+      this.props.dispatch(addToSelectedGame([]));
+      this.props.dispatch(addToGameIdList([]));
+
         hashHistory.push('/moregames/'+this.props.loggedUser.userID)
     }
 

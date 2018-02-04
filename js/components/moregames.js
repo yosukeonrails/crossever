@@ -8,7 +8,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,getTopGames,searchGame,addToSelectedGame, getGameGroupByUser,setUpInformation,createUserInformation} from '../actions'
+import {getFacebookUser, getUserInformation,getTopGames,searchGame,addToSelectedGame,addToGameIdList,getGameGroupByUser,setUpInformation,createUserInformation} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -27,10 +27,13 @@ export class MoreGames extends React.Component{
     this.setPercentage= this.setPercentage.bind(this);
     this.handleInput = this.handleInput.bind(this);
 
+
+
     this.state= {
         topGames:[],
         generator:""
     }
+
 
     }
 
@@ -142,7 +145,9 @@ export class MoreGames extends React.Component{
       addingIsDone(){
 
           this.props.dispatch(setUpInformation(null));
-          this.props.dispatch(addToSelectedGame([]))
+          this.props.dispatch(addToSelectedGame([]));
+          this.props.dispatch(addToGameIdList([]));
+
           hashHistory.push('/userdashboard')
       }
 
