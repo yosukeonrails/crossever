@@ -89,7 +89,7 @@ export class CityForum extends React.Component{
     }
 
     getPosts(){
-      
+
           this.props.dispatch(getPostByGroupID(this.props.params.city_id)).then(function(data){
 
           })

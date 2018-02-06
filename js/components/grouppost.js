@@ -36,6 +36,7 @@ export class GroupPost extends React.Component{
       display.viewPort.marginLeft='200px';
       this.props.dispatch(changeDisplaySettings(display));
 
+
     }
 
     checkUserType(){
@@ -46,7 +47,6 @@ export class GroupPost extends React.Component{
           else {
              imageUrl= 'url(/assets/icons/user.png)'
           }
-
 
     }
 
@@ -103,7 +103,7 @@ export class GroupPost extends React.Component{
                   <div className="post-bottom-icons-container">
 
                         <div id="post-bottom-icons">
-                          <div id="post-bottom-icon"><img src="/assets/icons/comment.png"></img><h2>2</h2><h3>comments</h3></div>
+                          <div id="post-bottom-icon"><img src="/assets/icons/comment.png"></img><h2>{this.props.data.comments}</h2><h3>comments</h3></div>
                           <div id="post-bottom-icon"><img src="/assets/icons/heart-icon.png"></img><h2>{this.props.data.likedBy.length}</h2><h3>likes</h3></div>
                         </div>
 

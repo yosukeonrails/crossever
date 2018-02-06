@@ -26,7 +26,8 @@ export var POST_POST= 'POST_POST';
    likedBy:data.likedBy,
    popularity:data.popularity,
    groupType:data.groupType,
-   tag:data.tag
+   tag:data.tag,
+   comments:data.comments
 
  })
 
@@ -67,7 +68,8 @@ export var POST_POST= 'POST_POST';
      likedBy:data.likedBy,
      popularity:data.popularity,
      groupType:data.groupType,
-     tag:data.tag
+     tag:data.tag,
+     comments:data.comments
 
    })
 

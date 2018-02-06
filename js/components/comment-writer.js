@@ -8,7 +8,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,postComment,getCommentsByPostID} from '../actions'
+import {getFacebookUser, getUserInformation,postComment,getCommentsByPostID,updatePost,getPostByID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -32,7 +32,10 @@ export class CommentWriter extends React.Component{
     }
 
     handleSubmit(){
+      event.preventDefault();
+
       var dis=this;
+      let textarea= this.refs.comment_text
 
 
       if(!this.props.loggedUser){
@@ -49,6 +52,23 @@ export class CommentWriter extends React.Component{
           reply:[]
       }
 
+
+      let postData= {};
+      Object.assign(postData, this.props.openPost)
+      Object.assign(postData, {postID:this.props.openPost._id})
+      let comments= postData.comments;
+      comments++
+      Object.assign(postData,{comments:comments})
+
+      this.props.dispatch(updatePost(postData)).then(function(){
+            dis.props.dispatch(getPostByID(postData.postID)).then(function(data){
+                  console.log(data);
+            })
+      })
+
+
+
+
       this.props.dispatch(postComment(data)).then(function(data){
 
             dis.props.dispatch(getCommentsByPostID(data.payload.postID)).then(function(data){
@@ -57,6 +77,7 @@ export class CommentWriter extends React.Component{
 
       });
 
+      textarea.value="";
     }
 
 
@@ -69,7 +90,7 @@ export class CommentWriter extends React.Component{
           <div className="comment-writer">
 
           <div className="comment-writer-content">
-                <textarea onChange={this.handleText}></textarea>
+                <textarea ref="comment_text" onChange={this.handleText}></textarea>
                 <button onClick={this.handleSubmit}>Submit</button>
           </div>
           </div>

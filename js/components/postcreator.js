@@ -115,7 +115,8 @@ export class PostCreator extends React.Component{
              likedBy:[],
              popularity:0,
              groupType:this.props.type,
-             tag:['feature to be added']
+             tag:['feature to be added'],
+             comments:0
           }
 
           data.groupID= this.props.group[group];

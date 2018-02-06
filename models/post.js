@@ -23,7 +23,8 @@ var PostSchema= new mongoose.Schema({
   time : { type : Date, default: Date.now },
   likedBy:{type:Array},
   popularity:{type:Number, default:0},
-  topic:{type:String}
+  topic:{type:String},
+  comments:{type:Number}
 
 })
 

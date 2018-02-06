@@ -405,7 +405,8 @@ app.get('/post/id/:id', function(req,res){
                 likedBy: req.body.likedBy,
                 popularity: req.body.popularity,
                 topic: req.body.topic,
-                time: new Date()
+                time: new Date(),
+                comments:req.body.comments
          }
 
          Post.create( postData , function(err, data){
@@ -430,7 +431,8 @@ app.get('/post/id/:id', function(req,res){
           likedBy: req.body.likedBy,
           popularity: req.body.popularity,
           topic: req.body.topic,
-          time: new Date()
+          time: new Date(),
+          comments:req.body.comments
         }
           console.log('here is post ID')
           console.log(req.body.postID)
