@@ -402,7 +402,7 @@ app.get('/post/id/:id', function(req,res){
                 groupType: req.body.groupType,
                 title:req.body.title,
                 message: req.body.message,
-                likes: req.body.likes,
+                likedBy: req.body.likedBy,
                 popularity: req.body.popularity,
                 topic: req.body.topic,
                 time: new Date()
@@ -413,6 +413,35 @@ app.get('/post/id/:id', function(req,res){
              console.log(data);
              res.status(201).json(data);
          })
+   })
+
+
+   app.put('/post',  function(req, res){
+
+      var query= {_id:req.body.postID};
+
+        var data={
+          groupID: req.body.groupID,
+          user: req.body.user,
+          tag: req.body.tag,
+          groupType: req.body.groupType,
+          title:req.body.title,
+          message: req.body.message,
+          likedBy: req.body.likedBy,
+          popularity: req.body.popularity,
+          topic: req.body.topic,
+          time: new Date()
+        }
+          console.log('here is post ID')
+          console.log(req.body.postID)
+    Post.updateOne( query , data ,function(err, data){
+
+      if(err){console.log(err)};
+      console.log('here is data')
+      console.log(data);
+      res.status(201).json(data);
+
+    })
    })
 
 /// Comments ///

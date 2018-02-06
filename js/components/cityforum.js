@@ -71,7 +71,7 @@ export class CityForum extends React.Component{
 
     createPost(){
 
-          console.log('showing creator')
+
           var display={}
           Object.assign(display, this.props.display_settings);
           display.postCreator.display='block'
@@ -89,10 +89,8 @@ export class CityForum extends React.Component{
     }
 
     getPosts(){
-
+      
           this.props.dispatch(getPostByGroupID(this.props.params.city_id)).then(function(data){
-
-            console.log(data)
 
           })
 
@@ -100,7 +98,7 @@ export class CityForum extends React.Component{
 
     render () {
 
-      console.log(this.props)
+
 
       posts= this.props.posts;
 
@@ -192,7 +190,6 @@ export class CityForum extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

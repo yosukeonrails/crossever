@@ -23,7 +23,6 @@ import HomeContainer from './home.js'
             user= this.props.loggedUser;
 
             imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=300&height=300)";
-            console.log(user);
 
               userNav= (<div className="user-name">  <h3>Hello , {user.first_name} </h3></div>)
         }

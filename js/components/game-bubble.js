@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -76,8 +74,6 @@ export class GameBubble extends React.Component{
 
 
        this.props.dispatch(addToGameIdList(gameIdList));
-
-       console.log(setUpData)
        Object.assign(setUpData , {games:this.props.selectedGameDataArray})
        this.props.dispatch(setUpInformation(setUpData));
    }
@@ -111,12 +107,8 @@ export class GameBubble extends React.Component{
      var h2Style={fontSize:"12px"};
      var bubbleImageStyle = {backgroundImage:this.props.imageURL}
      hoverStyle = this.state.hoverStyle;
-  //    console.log(gameIdList)
 
-
-    console.log(this.props)
       if(this.props.styles){
-         console.log('explicit style')
 
           let h2= this.props.styles.h2;
           let newH2Style= Object.assign(h2Style , h2)
@@ -127,7 +119,6 @@ export class GameBubble extends React.Component{
           let newBubbleStyle= Object.assign(bubbleImageStyle , bubbleImage)
 
           bubbleImageStyle = newBubbleStyle;
-            console.log(bubbleImageStyle)
       }
 
       if( this.props.gameIdList.includes( this.props.data._id )){

@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -8,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID} from '../actions'
+import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID,updatePost} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -22,6 +20,7 @@ var matchingData= {
 events:{image: "/assets/icons/events.png",name:"Events"},
 general:{image: "/assets/icons/discussion.png",name:"General Discussion"},
 }
+var heartStyle="brightness(175%)";
 
 export class OpenPost extends React.Component{
 
@@ -30,10 +29,51 @@ export class OpenPost extends React.Component{
       super(props)
 
       this.checkUserType = this.checkUserType.bind(this);
+      this.likePost= this.likePost.bind(this);
 
+      if(this.props.data.likedBy.includes(this.props.user.userID)){
+          console.log('contains the user make the heart red');
+          this.state={
+              heartStyle:'none'
+          }
+      } else{
+        this.state={
+            heartStyle:'brightness(175%)'
+        }
+      }
 
       }
 
+      likePost(){
+
+        let data= {};
+
+
+
+        console.log(this.props.data);
+
+        Object.assign(data, this.props.data);
+        Object.assign(data, {postID: this.props.data._id} )
+        let index=  data.likedBy.indexOf(this.props.user.userID);
+
+        if(index!==-1){
+          data.likedBy.splice(index, 1);
+
+          this.setState({
+              heartStyle:'brightness(175%)'
+          })
+        } else {
+          data.likedBy.push(this.props.user.userID);
+
+          this.setState({
+              heartStyle:'none'
+          })
+        }
+
+          this.props.likePost(data);
+
+
+      }
 
       checkUserType(){
 
@@ -78,7 +118,7 @@ export class OpenPost extends React.Component{
 
                         <div id="post-bottom-icons">
                           <div id="post-bottom-icon"><img src="/assets/icons/comment.png"></img><h2>2</h2><h3>comments</h3></div>
-                          <div id="post-bottom-icon"><img src="/assets/icons/heart-icon.png"></img><h2>4</h2><h3>likes</h3></div>
+                          <div id="post-bottom-icon">< img onClick={this.likePost} style={{ filter:this.state.heartStyle }} src="/assets/icons/heart-icon.png"></img><h2>{this.props.data.likedBy.length}</h2><h3>likes</h3></div>
                         </div>
 
                   </div>
@@ -113,15 +153,21 @@ export class PostPage extends React.Component{
 
     super(props)
 
+      this.likePost= this.likePost.bind(this);
       var dis= this;
       this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
-            console.log(data);
+
           dis.props.dispatch(getCommentsByPostID(data.payload._id)).then(function(data){
-              console.log(data);
+
           });
 
       })
 
+    }
+
+    likePost(data){
+      console.log(data);
+       this.props.dispatch(updatePost(data));
     }
 
     getPostByID(){
@@ -133,14 +179,14 @@ export class PostPage extends React.Component{
         this.props.comments.map(function(comment){
 
             comments.push(  <CommentsContainer data={comment}/>)
-            
+
         })
     }
 
     render () {
 
       if(this.props.openPost !== null){
-          openPost= <OpenPost data={this.props.openPost} />;
+          openPost= <OpenPost data={this.props.openPost} user={this.props.loggedUser} likePost={this.likePost}/>;
       }
 
       if(this.props.comments.length > 0){
@@ -172,7 +218,6 @@ export class PostPage extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

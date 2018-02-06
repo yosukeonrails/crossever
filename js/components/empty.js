@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -40,7 +38,6 @@ export class Empty extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

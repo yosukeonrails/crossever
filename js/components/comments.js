@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -27,7 +27,6 @@ export class Comments extends React.Component{
 
     render () {
 
-    console.log(this.props)
     var imageUrl=""
       if(this.props.data.user){
 
@@ -65,8 +64,6 @@ export class Comments extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
-
         return {
             loggedUser:state.loggedUser,
         }

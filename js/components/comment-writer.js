@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -36,7 +36,7 @@ export class CommentWriter extends React.Component{
 
 
       if(!this.props.loggedUser){
-         console.log('no user')
+
          return
       }
 
@@ -52,7 +52,7 @@ export class CommentWriter extends React.Component{
       this.props.dispatch(postComment(data)).then(function(data){
 
             dis.props.dispatch(getCommentsByPostID(data.payload.postID)).then(function(data){
-                console.log(data);
+
             });
 
       });
@@ -80,7 +80,6 @@ export class CommentWriter extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

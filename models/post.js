@@ -21,8 +21,8 @@ var PostSchema= new mongoose.Schema({
   title:{type:String},
   message:{type:String},
   time : { type : Date, default: Date.now },
-  likes:{type:Number},
-  popularity:{type:Number},
+  likedBy:{type:Array},
+  popularity:{type:Number, default:0},
   topic:{type:String}
 
 })

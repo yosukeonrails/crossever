@@ -1,4 +1,3 @@
-console.log('catch me if you can')
 
 require('babel-polyfill');
 
@@ -42,9 +41,9 @@ export class SetupStep2 extends React.Component{
            if(this.props.loggedUser){
                  // if mannyally logged,
                  if(this.props.loggedUser.facebookId ==="guest"){
-                   console.log('manually logged , make user different') }
+                  }
                    else{
-                    console.log('make sure to have a user')
+
                  }
            }
   }
@@ -120,8 +119,7 @@ export class SetupStep2 extends React.Component{
         }
 
         Object.assign(setUpData, {locationData:locationData, locationSummary:addressSummary}) ;
-        console.log(setUpData)
-        console.log('attaching')
+
         dis.props.dispatch(setUpInformation(setUpData));
 
     })
@@ -177,7 +175,7 @@ export class SetupStep2 extends React.Component{
 
 
   var mapStateToProps= function(state){
-    console.log(state)
+
 
         return {
             loggedUser:state.loggedUser,

@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -30,7 +30,6 @@ export class GroupGenerator extends React.Component{
 
     componentDidMount(){
 
-      console.log(this.props);
       this.props.setPercentage('block', 0);
 
          var dis= this;
@@ -60,7 +59,6 @@ export class GroupGenerator extends React.Component{
 
          bits= (100/ this.props.selectedGameDataArray.length);
          percentage= 0;
-         console.log(bits)
 
                        this.props.selectedGameDataArray.map(function(game){
 
@@ -103,9 +101,6 @@ export class GroupGenerator extends React.Component{
 
 
     updateOrCreateUser(loggedUser, userInfo){
-
-        console.log('creating user')
-
 
         var userData= {
           userID:loggedUser.userID,
@@ -182,7 +177,6 @@ export class GroupGenerator extends React.Component{
         var dis=this;
         // addding a member Of object to user Info //
 
-        console.log('creating city')
         memberOf.city.push(city.gameCityID);
 
         this.props.dispatch(createGameCity(city)).then(function(){
@@ -194,8 +188,7 @@ export class GroupGenerator extends React.Component{
 
     createGroup(group){
         var dis=this;
-      console.log('creating group');
-      console.log(group)
+
       memberOf.group.push(group.gameID);
 
       this.props.dispatch(createGameGroup(group)).then(function(){
@@ -260,9 +253,7 @@ export class GroupGenerator extends React.Component{
 
     render () {
 
-      console.log('rendering')
-      console.log(this.props.setUpInformation)
-      console.log(memberOf)
+
 
       if(this.props.setUpInformation){
 
@@ -272,8 +263,6 @@ export class GroupGenerator extends React.Component{
         }
 
         this.updateUserSetUp(memberOf)} else{
-
-        console.log('it has user so move on')
 
       }
 
@@ -290,8 +279,6 @@ export class GroupGenerator extends React.Component{
 
 
   var mapStateToProps= function(state){
-    console.log(state)
-
         return {
             loggedUser:state.loggedUser,
             manuallyLogged:state.manuallyLogged,
@@ -300,7 +287,6 @@ export class GroupGenerator extends React.Component{
             userInformation:state.userInformation,
             setUpInformation:state.setUpInformation
         }
-
   }
 
 

@@ -4,7 +4,7 @@ import {LOG_IN, GET_FACEBOOK_USER,LOG_OUT,
   GET_TOP_GAMES,SEARCH_GAME, SET_UP_INFORMATION,
    ADD_TO_SELECTED_GAME, ADD_TO_GAME_ID_LIST,
    GET_USER_INFORMATION,CREATE_USER_INFORMATION,GET_COMMENTS_BY_POST_ID,
-   GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER,GET_POSTS_BY_ID} from '../actions/index';
+   GET_GAMECITY_BY_USER, GET_GROUPGAME_BY_USER,GET_POSTS_BY_ID, UPDATE_POST} from '../actions/index';
 
 import {handle} from 'redux-pack';
 
@@ -51,8 +51,6 @@ var reducer = function(state, action) {
 
       case GET_COMMENTS_BY_POST_ID:
 
-        console.log('log out at reducers');
-
        return handle(state, action, {
 
          failure: s => ({ ...s, logOutError:action.payload }),
@@ -67,8 +65,6 @@ var reducer = function(state, action) {
 
 
       case LOG_OUT:
-
-        console.log('log out at reducers');
 
        return handle(state, action, {
 
@@ -123,6 +119,8 @@ var reducer = function(state, action) {
         success: s => ({ ...s, posts:action.payload }),
 
         });
+
+    
 
 
         //--

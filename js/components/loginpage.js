@@ -36,7 +36,6 @@ export class LogInPage extends React.Component {
 
 
    facebooklogin(){
-     console.log('login in ');
 
       window.location.href='/auth/facebook';
       /*
@@ -46,7 +45,6 @@ export class LogInPage extends React.Component {
 
 
    handleUsername(e){
-       console.log(e.target.value)
 
       this.setState({
         username:e.target.value
@@ -64,7 +62,7 @@ export class LogInPage extends React.Component {
   submitLogin(){
     var dis=this;
 
-      //console.log(this.state);
+    
       this.props.dispatch(LogInUser(
         {username:this.state.username,
            password:this.state.password
@@ -85,11 +83,8 @@ export class LogInPage extends React.Component {
 
    render(){
 
-  console.log('redirecting before')
       if(this.props.loggedUser){
-          console.log('redirecting right after')
         this.redirectToUserdashboard();
-
       }
 
 
@@ -135,7 +130,7 @@ export class LogInPage extends React.Component {
 
 
 var mapStateToProps=function(state){
-  console.log(state)
+
     return{
       loggedUser:state.loggedUser,
       display_settings:state.display_settings

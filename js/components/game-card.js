@@ -1,4 +1,3 @@
-console.log('catch me if you can')
 
 require('babel-polyfill');
 
@@ -34,7 +33,6 @@ export class GameCard extends React.Component{
 
     render () {
 
-    console.log(this.props)
 
       return(
 
@@ -78,7 +76,6 @@ export class GameCard extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

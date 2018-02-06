@@ -16,8 +16,7 @@ export class SideBar extends React.Component{
    }
 
    render(){
-   console.log('why not re-render?')
-   console.log(this.props)
+     
     var imageUrl;
     var username;
     var sidebarDisplay=this.props.display_settings.sidebar.display;

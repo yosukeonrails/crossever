@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -27,8 +25,6 @@ export class Loading extends React.Component{
 
     render () {
 
-      console.log(this.props)
-      
       if(this.props.display_settings.viewPort.marginLeft ==="200px" ){
 
             pageWidth="80%";
@@ -61,7 +57,6 @@ export class Loading extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

@@ -23,7 +23,7 @@ export var POST_POST= 'POST_POST';
    title:data.title,
    message:data.message,
    topic:data.topic,
-   likes:data.likes,
+   likedBy:data.likedBy,
    popularity:data.popularity,
    groupType:data.groupType,
    tag:data.tag
@@ -36,12 +36,54 @@ export var POST_POST= 'POST_POST';
 
  type: POST_POST,
  promise: fetch('/post', fetchData).then(function(data){
-   console.log(data)
+
  return data.json();
 
  })
  };
  }
+
+
+
+
+   export var UPDATE_POST= 'UPDATE_POST';
+
+   export function updatePost(data) {
+    console.log('at action')
+     console.log(data)
+   var fetchData={
+   method:'PUT',
+   headers:{
+    'Content-Type':'application/json'
+   },
+   body:JSON.stringify({
+
+     postID:data.postID,
+     groupID:data.groupID,
+     user:data.user,
+     title:data.title,
+     message:data.message,
+     topic:data.topic,
+     likedBy:data.likedBy,
+     popularity:data.popularity,
+     groupType:data.groupType,
+     tag:data.tag
+
+   })
+
+   };
+
+   return {
+   type: UPDATE_POST,
+   promise: fetch('/post', fetchData).then(function(data){
+
+     console.log(data);
+   return data.json();
+
+   })
+   };
+   }
+
 
 
 export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
@@ -93,7 +135,6 @@ export var POST_COMMENT= 'POST_COMMENT';
 
  type: POST_COMMENT,
  promise: fetch('/comments', fetchData).then(function(data){
-   console.log(data)
  return data.json();
 
  })
@@ -159,7 +200,7 @@ export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
  return {
  type: CREATE_USER_INFORMATION,
  promise: fetch('/userinformation', fetchData).then(function(data){
-   console.log(data)
+
  return data.json();
  })
  };
@@ -379,8 +420,6 @@ export function getTopGames(){
     }
   }).then(function(data){
 
-    console.log(data);
-
     return data.json();
   })
   }
@@ -400,7 +439,6 @@ export function searchGame(searchString){
     }
   }).then(function(data){
 
-      console.log(data);
     return data.json();
   })
   }
@@ -467,8 +505,7 @@ export function logOut(){
 method: 'GET',
 credentials: 'include'
 }).then(function(data){
-    console.log('loggint out from action');
-    console.log(data)
+
          return data.json();
   })
 };

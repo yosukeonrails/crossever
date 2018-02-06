@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -127,9 +125,6 @@ export class MoreGames extends React.Component{
 
       setPercentage( display ,percentage){
 
-          console.log(this.state);
-          console.log('calling from chil')
-
           if(Math.round(percentage) >= 100){
               this.addingIsDone()
               display='none'
@@ -144,7 +139,7 @@ export class MoreGames extends React.Component{
 
       addingIsDone(){
 
-          this.props.dispatch(setUpInformation(null));
+      //this.props.dispatch(setUpInformation(null));
           this.props.dispatch(addToSelectedGame([]));
           this.props.dispatch(addToGameIdList([]));
 
@@ -152,8 +147,6 @@ export class MoreGames extends React.Component{
       }
 
       handleInput(e){
-
-          console.log(e.target.value);
 
           if(e.target.value.length === 0){
               this.setState({emptyString:true})
@@ -170,17 +163,12 @@ export class MoreGames extends React.Component{
       renderBubbles(topGames, emptyString){
 
         var gameList= [];
-        console.log(this.props.foundGames);
-        console.log(emptyString)
-
 
         if(this.props.foundGames && this.state.myGamesIDs && emptyString === false){
 
-          console.log('running renderning search')
-          var dis= this;
-           gameList=[];
-           console.log(this.props.foundGames
-           )
+                var dis= this;
+                gameList=[];
+
            this.props.foundGames.map(function(game, i){
                   var hoverStyle=''
                   // if found inside selectedData with same id , then seleted === false
@@ -206,8 +194,7 @@ export class MoreGames extends React.Component{
                   // if found inside selectedData with same id , then seleted === false
                   var selected= false;
                   var imageURL= 'url('+game.game.box.large+')';
-                //  var stringID= game.game._id.toString();
-                //  console.log(stringID)
+
                       if(dis.state.myGamesIDs.includes(game.game._id) === false ){
 
                           gameList.push(<GameBubbleContainer name={game.game.name} selected={false} imageURL={imageURL} id={i} key={i} data={game.game} />)
@@ -215,7 +202,7 @@ export class MoreGames extends React.Component{
 
                     })
             }
-          console.log(gameList)
+
           return gameList
       }
 
@@ -225,9 +212,6 @@ export class MoreGames extends React.Component{
 
       let gameList= this.renderBubbles(this.props.topGames, this.state.emptyString  );
 
-      console.log(gameList)
-
-      console.log(this.props)
 
       return(
 
@@ -265,7 +249,6 @@ export class MoreGames extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

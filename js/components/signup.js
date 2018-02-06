@@ -52,7 +52,6 @@ export class SignUp extends React.Component {
 
 
    facebooklogin(){
-     console.log('login in ');
 
       window.location.href='/auth/facebook';
       /*
@@ -170,7 +169,7 @@ export class SignUp extends React.Component {
 
     for(status in submissionStatus ){
             if(submissionStatus[status] === true ){
-                 console.log('at least one wrong ')
+
                   return
             }
     }
@@ -212,11 +211,8 @@ export class SignUp extends React.Component {
 
    render(){
 
-  console.log(this.state);
-
-
       if(this.props.loggedUser){
-          console.log('redirecting right after')
+
         this.redirectToUserdashboard();
 
       }
@@ -284,7 +280,7 @@ export class SignUp extends React.Component {
 
 
 var mapStateToProps=function(state){
-  console.log(state)
+
     return{
       loggedUser:state.loggedUser,
       display_settings:state.display_settings

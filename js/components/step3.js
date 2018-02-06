@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -125,7 +123,6 @@ componentDidMount(){
 
 
   var mapStateToProps= function(state){
-    console.log(state)
 
         return {
             loggedUser:state.loggedUser,

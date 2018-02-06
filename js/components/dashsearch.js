@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -71,10 +71,10 @@ export class DashSearch extends React.Component{
 
     addMoreGames(){
 
-        this.props.dispatch(setUpInformation(null));
+      //this.props.dispatch(setUpInformation(null));
       this.props.dispatch(addToSelectedGame([]));
       this.props.dispatch(addToGameIdList([]));
-
+      this.props.dispatch(getUserInformation(this.props.loggedUser.userID))
         hashHistory.push('/moregames/'+this.props.loggedUser.userID)
     }
 
@@ -84,15 +84,10 @@ export class DashSearch extends React.Component{
       var myCities= [];
       var cities;
 
-
-      console.log(cities)
-
       if(this.state.emptyString === true){
 
         cities=this.props.cities;
         cities.map(function(city){
-                console.log(city);
-
                 myCities.push(<GameCardContainer data={city} />)
         })
       }
@@ -102,8 +97,6 @@ export class DashSearch extends React.Component{
         cities=this.state.filteredCities;
 
         cities.map(function(city){
-                console.log(city);
-
                 myCities.push(<GameCardContainer data={city} />)
         })
 
@@ -142,7 +135,6 @@ export class DashSearch extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

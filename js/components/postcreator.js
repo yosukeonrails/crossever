@@ -1,5 +1,3 @@
-console.log('catch me if you can')
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -114,7 +112,7 @@ export class PostCreator extends React.Component{
              title:this.state.title,
              message:this.state.message,
              topic:this.state.topic,
-             likes:0,
+             likedBy:[],
              popularity:0,
              groupType:this.props.type,
              tag:['feature to be added']
@@ -122,15 +120,9 @@ export class PostCreator extends React.Component{
 
           data.groupID= this.props.group[group];
 
-          console.log('sending data');
-          console.log(data)
-
           var dis=this;
 
           this.props.dispatch(postPost(data)).then(function(data){
-
-                console.log('successful post')
-                console.log(data);
 
             var display={}
             Object.assign(display, dis.props.display_settings);
@@ -138,8 +130,7 @@ export class PostCreator extends React.Component{
             dis.props.dispatch(changeDisplaySettings(display));
 
             dis.props.dispatch(getPostByGroupID(data.payload.groupID)).then(function(data){
-              console.log('got posts by id ')
-              console.log(data);
+
             });
 
           });
@@ -213,7 +204,6 @@ export class PostCreator extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

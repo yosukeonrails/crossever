@@ -1,4 +1,3 @@
-console.log('catch me if you can')
 
 require('babel-polyfill');
 
@@ -36,7 +35,6 @@ export class GroupPost extends React.Component{
       display.sidebar.display='block';
       display.viewPort.marginLeft='200px';
       this.props.dispatch(changeDisplaySettings(display));
-
 
     }
 
@@ -76,8 +74,6 @@ export class GroupPost extends React.Component{
 
     render () {
 
-      console.log(this.props)
-
       this.checkUserType()
 
       return(
@@ -108,7 +104,7 @@ export class GroupPost extends React.Component{
 
                         <div id="post-bottom-icons">
                           <div id="post-bottom-icon"><img src="/assets/icons/comment.png"></img><h2>2</h2><h3>comments</h3></div>
-                          <div id="post-bottom-icon"><img src="/assets/icons/heart-icon.png"></img><h2>4</h2><h3>likes</h3></div>
+                          <div id="post-bottom-icon"><img src="/assets/icons/heart-icon.png"></img><h2>{this.props.data.likedBy.length}</h2><h3>likes</h3></div>
                         </div>
 
                   </div>
@@ -136,7 +132,6 @@ export class GroupPost extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

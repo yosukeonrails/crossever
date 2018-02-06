@@ -82,9 +82,6 @@ var display={
             user= this.props.loggedUser;
 
 
-            console.log(user);
-            console.log(imageUrl);
-
               userNav= (<div className="user-name">  <h3>Hello , {user.first_name} </h3></div>)
         }
 
@@ -118,7 +115,7 @@ var display={
 
 
   var mapStateToProps= function(state){
-    console.log(state)
+
 
   return {
     loggedUser:state.loggedUser

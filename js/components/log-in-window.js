@@ -28,8 +28,6 @@ export class LogInWindow extends React.Component{
 
 
   facebooklogin(){
-    console.log('login in ');
-
      window.location.href='/auth/facebook';
      /*
      1. if facebook log in successful , redirect to user page
@@ -38,19 +36,16 @@ export class LogInWindow extends React.Component{
 
 handleChangeUsername(e){
   this.setState({username:e.target.value});
-  console.log(e.target.value)
 }
 
 handleChangePassword(e){
   this.setState({password:e.target.value});
-    console.log(e.target.value)
 }
 
 handleSubmit(){
 
     var data= this.state;
     this.props.dispatch(LogInUser(data)).then(function(){
-      console.log('then happened');
       hashHistory.push('/dashboard');
     });
 

@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -58,9 +58,6 @@ export class SetUp extends React.Component{
 
     setPercentage( display ,percentage){
 
-        console.log(this.state);
-        console.log('calling from chil')
-
         if(Math.round(percentage) >= 100){
             display='none'
         }
@@ -116,7 +113,7 @@ export class SetUp extends React.Component{
       }
 
         if(this.state.step=== 3 ){
-          console.log('making setup null')
+
             this.props.dispatch(setUpInformation(null));
             this.props.dispatch(addToSelectedGame([]))
             hashHistory.push('/userdashboard')
@@ -160,7 +157,6 @@ export class SetUp extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

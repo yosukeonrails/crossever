@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -67,7 +67,6 @@ export class UserDashboard extends React.Component{
 
             this.props.dispatch(getGameCityByUser(this.props.loggedUser.userID)).then(function(data){
 
-            console.log(data)
              my_cities=data.payload
              gotAllCities = true
 
@@ -100,12 +99,9 @@ export class UserDashboard extends React.Component{
     }
 
     getLoggedUser(){
-      console.log('getting logged User')
 
       var dis=this;
       this.props.dispatch(getFacebookUser()).then(function(data){
-
-          console.log(data)
 
           if(data.error){
             hashHistory.push('/loginpage')
@@ -118,7 +114,7 @@ export class UserDashboard extends React.Component{
 
 
     getUserInformation(){
-      console.log('getting user info')
+
       var dis= this;
         this.props.dispatch(getUserInformation(dis.props.loggedUser.userID));
 
@@ -148,7 +144,7 @@ export class UserDashboard extends React.Component{
     var dis=this;
 
 
-      if(this.props.loggedUser === null ){     console.log('logged user is null'); this.getLoggedUser(); } else {
+      if(this.props.loggedUser === null ){  this.getLoggedUser(); } else {
 
         if(this.props.userInformation === null){   this.getUserInformation(); }
 
@@ -182,7 +178,6 @@ export class UserDashboard extends React.Component{
 
 
   var mapStateToProps= function(state){
-        console.log(state);
 
         return {
             loggedUser:state.loggedUser,

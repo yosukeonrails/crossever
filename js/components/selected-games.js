@@ -1,4 +1,4 @@
-console.log('catch me if you can')
+
 
 require('babel-polyfill');
 
@@ -30,10 +30,10 @@ export class SelectedGames extends React.Component{
       var array= [];
       var dis= this;
       this.props.selectedGameDataArray.map(function(game, i ){
-          console.log(game)
+
             var imageURL= 'url('+game.box.large+')';
             var selected= true;
-          console.log(dis.props)
+
            array.push(<div className="selected-bubble" style={{float:dis.props.styles.bubbleLeft}}> <GameBubbleContainer styles={dis.props.styles} name={game.name}  selected={false} imageURL={imageURL} id={i} key={i} data={game} /> </div>)
 
       })
