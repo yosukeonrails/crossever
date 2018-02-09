@@ -556,6 +556,24 @@ app.get('/comments/id/:postID', function(req, res){
 
 
 
+    app.get('/gamegroup/', function(req, res){
+
+          GameGroup.find({}, function(err, data){
+
+              if(err){
+
+              }
+              
+              console.log(data)
+              res.json(data);
+        });
+
+    });
+
+
+
+
+
 
 
     //# GameCity

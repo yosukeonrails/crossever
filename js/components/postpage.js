@@ -36,7 +36,7 @@ export class PostPage extends React.Component{
     
       
       this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
-          console.log(data);          
+               
           dis.props.dispatch(getCommentsByPostID(data.payload._id)).then(function(data){
             
                 dis.setState({
@@ -51,7 +51,7 @@ export class PostPage extends React.Component{
     }
 
     likePost(data){
-      console.log(data);
+      
        this.props.dispatch(updatePost(data));
        this.setState({liked:true});
     }
@@ -75,9 +75,6 @@ export class PostPage extends React.Component{
       openPost=[];
       
       if(this.props.openPost !== null && this.state.dataIsReady === true ){
-          console.log('re-rendered happened');
-          console.log(this.state)
-          console.log(this.props.openPost)
           openPost= <OpenPostContainer params={this.props.params.id}/>;
       }
 

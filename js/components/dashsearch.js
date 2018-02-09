@@ -33,6 +33,20 @@ export class DashSearch extends React.Component{
         }
 
     }
+    
+    getNearByCities(){
+        
+        
+      
+    }
+    
+    
+    getAllGroups(){
+        
+        
+      
+    }
+    
 
     handleInput(e){
 
@@ -115,7 +129,11 @@ export class DashSearch extends React.Component{
           <div className="dash-search-top">
               <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>Your Games</h1> </div>
                 <div className="input-container"><input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
-                <button onClick={this.addMoreGames}>Add More Games</button>
+                
+                <div className="dash-search-bottom">
+                <button onClick={this.addMoreGames}>Local Groups</button>  <button onClick={this.addMoreGames}>Near by Cities</button>   <button onClick={this.addMoreGames}>Groups Worldwide</button>  <button onClick={this.addMoreGames}>Add More Games</button>   
+                </div>
+                
                 </div>
           </div>
 

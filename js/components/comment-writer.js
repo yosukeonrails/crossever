@@ -62,7 +62,7 @@ export class CommentWriter extends React.Component{
 
       this.props.dispatch(updatePost(postData)).then(function(){
             dis.props.dispatch(getPostByID(postData.postID)).then(function(data){
-                  console.log(data);
+                  
             })
       })
 

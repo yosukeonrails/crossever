@@ -15,12 +15,20 @@ import CommentWriter from './comment-writer'
 var comments=[];
 var openPost=[];
 var imageUrl= 'url(/assets/icons/user.png)'
+
 var matchingData= {
   team:{image: "/assets/icons/teamrequest.png",name:"Team Request"},
 events:{image: "/assets/icons/events.png",name:"Events"},
 general:{image: "/assets/icons/discussion.png",name:"General Discussion"},
 }
+
 var heartStyle="brightness(175%)";
+
+var display={
+  option_menu:'none',
+  delete_background:'none'
+}
+
 
 export class OpenPost extends React.Component{
 
@@ -30,10 +38,10 @@ export class OpenPost extends React.Component{
 
       this.checkUserType = this.checkUserType.bind(this);
       this.likePost= this.likePost.bind(this);
-      
-      console.log(this.props.openPost)
+
+
       if(this.props.openPost.likedBy.includes(this.props.loggedUser.userID)){
-      
+
         this.state= {
           heartStyle:"none"
         }
@@ -43,78 +51,133 @@ export class OpenPost extends React.Component{
           heartStyle:"brightness(175%)"
         }
       }
-        
-      
+
+
+      }
+
+      componentWillMount(){
+
+        this.setState({
+           display:display
+        });
+
       }
 
       likePost(){
 
         let data= {};
+        var dis= this;
+
+       // needs to take current information from database //
+       this.props.dispatch(getPostByID(this.props.openPost._id)).then(function(res){
 
 
+          let data= res.payload;
 
-        console.log(this.props.openPost);
+          Object.assign(data, {postID: dis.props.openPost._id} )
 
-        Object.assign(data, this.props.openPost);
-        Object.assign(data, {postID: this.props.openPost._id} )
-        let index=  data.likedBy.indexOf(this.props.loggedUser.userID);
+          let index=  data.likedBy.indexOf(dis.props.loggedUser.userID);
 
-        if(index!==-1){
-          
+          if(index!==-1){
+
           data.likedBy.splice(index, 1);
-          
-          this.props.dispatch(updatePost(data));
-          this.setState({heartStyle:'brightness(170%)'});
-          
-        } else {
-          
-          data.likedBy.push(this.props.loggedUser.userID);
-          
-            this.props.dispatch(updatePost(data));  
-            this.setState({heartStyle:'none'});
-        }
-        
-      
-    
 
+          dis.props.dispatch(updatePost(data));
+          dis.setState({heartStyle:'brightness(170%)'});
+
+          } else {
+
+          data.likedBy.push(dis.props.loggedUser.userID);
+
+          dis.props.dispatch(updatePost(data));
+          dis.setState({heartStyle:'none'});
+          }
+
+       })
+
+
+
+      }
+
+      toggleStyle(key,specific){
+
+        if(this.state.display[key] === 'block'){
+              display[key] = 'none';
+         } else {
+               display[key] = 'block';
+         }
+
+         if(specific){
+            display[key] = specific;
+         }
+
+          this.setState({
+            display:display
+          })
+
+      }
+
+
+
+      authenticatePostOwner(){
+        let result='none';
+
+          if(this.props.loggedUser.userID === this.props.openPost.user.userID){
+                result="block";
+          }
+
+        return result
       }
 
       checkUserType(){
 
-            if(this.props.loggedUser.facebookId !== 'guest'){
-               imageUrl ='url(https://graph.facebook.com/'+this.props.loggedUser.facebookId+'/picture?width=300&height=300)'
+            if(this.props.openPost.user.facebookId !== 'guest'){
+               imageUrl ='url(https://graph.facebook.com/'+this.props.openPost.user.userID+'/picture?width=300&height=300)'
             } else {
                imageUrl= 'url(/assets/icons/user.png)'
             }
+
 
       }
 
 
       render () {
 
-      console.log('re-render at openPost');
-      console.log(this.state)
-      this.checkUserType()
+   var showOptions=this.authenticatePostOwner();
 
+
+    this.checkUserType()
 
         return(
 
           <div className="group-post">
+          <div style={{display:display.delete_background}}  className="post-delete-warning">
+            <div><h1> Are you sure you want to delete this poist?</h1></div>
+          </div>
 
-               <div className= "group-post-top">
+                  <div className= "group-post-top">
 
-                   <div className="post-type">
+                      <div className="post-type">
                       <img src={matchingData[this.props.openPost.topic].image}></img>
                       <h3 >{matchingData[this.props.openPost.topic].name}</h3>
-                   </div>
-                   <div className="post-title">
-                          <h1> {this.props.openPost.title} </h1>
-                   </div>
-                   <div className="post-location">
-                            <h3></h3>
-                   </div>
+                      </div>
+                              <div className="post-title">
+                              <h1> {this.props.openPost.title} </h1>
+                              </div>
+                      <div className="post-location">
+                        <h3></h3>
+                      </div>
 
-                   </div>
+                      <div style={{display:showOptions}} onClick={() => this.toggleStyle("option_menu")}  className="user-option-icon"><img src="/assets/icons/settingswhite.png"></img></div>
+
+                            <div style={{display:display.option_menu}}  onMouseLeave={()=>{ this.toggleStyle("option_menu","none") }}  className="user-options">
+                              <ul>
+                                  <li  onClick={()=>{ this.toggleStyle("option_menu","none")  }}>edit</li>
+                                  <li  onClick={()=>{ this.toggleStyle("delete_background","block")  }}>delete</li>
+                              </ul>
+                            </div>
+
+                  </div>
 
                <div className= "group-post-bottom">
 

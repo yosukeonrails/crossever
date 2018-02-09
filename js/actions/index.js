@@ -50,8 +50,7 @@ export var POST_POST= 'POST_POST';
    export var UPDATE_POST= 'UPDATE_POST';
 
    export function updatePost(data) {
-    console.log('at action')
-     console.log(data)
+  
    var fetchData={
    method:'PUT',
    headers:{

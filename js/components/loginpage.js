@@ -62,7 +62,7 @@ export class LogInPage extends React.Component {
   submitLogin(){
     var dis=this;
 
-    
+
       this.props.dispatch(LogInUser(
         {username:this.state.username,
            password:this.state.password
@@ -90,7 +90,7 @@ export class LogInPage extends React.Component {
 
      return(
         <div>
-            <div style={{position:'absolute', width:"100%"}} >
+            <div style={{position:'absolute', width:"100%", background:"linear-gradient(#353535,#0c0c0c)"}} >
               <BlueTriangle/>
             </div>
 

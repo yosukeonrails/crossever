@@ -53,7 +53,7 @@ var display={
        }
 
        if(specific){
-          display[key] = "none"
+          display[key] = specific;
        }
 
         this.setState({

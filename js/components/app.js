@@ -8,30 +8,27 @@ import SideBarContainer from './sidebar.js';
 
 export class App extends React.Component{
 
-          constructor(props){
-          super(props);
+        constructor(props){
+        super(props);
 
           }
-        render () {
-
-
-
+          render () {
 
               return(
                         <div>
                                 <NavigationContainer/>
+
+
+
                                  <SideBarContainer/>
 
                                 <div style={{marginLeft:this.props.display_settings.viewPort.marginLeft}} className="view-port">
 
-                                <div className="app-content">
-                                    {this.props.children}
-                                </div>
+                                      <div className="app-content">
+                                          {this.props.children}
+                                      </div>
 
                                 </div>
-
-
-
                         </div>
               );
         }

@@ -117,7 +117,6 @@ export class Home extends React.Component{
     }
 
     goTologIn(){
-      console.log('going to loging ')
       hashHistory.push('/loginpage')
     }
 
