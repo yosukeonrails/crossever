@@ -151,8 +151,13 @@ export class OpenPost extends React.Component{
         return(
 
           <div className="group-post">
+
           <div style={{display:display.delete_background}}  className="post-delete-warning">
-            <div><h1> Are you sure you want to delete this poist?</h1></div>
+            <div className="warning-delete-message">
+            <h1> Are you sure you want to delete this post?</h1>
+              <button style={{backgroundColor:"#4fa546"}}> Cancel </button>  <button style={{backgroundColor:"#fb6060"}} > Delete</button>
+            </div>
+
           </div>
 
                   <div className= "group-post-top">

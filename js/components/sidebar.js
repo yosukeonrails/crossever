@@ -16,7 +16,7 @@ export class SideBar extends React.Component{
    }
 
    render(){
-     
+
     var imageUrl;
     var username;
     var sidebarDisplay=this.props.display_settings.sidebar.display;
@@ -39,7 +39,7 @@ export class SideBar extends React.Component{
           <div style={{display:sidebarDisplay}} className="side-bar-container">
 
                 <div className="side-bar-blue-triangle">
-                <SideBarTriangle/>
+              
                 <div className="side-bar-profile-picture" style={{ backgroundImage:imageUrl }} >
                 </div>
                 </div>

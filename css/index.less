@@ -255,6 +255,8 @@ border-radius: 5px;
 }
 
 body{
+    margin: 0;
+    padding: 0;
     background-color:#191818!important;
 
 }
@@ -271,10 +273,10 @@ h1{
   padding-top: 10px;
   height: 60px;
   width: 100%;
+  margin: 0;
   z-index: 5;
-  position: fixed;
-  top: 0;
-  padding-right: 40px;
+  top: -22px;
+  position: relative;
   box-shadow: 2px 1px 15px 2px #1d1d1d;
 
   h1{
@@ -413,13 +415,15 @@ top: 0;
 
     h1{
       color: #fff;
-    font-size: 25px;
-    text-align: center;
-    font-weight: 300;
-    float: left;
-    margin: 0;
-    margin-top: 13px;
-    margin-left: 30px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: 300;
+      float: left;
+      margin: 0;
+      margin-top: 13px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
     }
 }
 
@@ -1006,10 +1010,10 @@ button:focus {outline:0;}
     }
 
     .user-options{
-      width: 100px;
-      background-color: #fff;
-      position: absolute;
-      right: 14%;
+        width: 100px;
+        background-color: #fff;
+        position: absolute;
+        right: 25%;
       ul{
         padding:0;
         margin: 0;
@@ -1145,6 +1149,26 @@ button:focus {outline:0;}
 
 }
 
+
+.warning-delete-message{
+  width: 50%;
+  background-color: #fff;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 25%;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+button{
+  background-color: #fb6060;
+    color: white;
+  margin-top: 10px;
+    border-radius: 5px;
+    padding: 7px;
+    width: 100px;
+}
+}
 .post-delete-warning{
     position: fixed;
     top: 0;
@@ -1155,6 +1179,7 @@ button:focus {outline:0;}
     width: 100vw;
     background-color: rgba(21, 21, 21, 0.82);
 }
+
 
 .open-post{
   background: linear-gradient(#251e1e,#2c2c5f);
@@ -1282,13 +1307,8 @@ background: linear-gradient(rgb(43, 40, 74),rgba(25, 25, 25, 0.84));
 
 
 // SIDE bar
-.side-bar-container{
-  height: 100vh;
-    width: 200px;
-    z-index: 3;
-    overflow: hidden;
-    top: 0;
-    position: fixed;
+.sidebar-container{
+
     background: linear-gradient(#1d2454,#4a689e);
     box-shadow: 4px 12px 20px 0 #252525;
 }
