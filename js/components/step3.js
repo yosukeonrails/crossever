@@ -24,10 +24,16 @@ export class SetupStep3 extends React.Component{
     this.handleInput= this.handleInput.bind(this);
     this.submitSearch= this.submitSearch.bind(this);
     this.hoverGame= this.hoverGame.bind(this);
-
+    this.clearText= this.clearText.bind(this);
   }
 
-componentDidMount(){
+  clearText(){
+      let textarea= this.refs.game_search_ref;
+      textarea.value="";
+      this.setState({input_cleared:true})
+  }
+
+  componentDidMount(){
 
     this.props.dispatch(getTopGames());
     this.setState({emptyString:true})
@@ -36,7 +42,8 @@ componentDidMount(){
 
   submitSearch(){
 
-      this.props.dispatch(searchGame(this.state.searchString))
+      this.props.dispatch(searchGame(this.state.searchString));
+      this.clearText();
   }
 
    handleInput(event){
@@ -102,7 +109,7 @@ componentDidMount(){
 
           <div className="step3-nav">
               <h1>What games do you play?</h1>
-              <label>search :</label><input onChange={this.handleInput}></input> <button onClick={this.submitSearch}>find</button>
+              <label>search :</label><input ref="game_search_ref" onChange={this.handleInput}></input> <button onClick={this.submitSearch}>find</button>
           </div>
 
             <div className="step3-result">

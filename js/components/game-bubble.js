@@ -24,6 +24,7 @@ export class GameBubble extends React.Component{
     this.handleFormSubmit= this.handleFormSubmit.bind(this);
     this.submitSearch= this.submitSearch.bind(this);
     this.hoverGame= this.hoverGame.bind(this);
+    this.selectGame= this.selectGame.bind(this);
 
   }
 
@@ -37,6 +38,8 @@ export class GameBubble extends React.Component{
   }
 
    selectGame(){
+
+
 
       var gameIdList=[];
       var list = this.props.selectedGameDataArray
@@ -76,6 +79,7 @@ export class GameBubble extends React.Component{
        this.props.dispatch(addToGameIdList(gameIdList));
        Object.assign(setUpData , {games:this.props.selectedGameDataArray})
        this.props.dispatch(setUpInformation(setUpData));
+
    }
 
    hoverGame(action){

@@ -142,7 +142,7 @@ export class SetupStep2 extends React.Component{
     this.setState({ address:address})
     // add a delay so it doesnt do this every time its typed
 
-    this.getAdress(address);
+    this.getAddress(address);
 
   }
 

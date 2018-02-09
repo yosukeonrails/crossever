@@ -151,52 +151,52 @@ export class PostCreator extends React.Component{
 
           <div className="post-creator-container">
 
-            <div className="post-creator">
+              <div className="post-creator">
 
-              <div className="post-creator-group" >
+                <div className="post-creator-group" >
                   <div id="group-image"style={{backgroundImage:imageUrl}}></div>
                   <h1>{this.props.group.name}</h1>
                 </div>
 
-                <h1>Topic</h1>
+                <div className="post-creator-right">
+                      <h1>Topic</h1>
 
-                      <div className="post-topic">
+                                  <div className="post-topic">
 
-                              <div id="topic-image">
-                              <img   onClick={this.selectTopic}  style={{filter:this.state.general.color}} id="general" src="/assets/icons/discussion.png"/>
-                              <h2 style={this.state.general.tagColor} >General</h2>
-                              </div>
+                                          <div id="topic-image">
+                                          <img   onClick={this.selectTopic}  style={{filter:this.state.general.color}} id="general" src="/assets/icons/discussion.png"/>
+                                          <h2 style={this.state.general.tagColor} >General</h2>
+                                          </div>
 
-                              <div id="topic-image">
-                              <img  onClick={this.selectTopic} style={{filter:this.state.team.color}}  id="team" src="/assets/icons/teamrequest.png"/>
-                              <h2 style={this.state.team.tagColor} >Team Request</h2>
-                              </div>
+                                          <div id="topic-image">
+                                          <img  onClick={this.selectTopic} style={{filter:this.state.team.color}}  id="team" src="/assets/icons/teamrequest.png"/>
+                                          <h2 style={this.state.team.tagColor} >Team Request</h2>
+                                          </div>
 
-                              <div id="topic-image">
-                              <img  onClick={this.selectTopic} style={{filter:this.state.events.color}} id="events" src="/assets/icons/events.png"/>
-                              <h2 style={this.state.events.tagColor} >Events</h2>
-                              </div>
-
-                      </div>
-
-                  <div className="post-creator-title">
-                    <h1>Title</h1>
-                    <input onChange={ (event)=>{this.handleInput('title', event) } } ></input>
-                  </div>
-
-                  <div className="post-creator-message">
-                    <h1>Text</h1>
-                    <textarea  onChange={ (event)=>{this.handleInput('message',event) } } rows="20" cols="50" ></textarea>
-                  </div>
-
-                  <div className="button-container">
-                  <button onClick={this.cancel} id="cancel">Cancel</button>
-                  <button style={{backgroundColor:submit_color}} onClick={this.submitForm} id="submit"  >Submit</button>
-                  </div>
-            </div>
+                                          <div id="topic-image">
+                                          <img  onClick={this.selectTopic} style={{filter:this.state.events.color}} id="events" src="/assets/icons/events.png"/>
+                                          <h2 style={this.state.events.tagColor} >Events</h2>
+                                          </div>
+                                  </div>
 
 
+                                  <div className="post-creator-title">
+                                    <h1>Title</h1>
+                                    <input onChange={ (event)=>{this.handleInput('title', event) } } ></input>
+                                  </div>
 
+                                  <div className="post-creator-message">
+                                    <h1>Text</h1>
+                                    <textarea  onChange={ (event)=>{this.handleInput('message',event) } } rows="20" cols="50" ></textarea>
+                                  </div>
+
+                                  <div className="button-container">
+                                  <button onClick={this.cancel} id="cancel">Cancel</button>
+                                  <button style={{backgroundColor:submit_color}} onClick={this.submitForm} id="submit"  >Submit</button>
+                                  </div>
+
+                            </div>
+                </div>
           </div>
 
     );

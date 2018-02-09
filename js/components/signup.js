@@ -180,7 +180,8 @@ export class SignUp extends React.Component {
         first_name:this.state.first_name.input,
         last_name:this.state.last_name.input,
         userID:this.state.username.input,
-        facebookId:'guest'
+        facebookId:'guest',
+        userImage:"/assets/icons/user.png"
     }
 
     var logInData= {
@@ -229,7 +230,7 @@ export class SignUp extends React.Component {
                 </div>
 
                   <div className="log-in-top-middle">
-                  <h1 style={{top:'155px'}} id="or">or</h1>
+                  <h1 style={{top:'175px'}} id="or">or</h1>
                   <hr style={{width: "30%", marginTop: "40px", float:"left"}}/>
                   <hr style={{width: "30%", marginTop: "40px" , float:"right"}} />
                   </div>

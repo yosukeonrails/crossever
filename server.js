@@ -171,7 +171,8 @@ app.post('/user', function(req, res) {
         first_name:req.body.first_name,
         last_name:req.body.last_name,
         facebookId:req.body.facebookId,
-        userID:req.body.username
+        userID:req.body.username,
+        userImage:req.body.userImage
     });
 
     console.log(req.body);

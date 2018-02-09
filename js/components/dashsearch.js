@@ -207,12 +207,23 @@ export class DashSearch extends React.Component{
                 <div className="input-container"><input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
                 </div>
                 <div className="dash-search-bottom">
-                    <button onClick={this.findMyGames}>My games</button>
-                    <button   onClick={ ()=>{this.findState('city')} }>In my city</button>
-                    <button   onClick={ ()=>{this.findState('state')} }>Near by Cities</button>
-                    <button   onClick={ ()=>{this.findState('country')} }>In your Country</button>
+
+                    <div className="dash-search-filter-options">
+                    <div className="dash-search-filter-container">
+                    <button  onClick={this.findMyGames}>My games</button>
+                    <button  onClick={ ()=>{this.findState('city')} }>In my city</button>
+                    <button  onClick={ ()=>{this.findState('state')} }>Near by Cities</button>
+                    </div>
+                    </div>
+
+                    <div className="dash-search-filter-options">
+                    <div className="dash-search-filter-container">
+                    <button onClick={ ()=>{this.findState('country')} }>In your Country</button>
                     <button onClick={this.findGlobal}>Groups Worldwide</button>
                     <button onClick={this.addMoreGames}>Add More Games</button>
+                    </div>
+                    </div>
+
                 </div>
           </div>
 

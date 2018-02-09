@@ -568,7 +568,8 @@ credentials: 'include'
          facebookId:data.facebookId,
          first_name:data.first_name,
          last_name:data.last_name,
-         userID:data.userID
+         userID:data.userID,
+         userImage:data.userImage
 
       })
    };
