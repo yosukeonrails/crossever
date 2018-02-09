@@ -316,7 +316,8 @@ app.post('/login',
           nickname:profile.displayName,
           facebookId:profile.id,
           token:profile.accessToken,
-          userID:profile.id
+          userID:profile.id,
+          userImage:"https://graph.facebook.com/"+profile.id+"/picture?width=300&height=300"
       // email:profile.email
     };
 
@@ -377,6 +378,22 @@ app.get('/post/id/:id', function(req,res){
 
 
 })
+
+app.delete('/post/id/:id', function(req,res){
+
+
+      Post.remove({ _id:req.params.id }, function(err, data){
+
+            if(err){
+
+            }
+            console.log(data)
+            res.json(data);
+      });
+
+
+})
+
 
   app.get('/post/group/:groupID', function(req,res){
 
@@ -519,6 +536,9 @@ app.get('/comments/id/:postID', function(req, res){
 
     })
 
+
+
+
   app.put('/gamegroup', function(req, res ){
   console.log('gamegroup upating')
         var query={
@@ -543,14 +563,14 @@ app.get('/comments/id/:postID', function(req, res){
 
       app.get('/gamegroup/:gameid', function(req, res){
 
-        GameGroup.find({ gameID:req.params.gameid }, function(err, data){
+          GameGroup.find({ gameID:req.params.gameid }, function(err, data){
 
           if(err){
 
           }
           console.log(data)
           res.json(data);
-      });
+          });
 
       });
 
@@ -563,13 +583,29 @@ app.get('/comments/id/:postID', function(req, res){
               if(err){
 
               }
-              
+
               console.log(data)
               res.json(data);
         });
 
     });
 
+
+        app.get('/gamegroup/member/:userid', function(req, res){
+
+          var userID= req.params.userid;
+
+          GameGroup.find( { members: { $all: [userID] } } , function(err, data){
+
+
+            if(err){
+
+            }
+
+            res.json(data);
+        });
+
+        });
 
 
 
@@ -667,21 +703,45 @@ app.get('/comments/id/:postID', function(req, res){
     });
 
 
-    app.get('/gamegroup/member/:userid', function(req, res){
+    app.get('/gamecity/state/:id', function(req, res){
 
-      var userID= req.params.userid;
+          GameCity.find({ "location.state":req.params.id }, function(err, data){
 
-      GameGroup.find( { members: { $all: [userID] } } , function(err, data){
+            if(err){
 
+            }
 
-        if(err){
-
-        }
-
-        res.json(data);
-    });
+            res.json(data);
+        });
 
     });
+
+    app.get('/gamecity/country/:id', function(req, res){
+
+          GameCity.find({ "location.country":req.params.id }, function(err, data){
+
+            if(err){
+
+            }
+
+            res.json(data);
+        });
+
+    });
+
+    app.get('/gamecity/city/:id', function(req, res){
+
+          GameCity.find({ "location.city":req.params.id }, function(err, data){
+
+            if(err){
+
+            }
+
+            res.json(data);
+        });
+
+    });
+
 
 
 

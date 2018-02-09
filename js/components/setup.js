@@ -27,7 +27,9 @@ export class StepOne extends React.Component{
 
          return(
              <div>
-                 <div className="step1-container"><h1> Hello , {dv.username}  </h1> <h1> Welcome to CrossEver!</h1>
+                 <div className="step1-container"><h1> Hello , {dv.username}  </h1>
+                 <div style={{width:"100px", height:"100px",backgroundImage:"url("+this.props.image+")" }} className="step1-image"> </div>
+                 <h1> Welcome to CrossEver!</h1>
                  <h2>Hey! We need to get to know you a bit more ! Can we ask you some questions?</h2>
                  </div>
 
@@ -127,7 +129,8 @@ export class SetUp extends React.Component{
         this.props.dispatch(createUserInformation({
               username:dv.username,
               userID:this.props.loggedUser.userID,
-              details:null
+              details:null,
+              image:this.props.userImage
         }))
       }
 
@@ -139,7 +142,7 @@ export class SetUp extends React.Component{
 
       this.getUser();
 
-      var stepsArray=[<StepOne username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container setPercentage={this.setPercentage} />]
+      var stepsArray=[<StepOne image={this.props.loggedUser.userImage} username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container setPercentage={this.setPercentage} />]
 
       return(
         <div>

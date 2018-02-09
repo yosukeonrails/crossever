@@ -20,7 +20,8 @@ var UserSchema = new mongoose.Schema({
   facebookId:String,
   token:String,
   first_name:String,
-  userID:String
+  userID:String,
+  userImage:String
 
 });
 

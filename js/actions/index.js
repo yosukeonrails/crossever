@@ -50,7 +50,7 @@ export var POST_POST= 'POST_POST';
    export var UPDATE_POST= 'UPDATE_POST';
 
    export function updatePost(data) {
-  
+
    var fetchData={
    method:'PUT',
    headers:{
@@ -109,6 +109,29 @@ export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
         })
       }
     }
+
+
+    export var DELETE_POST_BY_ID= 'DELETE_POST_BY_ID';
+
+     export function deletePostById(id) {
+
+     var fetchData={
+     method:'DELETE',
+     headers:{
+      'Content-Type':'application/json'
+     }
+     };
+
+     return {
+
+     type: DELETE_POST_BY_ID,
+     promise: fetch('/post/id/'+id , fetchData).then(function(data){
+     return data.json();
+
+     })
+     };
+     }
+
 
 // ---COMMENTS -----//
 
@@ -255,6 +278,17 @@ export function getGameCityById(gameCityID){
   }
 }
 
+
+export var GET_GAME_CITY_BY_LOCALITY= 'GET_GAME_CITY_BY_LOCALITY';
+
+export function getGameByLocality(locality, location){
+  return{
+    type:GET_GAME_CITY_BY_LOCALITY,
+    promise:fetch('/gamecity/'+locality+'/'+location).then(function(data){
+      return data.json();
+    })
+  }
+}
 
 
  export var CREATE_GAMECITY= 'CREATE_GAMECITY';

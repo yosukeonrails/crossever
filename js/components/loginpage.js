@@ -89,10 +89,7 @@ export class LogInPage extends React.Component {
 
 
      return(
-        <div>
-            <div style={{position:'absolute', width:"100%", background:"linear-gradient(#353535,#0c0c0c)"}} >
-              <BlueTriangle/>
-            </div>
+        <div className="log-in-page">
 
             <div className="log-in-box">
 

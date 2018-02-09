@@ -6,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID,updatePost} from '../actions'
+import {getFacebookUser, getUserInformation,deletePostById, getPostByID,getCommentsByPostID,updatePost} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -36,6 +36,7 @@ export class OpenPost extends React.Component{
     constructor(props){
       super(props)
 
+      this.deletePost = this.deletePost.bind(this);
       this.checkUserType = this.checkUserType.bind(this);
       this.likePost= this.likePost.bind(this);
 
@@ -94,8 +95,22 @@ export class OpenPost extends React.Component{
           }
 
        })
+      }
 
+      deletePost(user){
+        var cityID= this.props.openPost.groupID;
+        if(user){
 
+              if(user.userID ==! this.props.openPost._id){
+                  console.log('dont delete user not the same')
+                  return
+              }
+
+          this.props.dispatch(deletePostById(this.props.openPost._id)).then(function(){
+              console.log('running then')
+                  hashHistory.push('gamecity/'+cityID)
+          })
+        }
 
       }
 
@@ -155,7 +170,8 @@ export class OpenPost extends React.Component{
           <div style={{display:display.delete_background}}  className="post-delete-warning">
             <div className="warning-delete-message">
             <h1> Are you sure you want to delete this post?</h1>
-              <button style={{backgroundColor:"#4fa546"}}> Cancel </button>  <button style={{backgroundColor:"#fb6060"}} > Delete</button>
+              <button style={{backgroundColor:"#4fa546"}}  onClick={()=>{ this.toggleStyle("delete_background","none")  }}> Cancel </button>
+             <button style={{backgroundColor:"#fb6060"}}  onClick={()=>{ this.deletePost(this.props.loggedUser) ;this.toggleStyle("delete_background","none")  }} > Delete</button>
             </div>
 
           </div>

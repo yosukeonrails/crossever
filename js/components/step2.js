@@ -32,7 +32,11 @@ export class SetupStep2 extends React.Component{
     this.handleFormSubmit= this.handleFormSubmit.bind(this);
     this.onChange= this.onChange.bind(this);
     this.onType=this.onType.bind(this);
-    this.state = { address: 'San Francisco, CA' }
+    this.state = { address: 'San Francisco, CA' };
+    this.getAddress= this.getAddress.bind(this);
+
+    this.getAddress(this.state.address);
+
   }
 
   componentDidMount(){
@@ -69,18 +73,19 @@ export class SetupStep2 extends React.Component{
 
   }
 
-  onChange(address){
+  getAddress(address){
 
-    this.setState({ address:address})
-    // add a delay so it doesnt do this every time its typed
+    console.log('entered get address')
+
     var locationData='';
     var dis= this;
+
 
     geocodeByAddress(address).then(function(results){
 
         locationData= results[0];
-       var setUpData = {};
-        var addressSummary= {};
+         var setUpData = {};
+         var addressSummary= {};
 
         if(locationData.address_components){
 
@@ -121,12 +126,23 @@ export class SetupStep2 extends React.Component{
         Object.assign(setUpData, {locationData:locationData, locationSummary:addressSummary}) ;
 
         dis.props.dispatch(setUpInformation(setUpData));
-
+        console.log('it went')
     })
 
 
 
   //  this.props.dispatch(setUserInfo());
+
+
+  }
+
+
+  onChange(address){
+
+    this.setState({ address:address})
+    // add a delay so it doesnt do this every time its typed
+
+    this.getAdress(address);
 
   }
 
