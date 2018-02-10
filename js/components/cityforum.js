@@ -6,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser,changeDisplaySettings, getUserInformation,getGameCityById, getChanelsByGameCityID, getPostByGroupID} from '../actions'
+import {getFacebookUser,changeDisplaySettings, getUserInformation,postChanel,getGameCityById, getChanelsByGameCityID, getPostByGroupID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -45,9 +45,15 @@ export class CityForum extends React.Component{
   constructor(props){
   super(props)
   this.getCity = this.getCity.bind(this)
-  this.createPost= this.createPost.bind(this)
+  this.createPost= this.createPost.bind(this);
   this.getChanels= this.getChanels.bind(this);
-  this.state={chanels:[], display:{chanel_creator:'none'}};
+  this.handleInput= this.handleInput.bind(this);
+
+  this.state={chanels:[],
+    display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none'},
+    chanel_link:'',chanel_name:''
+    };
+
   this.getCity();
   //this.setState({gotCity:false});
   this.getPosts();
@@ -70,26 +76,49 @@ export class CityForum extends React.Component{
           imageUrl= 'url('+city.gameData.box.large+')';
           post_creator= <PostCreatorContainer type="city" group={city}/>
 
-          dis.setState({gotCity:true})
+          dis.setState({gotCity:true, openCity:city })
 
         });
 
     }
 
-    toggleStyle(key,specific){
+    toggleStyle(state,key,specific,array){
 
-      if(this.state.display[key] === 'block'){
-            display[key] = 'none';
+      let display={};
+
+
+      if(state[key] === 'block'){
+            Object.assign(display,{[key]:'none'});
        } else {
-             display[key] = 'block';
+            Object.assign(display,{[key]:'block'});
        }
 
        if(specific){
-          display[key] = specific;
+          Object.assign(display,{[key]:specific});
        }
 
+       let stateDisplay={};
+
+       Object.assign(stateDisplay,state);
+       Object.assign(stateDisplay,display);
+
+
+        if(array && array.length > 0){
+
+          let toggle_key = array.shift();
+          let toggle_display;
+
+          if(stateDisplay[toggle_key] === 'block'){
+                  toggle_display="none"
+           } else {
+                  toggle_display="block"
+           }
+
+           return this.toggleStyle(stateDisplay, toggle_key , toggle_display , array);
+        }
+
         this.setState({
-          display:display
+          display:stateDisplay
         })
 
     }
@@ -124,7 +153,7 @@ export class CityForum extends React.Component{
           data.payload.map(function(chanel){
 
 
-                chanels.push(  <div className="chanel"><li> <a href={chanel.link}>{chanel.name}</a></li></div> )
+                chanels.push(  <div className="chanel"><li> <a target="_blank" href={chanel.link}>{chanel.name}</a></li></div> )
 
           })
             dis.setState({chanels:chanels})
@@ -132,6 +161,48 @@ export class CityForum extends React.Component{
 
         });
     }
+
+    postChanel(){
+
+        let discord_prefix='https://discord.gg/';
+
+        if(this.state.chanel_name.length===0 || this.state.chanel_link.length===0){
+            console.log('EMPTY')
+            return
+        }
+
+        if(!this.state.chanel_link.includes(discord_prefix)){
+            console.log('not a discord group')
+            return
+        }
+
+
+        let data={
+            name:this.state.chanel_name,
+            link:this.state.chanel_link,
+            locationData:this.state.openCity.location,
+            gameCityID:this.state.openCity.gameCityID,
+            gameID:this.state.gameID
+        }
+
+        var dis=this;
+
+        this.props.dispatch(postChanel(data)).then(function(){
+            dis.getChanels();
+        });
+
+
+    }
+
+    handleInput(e,key){
+
+        let str= e.target.value;
+        this.setState({
+              [key]:str
+        })
+
+    }
+
 
     getPosts(){
 
@@ -161,6 +232,7 @@ export class CityForum extends React.Component{
           this.getCity();
       }
 
+      console.log(this.state.display)
 
       return(
 
@@ -221,12 +293,13 @@ export class CityForum extends React.Component{
                                 <h1>Discord Chanels</h1>
 
                         <div className="chanels-container">
-                          <button onClick={() => this.toggleStyle("chanel_creator")} > Add chanels</button>
+                          <button style={{display:this.state.display.add_chanel}} onClick={ () => this.toggleStyle(this.state.display, "chanel_creator", null , ["add_chanel","cancel_add"] ) }   > Add chanels</button>
+                          <button style={{display:this.state.display.cancel_add}} onClick={ () => this.toggleStyle(this.state.display, "cancel_add",  null , ["chanel_creator","add_chanel"] )} > Cancel </button>
 
                           <div style={{display:this.state.display.chanel_creator}}  className="chanel-creator">
-                          <label>link:</label>  <input></input>
-                          <label>name:</label>  <input></input>
-                          <button onClick={() => this.toggleStyle("chanel_creator")} > Add </button>
+                          <label>link:</label>  <input onChange={ (event)=>{ this.handleInput(event,'chanel_link') } }></input>
+                          <label>name:</label>  <input onChange={ (event)=>{ this.handleInput(event ,'chanel_name') } }></input>
+                          <button onClick={ () => { this.toggleStyle(this.state.display,"chanel_creator",  null , ["cancel_add" , "add_chanel"])  ; this.postChanel() } }  > Add </button>
                           </div>
 
 

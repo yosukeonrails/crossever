@@ -146,6 +146,34 @@ export var GET_CHANELS_BY_GAMECITY_ID= 'GET_CHANELS_BY_GAMECITY_ID';
     }
   }
 
+  export var POST_CHANEL= 'POST_CHANEL';
+
+   export function postChanel(data) {
+
+   var fetchData={
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json'
+   },
+   body:JSON.stringify({
+     name:data.name,
+     link:data.link,
+     gameCityID:data.gameCityID,
+     gameID:data.gameID,
+     locationData:data.locationData,
+   })
+
+   };
+
+   return {
+
+   type: POST_CHANEL,
+   promise: fetch('/discord_chanel', fetchData).then(function(data){
+   return data.json();
+
+   })
+   };
+   }
 
 
 
