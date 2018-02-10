@@ -6,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser,changeDisplaySettings, getUserInformation,getGameCityById, getPostByGroupID} from '../actions'
+import {getFacebookUser,changeDisplaySettings, getUserInformation,getGameCityById, getChanelsByGameCityID, getPostByGroupID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -19,6 +19,12 @@ var post_creator=null;
 var noPostDisplay='none';
 var displayCreateButton= 'none';
 var posts= [];
+
+var display={
+  chanel_creator:'none',
+}
+
+
 export class NoPost extends React.Component {
 
 
@@ -40,9 +46,12 @@ export class CityForum extends React.Component{
   super(props)
   this.getCity = this.getCity.bind(this)
   this.createPost= this.createPost.bind(this)
+  this.getChanels= this.getChanels.bind(this);
+  this.state={chanels:[], display:{chanel_creator:'none'}};
   this.getCity();
   //this.setState({gotCity:false});
   this.getPosts();
+  this.getChanels();
 
           var display={}
           Object.assign(display, this.props.display_settings);
@@ -67,6 +76,26 @@ export class CityForum extends React.Component{
 
     }
 
+    toggleStyle(key,specific){
+
+      if(this.state.display[key] === 'block'){
+            display[key] = 'none';
+       } else {
+             display[key] = 'block';
+       }
+
+       if(specific){
+          display[key] = specific;
+       }
+
+        this.setState({
+          display:display
+        })
+
+    }
+
+
+
     createPost(){
 
 
@@ -84,6 +113,24 @@ export class CityForum extends React.Component{
         })
 
 
+    }
+
+    getChanels(){
+      var dis=this;
+        this.props.dispatch(getChanelsByGameCityID(this.props.params.city_id)).then(function(data){
+
+          var chanels=[];
+
+          data.payload.map(function(chanel){
+
+
+                chanels.push(  <div className="chanel"><li> <a href={chanel.link}>{chanel.name}</a></li></div> )
+
+          })
+            dis.setState({chanels:chanels})
+
+
+        });
     }
 
     getPosts(){
@@ -129,15 +176,18 @@ export class CityForum extends React.Component{
 
                 <div className="city-forum-bottom">
                       <div className="city-forum-filters">
-                          <div className="filter-input" ><input placeholder="Search:posts,comments,topics"></input><img id="search-icon" src="/assets/icons/search.png"/></div>
+
+
+                            <div className="filter-input">
+                            <span className="fa fa-search"></span>
+                            <input placeholder="Search:posts,comments,topics"></input>
+                            </div>
+
 
                               <div className="city-filters-container">
 
-                                          <div id="city-forum-filter-left">
-                                              <label>Filter by:</label>
-                                                      <div className="group-filter">
-                                                      <h2>HOT</h2>
-                                                      </div>
+                                            <div id="city-forum-filter-left">
+
                                             </div>
 
                                               <div id="city-forum-filter-right">
@@ -164,11 +214,35 @@ export class CityForum extends React.Component{
 
                     <div className="post-results">
 
-                      <div style={{display:noPostDisplay}}>
+
+
+                      <div className="discord-chanels">
+                         <img src="/assets/icons/discord.png"></img>
+                                <h1>Discord Chanels</h1>
+
+                        <div className="chanels-container">
+                          <button onClick={() => this.toggleStyle("chanel_creator")} > Add chanels</button>
+
+                          <div style={{display:this.state.display.chanel_creator}}  className="chanel-creator">
+                          <label>link:</label>  <input></input>
+                          <label>name:</label>  <input></input>
+                          <button onClick={() => this.toggleStyle("chanel_creator")} > Add </button>
+                          </div>
+
+
+                              {this.state.chanels}
+                        </div>
+
+
+
+                      </div>
+
+                      <div style={{display:noPostDisplay, float:"right" , width:"60%"}}>
                         <NoPost createPost={this.createPost} />
                       </div>
 
-                      <div>
+                      <div className="post-result-container">
+
                         <button style={{display:displayCreateButton}} onClick={this.createPost}>Create post</button>
                           {posts}
                       </div>

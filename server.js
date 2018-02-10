@@ -15,7 +15,8 @@ var Post= require('./models/post.js')
 var User= require('./models/user.js');
 var GameGroup= require('./models/gamegroup.js');
 var GameCity= require('./models/gamecity.js')
-var UserInformation= require('./models/userinformation.js')
+var UserInformation= require('./models/userinformation.js');
+var DiscordChanel = require('./models/discordchanels.js')
 mongoose.Promise = global.Promise;
 
 //
@@ -743,6 +744,36 @@ app.get('/comments/id/:postID', function(req, res){
 
     });
 
+    //** DISCORD CHANNELS
+
+
+    app.get('/discord_chanel/gamecity/:gameCityID' , function(req, res){
+         DiscordChanel.find({gameCityID:req.params.gameCityID}, function(err,data){
+              if(err){
+                console.log(err)
+              }
+              console.log(data)
+              res.json(data);
+         })
+    })
+
+      app.post('/discord_chanel', function(req, res){
+
+             var data = {
+                  //  postID=req.body.postID,
+                    name: req.body.name,
+                    link: req.body.link,
+                    gameCityID: req.body.gameCityID,
+                    gameID: req.body.gameID,
+                    locationData:req.body.locationData
+             }
+
+             DiscordChanel.create( data , function(err, data){
+                 if(err){console.log(err)};
+                 console.log(data);
+                 res.status(201).json(data);
+             })
+       })
 
 
 

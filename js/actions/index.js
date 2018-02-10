@@ -132,6 +132,22 @@ export var GET_POSTS_BY_GROUPID= 'GET_POSTS_BY_GROUPID';
      };
      }
 
+//-----  CHANELS----//
+
+
+export var GET_CHANELS_BY_GAMECITY_ID= 'GET_CHANELS_BY_GAMECITY_ID';
+
+  export function getChanelsByGameCityID(gameCityID){
+    return {
+      type:GET_CHANELS_BY_GAMECITY_ID,
+      promise:fetch('/discord_chanel/gamecity/'+gameCityID).then(function(data){
+         return  data.json();
+      })
+    }
+  }
+
+
+
 
 // ---COMMENTS -----//
 
