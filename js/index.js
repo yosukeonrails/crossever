@@ -27,20 +27,17 @@ import { Provider } from 'react-redux';
 var routes = (
     <Router history={hashHistory}>
        <Route path="/" component={AppContainer}>
-
            <IndexRoute component={mainAppContainer} />
-
-                      <Route path="/home" component={HomeContainer}/>
-                      <Route path="/userdashboard" component={UserDashboardContainer}/>
-                      <Route path="/loginpage" component={LogInPageContainer}/>
-                      <Route path="/signup" component={SignUpContainer}/>
-                      <Route path="/gamecity/:city_id" component={CityForumContainer}/>
-                      <Route path="/setup" component={SetUpContainer}/>
-                      <Route path="/crossever_post/:id" component={PostPageContainer}/>
-                      <Route path="/moregames/:id" component={MoreGamesContainer}/>
-                       <Route path="/step4" component={SetupStep4Container}/>
+              <Route path="/home" component={HomeContainer}/>
+              <Route path="/userdashboard" component={UserDashboardContainer}/>
+              <Route path="/loginpage" component={LogInPageContainer}/>
+              <Route path="/signup" component={SignUpContainer}/>
+              <Route path="/gamecity/:city_id" component={CityForumContainer}/>
+              <Route path="/setup" component={SetUpContainer}/>
+              <Route path="/crossever_post/:id" component={PostPageContainer}/>
+              <Route path="/moregames/:id" component={MoreGamesContainer}/>
+              <Route path="/step4" component={SetupStep4Container}/>
            </Route>
-
    </Router>
 );
 

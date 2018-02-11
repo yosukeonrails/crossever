@@ -16,13 +16,10 @@ export class App extends React.Component{
 
               return(
                         <div>
-                                <NavigationContainer/>
-
-                                  <div className="app-content">
-                                      {this.props.children}
-                                  </div>
-
-
+                              <NavigationContainer/>
+                              <div className="app-content">
+                                  {this.props.children}
+                              </div>
                         </div>
               );
         }
@@ -30,12 +27,10 @@ export class App extends React.Component{
 
 
 var mapStateToProps= function(state){
-
-
-return {
-  loggedUser:state.loggedUser,
-  display_settings:state.display_settings
-}
+    return {
+      loggedUser:state.loggedUser,
+      display_settings:state.display_settings
+    }
 }
 
 var AppContainer= connect(mapStateToProps)(App)

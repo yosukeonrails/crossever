@@ -50,7 +50,7 @@ export class CityForum extends React.Component{
   this.handleInput= this.handleInput.bind(this);
 
   this.state={chanels:[],
-    display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none'},
+    display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none', chanels_display:'block'},
     chanel_link:'',chanel_name:''
     };
 
@@ -116,7 +116,7 @@ export class CityForum extends React.Component{
 
            return this.toggleStyle(stateDisplay, toggle_key , toggle_display , array);
         }
-
+        console.log(stateDisplay)
         this.setState({
           display:stateDisplay
         })
@@ -293,17 +293,18 @@ export class CityForum extends React.Component{
                                 <h1>Discord Chanels</h1>
 
                         <div className="chanels-container">
-                          <button style={{display:this.state.display.add_chanel}} onClick={ () => this.toggleStyle(this.state.display, "chanel_creator", null , ["add_chanel","cancel_add"] ) }   > Add chanels</button>
-                          <button style={{display:this.state.display.cancel_add}} onClick={ () => this.toggleStyle(this.state.display, "cancel_add",  null , ["chanel_creator","add_chanel"] )} > Cancel </button>
+                          <button style={{display:this.state.display.add_chanel, backgroundColor:'#3150ad'}} onClick={ () => this.toggleStyle(this.state.display, "chanel_creator", null , ["add_chanel","cancel_add","chanels_display"] ) }   > Add chanels</button>
+                          <button style={{display:this.state.display.cancel_add, backgroundColor:'#e44545'}} onClick={ () => this.toggleStyle(this.state.display, "cancel_add",  null , ["chanel_creator","add_chanel","chanels_display"] )} > Cancel </button>
 
                           <div style={{display:this.state.display.chanel_creator}}  className="chanel-creator">
                           <label>link:</label>  <input onChange={ (event)=>{ this.handleInput(event,'chanel_link') } }></input>
                           <label>name:</label>  <input onChange={ (event)=>{ this.handleInput(event ,'chanel_name') } }></input>
-                          <button onClick={ () => { this.toggleStyle(this.state.display,"chanel_creator",  null , ["cancel_add" , "add_chanel"])  ; this.postChanel() } }  > Add </button>
+                          <button style={{backgroundColor:'#3150ad'}} onClick={ () => { this.toggleStyle(this.state.display,"chanel_creator",  null , ["cancel_add" , "add_chanel","chanels_display"])  ; this.postChanel() } }  > Add </button>
                           </div>
-
-
+                          
+                          <div style={{display:this.state.display.chanels_display}}>
                               {this.state.chanels}
+                           </div>    
                         </div>
 
 
