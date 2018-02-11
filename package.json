@@ -2,6 +2,7 @@
   "name": "crossever",
   "version": "1.0.0",
   "description": "",
+  "engines":{"node":"6.10.2"},
   "main": "index.js",
   "scripts": {
     "start": "supervisor server.js",
