@@ -33,7 +33,9 @@ export class PostPage extends React.Component{
       var dis= this;
       this.state =  {dataIsReady:false};
     
-    
+      if(!this.props.loggedUser){
+          this.getLoggedUser();
+      }  
       
       this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
                
@@ -49,7 +51,20 @@ export class PostPage extends React.Component{
       })
 
     }
+    
+    getLoggedUser(){
 
+      var dis=this;
+      this.props.dispatch(getFacebookUser()).then(function(data){
+
+          if(data.error){
+            hashHistory.push('/loginpage')
+          }
+      });
+    }
+    
+    
+    
     likePost(data){
       
        this.props.dispatch(updatePost(data));

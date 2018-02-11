@@ -12,6 +12,7 @@ import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import PostCreatorContainer from './postcreator.js'
 import GroupPostContainer from './grouppost'
+
 var city=null;
 var imageUrl=null;
 var cityName=null;
@@ -26,8 +27,6 @@ var display={
 
 
 export class NoPost extends React.Component {
-
-
 
     render(){
 
@@ -48,11 +47,18 @@ export class CityForum extends React.Component{
   this.createPost= this.createPost.bind(this);
   this.getChanels= this.getChanels.bind(this);
   this.handleInput= this.handleInput.bind(this);
+  this.getLoggedUser= this.getLoggedUser.bind(this);
+
 
   this.state={chanels:[],
     display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none', chanels_display:'block'},
     chanel_link:'',chanel_name:''
     };
+
+
+  if(!this.props.loggedUser){
+      this.getLoggedUser();
+  }
 
   this.getCity();
   //this.setState({gotCity:false});
@@ -123,7 +129,18 @@ export class CityForum extends React.Component{
 
     }
 
+    getLoggedUser(){
 
+      var dis=this;
+      this.props.dispatch(getFacebookUser()).then(function(data){
+
+          if(data.error){
+            hashHistory.push('/loginpage')
+          }
+
+
+      });
+    }
 
     createPost(){
 
@@ -146,17 +163,16 @@ export class CityForum extends React.Component{
 
     getChanels(){
       var dis=this;
+
         this.props.dispatch(getChanelsByGameCityID(this.props.params.city_id)).then(function(data){
 
           var chanels=[];
 
           data.payload.map(function(chanel){
-
-
                 chanels.push(  <div className="chanel"><li> <a target="_blank" href={chanel.link}>{chanel.name}</a></li></div> )
-
           })
-            dis.setState({chanels:chanels})
+
+          dis.setState({chanels:chanels})
 
 
         });
@@ -249,34 +265,31 @@ export class CityForum extends React.Component{
                 <div className="city-forum-bottom">
                       <div className="city-forum-filters">
 
+                                      <div className="filter-input">
+                                          <span className="fa fa-search"></span>
+                                          <input placeholder="Search:posts,comments,topics"></input>
+                                      </div>
 
-                            <div className="filter-input">
-                            <span className="fa fa-search"></span>
-                            <input placeholder="Search:posts,comments,topics"></input>
-                            </div>
+                                      <div className="city-filters-container">
 
+                                      <div id="city-forum-filter-left">
+                                      </div>
 
-                              <div className="city-filters-container">
-
-                                            <div id="city-forum-filter-left">
-
-                                            </div>
-
-                                              <div id="city-forum-filter-right">
-
-                                                      <div className="city-forum-filter-buttons">
-                                                      <div id="filter-button"><img src="/assets/icons/teamrequest.png"/></div>
-                                                      <div id="filter-button"><img src="/assets/icons/events.png"/></div>
-                                                      <div id="filter-button">   <img src="/assets/icons/discussion.png"/></div>
-                                                      </div>
-
-
-                                                      <div className="city-forum-filter-labels">
-                                                      <label>Team Request</label>
-                                                      <label>Events</label>
-                                                      <label>Free Discussion</label>
-                                                      </div>
+                                      <div id="city-forum-filter-right">
+                                              <div className="city-forum-filter-buttons">
+                                                <div id="filter-button"><img src="/assets/icons/teamrequest.png"/></div>
+                                                <div id="filter-button"><img src="/assets/icons/events.png"/></div>
+                                                <div id="filter-button">   <img src="/assets/icons/discussion.png"/></div>
                                               </div>
+
+
+                                              <div className="city-forum-filter-labels">
+                                                <label>Team Request</label>
+                                                <label>Events</label>
+                                                <label>Free Discussion</label>
+                                              </div>
+                                      </div>
+
 
                               </div>
                         </div>
@@ -301,10 +314,10 @@ export class CityForum extends React.Component{
                           <label>name:</label>  <input onChange={ (event)=>{ this.handleInput(event ,'chanel_name') } }></input>
                           <button style={{backgroundColor:'#3150ad'}} onClick={ () => { this.toggleStyle(this.state.display,"chanel_creator",  null , ["cancel_add" , "add_chanel","chanels_display"])  ; this.postChanel() } }  > Add </button>
                           </div>
-                          
+
                           <div style={{display:this.state.display.chanels_display}}>
                               {this.state.chanels}
-                           </div>    
+                           </div>
                         </div>
 
 
@@ -317,7 +330,7 @@ export class CityForum extends React.Component{
 
                       <div className="post-result-container">
 
-                        <button style={{display:displayCreateButton}} onClick={this.createPost}>Create post</button>
+                      <button style={{display:displayCreateButton}} onClick={this.createPost}>Create post</button>
                           {posts}
                       </div>
 

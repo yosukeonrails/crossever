@@ -48,6 +48,9 @@ export class MoreGames extends React.Component{
       })
 
       let setUpData={};
+
+
+
       Object.assign(setUpData , this.props.userInformation.details);
       this.props.dispatch(setUpInformation(setUpData));
 
@@ -217,28 +220,29 @@ export class MoreGames extends React.Component{
 
         <div className="dash-search">
 
-        <div className="dash-search-top">
-            <div className="dash-search-tag">     <img src="/assets/icons/gameicon.png" /><h1>More Games</h1> </div>
-              <div className="input-container"><input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
 
-              </div>
-        </div>
 
           <div className="more-games-container">
-
+          
               <div id="more-games-selected-games" className="more-games-selected-games">
-                  <SelectedGamesContainer styles={{ bubbleLeft:"left", bubbleImage:{width:"70px",height:"70px", marginTop:"10px"}, h2:{fontSize:"10px",marginTop:"10px", width:"70px"} }} />
+                <SelectedGamesContainer styles={{ bubbleLeft:"left", bubbleImage:{width:"70px",height:"70px", marginTop:"10px"}, h2:{fontSize:"10px",marginTop:"10px", width:"70px"} }} />
               </div>
 
-                <div id="add-games">
-                    <button onClick={this.addSelectedGames} > Add Games </button>
+              <div id="add-games">
+                <button onClick={this.addSelectedGames} > Add Games </button>
+              </div>
+
+          </div>
+
+          <div className="dash-search-top">
+                <div className="input-container">
+                  <input  onChange={this.handleInput} placeholder="Search" ></input><img src="/assets/icons/search.png"/>
                 </div>
           </div>
 
           <div className="dash-results"  style={{color:"white"}}>
               {this.state.generator}
               {gameList}
-
           </div>
 
         </div>

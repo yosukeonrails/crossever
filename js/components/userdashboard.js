@@ -30,15 +30,29 @@ export class UserDashboard extends React.Component{
     super(props)
 
       this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
+      this.getLoggedUser= this.getLoggedUser.bind(this);
 
-    var display= {}
 
-    Object.assign(display, this.props.display_settings);
-    display.sidebar.display='block';
-    display.viewPort.marginLeft='200px';
-    this.props.dispatch(changeDisplaySettings(display));
+      var display= {}
+
+      Object.assign(display, this.props.display_settings);
+      display.sidebar.display='block';
+      display.viewPort.marginLeft='200px';
+      this.props.dispatch(changeDisplaySettings(display));
 
     }
+    
+    getLoggedUser(){
+
+      var dis=this;
+      this.props.dispatch(getFacebookUser()).then(function(data){
+
+          if(data.error){
+            hashHistory.push('/loginpage')
+          }
+      });
+    }
+    
 
     componentWillMount(){
         this.setState({got_groups:false});
@@ -146,7 +160,7 @@ export class UserDashboard extends React.Component{
 
       if(this.props.loggedUser === null ){  this.getLoggedUser(); } else {
 
-        if(this.props.userInformation === null){   this.getUserInformation(); }
+        if(this.props.userInformation === null){ this.getUserInformation(); }
 
         else
           {   this.checkForUserInformation();  }  }
@@ -165,8 +179,6 @@ export class UserDashboard extends React.Component{
       return(
 
           <div className="dashboard-page">
-
-
 
             {dashContainer}
 

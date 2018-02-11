@@ -26,7 +26,6 @@ export class GroupPost extends React.Component{
 
     super(props)
       this.redirectToPost= this.redirectToPost.bind(this);
-      this.checkUserType = this.checkUserType.bind(this);
       this.hoveredGroup= this.hoveredGroup.bind(this);
       this.hoveredOut= this.hoveredOut.bind(this);
 
@@ -39,27 +38,15 @@ export class GroupPost extends React.Component{
 
     }
 
-    checkUserType(){
 
-          if(this.props.data.user.facebookId !== 'guest'){
-             imageUrl ='url(https://graph.facebook.com/'+this.props.data.user.facebookId+'/picture?width=300&height=300)'
-          }
-          else {
-             imageUrl= 'url(/assets/icons/user.png)'
-          }
-
-    }
 
     hoveredGroup(e){
-
-
       $("#"+this.props.key_id).css("width", "72%");
-        $("#"+this.props.key_id).css("border", "1px solid white");
+      $("#"+this.props.key_id).css("border", "1px solid white");
     }
 
 
     hoveredOut(e){
-
       $("#"+this.props.key_id).css("width", "70%");
       $("#"+this.props.key_id).css("border", "none");
   }
@@ -74,7 +61,7 @@ export class GroupPost extends React.Component{
 
     render () {
 
-      this.checkUserType()
+    
 
       return(
 
@@ -116,7 +103,7 @@ export class GroupPost extends React.Component{
                         <h3>Today @ 12:43 AM</h3></div>
 
                       <div className="group-post-user-right">
-                          <div className="group-post-user-picture" style={{backgroundImage:imageUrl}}></div>
+                          <div className="group-post-user-picture" style={{backgroundImage:'url('+this.props.data.user.userImage+')'}}></div>
                       </div>
 
 

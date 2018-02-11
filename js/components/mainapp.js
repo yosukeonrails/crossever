@@ -33,8 +33,7 @@ import HomeContainer from './home.js'
 
 
                             <HomeContainer/>
-                            <div> Footer </div>
-
+                  
 
                      </div>
                    )

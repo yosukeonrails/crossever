@@ -72,13 +72,7 @@ var display={
         if(this.props.loggedUser){
 
             display.arrowDown='block'
-            imageUrl="url(/assets/icons/user.png)"
-
-            if(this.props.loggedUser.facebookId !== 'guest'){
-
-                  imageUrl= "url(https://graph.facebook.com/"+this.props.loggedUser.facebookId+"/picture?width=300&height=300)";
-            }
-
+            imageUrl=this.props.loggedUser.userImage
             user= this.props.loggedUser;
 
 
@@ -94,8 +88,8 @@ var display={
                                        {userNav}
 
 
-                                           <div className="user-picture-thumbnail" style={{backgroundImage:imageUrl}}  >
-                                           <div className="arrowdown" onClick={() => this.toggleStyle("navigation_menu")} style={{display:this.state. display.arrowDown}}><img src="assets/icons/arrowdown.png"/></div>
+                                           <div className="user-picture-thumbnail" style={{backgroundImage:"url("+imageUrl+")"}}  >
+                                           <div className="arrowdown" onClick={() => this.toggleStyle("navigation_menu")} style={{display:this.state.display.arrowDown}}><img src="assets/icons/arrowdown.png"/></div>
 
                                            </div>
                                    </div>

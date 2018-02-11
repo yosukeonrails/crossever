@@ -37,10 +37,8 @@ export class OpenPost extends React.Component{
       super(props)
 
       this.deletePost = this.deletePost.bind(this);
-      this.checkUserType = this.checkUserType.bind(this);
       this.likePost= this.likePost.bind(this);
-
-
+          
       if(this.props.openPost.likedBy.includes(this.props.loggedUser.userID)){
 
         this.state= {
@@ -70,65 +68,54 @@ export class OpenPost extends React.Component{
         var dis= this;
 
        // needs to take current information from database //
-       this.props.dispatch(getPostByID(this.props.openPost._id)).then(function(res){
-
-
+          this.props.dispatch(getPostByID(this.props.openPost._id)).then(function(res){
           let data= res.payload;
 
           Object.assign(data, {postID: dis.props.openPost._id} )
 
-          let index=  data.likedBy.indexOf(dis.props.loggedUser.userID);
+          let index=data.likedBy.indexOf(dis.props.loggedUser.userID);
 
           if(index!==-1){
 
-          data.likedBy.splice(index, 1);
-
-          dis.props.dispatch(updatePost(data));
-          dis.setState({heartStyle:'brightness(170%)'});
+                data.likedBy.splice(index, 1);
+                dis.props.dispatch(updatePost(data));
+                dis.setState({heartStyle:'brightness(170%)'});
 
           } else {
 
-          data.likedBy.push(dis.props.loggedUser.userID);
-
-          dis.props.dispatch(updatePost(data));
-          dis.setState({heartStyle:'none'});
+                data.likedBy.push(dis.props.loggedUser.userID);
+                dis.props.dispatch(updatePost(data));
+                dis.setState({heartStyle:'none'});
           }
 
        })
       }
 
       deletePost(user){
-        var cityID= this.props.openPost.groupID;
-        if(user){
+        
+        
+           var cityID= this.props.openPost.groupID;
+           
+           if(user){     
+             
+                if(user.userID ==! this.props.openPost._id){ return }
 
-              if(user.userID ==! this.props.openPost._id){
-                  console.log('dont delete user not the same')
-                  return
-              }
-
-          this.props.dispatch(deletePostById(this.props.openPost._id)).then(function(){
-              console.log('running then')
+            this.props.dispatch(deletePostById(this.props.openPost._id)).then(function(){            
                   hashHistory.push('gamecity/'+cityID)
-          })
+             })
+           
         }
-
       }
+
+
 
       toggleStyle(key,specific){
 
-        if(this.state.display[key] === 'block'){
-              display[key] = 'none';
-         } else {
-               display[key] = 'block';
-         }
+        if(this.state.display[key] === 'block'){ display[key] = 'none';} else { display[key] = 'block';}
 
-         if(specific){
-            display[key] = specific;
-         }
+         if(specific){display[key] = specific;}
 
-          this.setState({
-            display:display
-          })
+         this.setState({display:display})
 
       }
 
@@ -144,24 +131,14 @@ export class OpenPost extends React.Component{
         return result
       }
 
-      checkUserType(){
-
-            if(this.props.openPost.user.facebookId !== 'guest'){
-               imageUrl ='url(https://graph.facebook.com/'+this.props.openPost.user.userID+'/picture?width=300&height=300)'
-            } else {
-               imageUrl= 'url(/assets/icons/user.png)'
-            }
-
-
-      }
+  
 
 
       render () {
 
-   var showOptions=this.authenticatePostOwner();
-
-
-    this.checkUserType()
+      var showOptions=this.authenticatePostOwner();
+      
+  
 
         return(
 
@@ -220,7 +197,7 @@ export class OpenPost extends React.Component{
                         <h3>Today @ 12:43 AM</h3></div>
 
                       <div className="group-post-user-right">
-                            <div className="group-post-user-picture" style={{backgroundImage:imageUrl}}></div>
+                            <div className="group-post-user-picture" style={{backgroundImage:'url('+this.props.openPost.user.userImage+')'}}></div>
                       </div>
 
 
