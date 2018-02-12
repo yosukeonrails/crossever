@@ -3933,9 +3933,9 @@ react-overlays@^0.6.12:
     react-prop-types "^0.4.0"
     warning "^3.0.0"
 
-react-places-autocomplete@^5.3.1:
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/react-places-autocomplete/-/react-places-autocomplete-5.4.3.tgz#321166247a9279b93ff21ee59112836058dda0ba"
+react-places-autocomplete@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-places-autocomplete/-/react-places-autocomplete-6.1.1.tgz#7cbb86159dcea2d23f364a356fc0b42a29e51b47"
   dependencies:
     lodash.debounce "^4.0.8"
     prop-types "^15.5.8"
