@@ -2,7 +2,9 @@
   "name": "crossever",
   "version": "1.0.0",
   "description": "",
-  "engines":{"node":"6.10.2"},
+  "engines": {
+    "node": "6.10.2"
+  },
   "main": "index.js",
   "scripts": {
     "start": "supervisor server.js",
@@ -62,7 +64,7 @@
     "mocha": "^3.0.1",
     "npm": "^4.5.0",
     "npm-run-all": "^3.0.0",
-    "passport": "^0.3.2",
+    "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "react-svg-loader": "^2.1.0",
     "rimraf": "^2.5.4",
