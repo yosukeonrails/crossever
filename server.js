@@ -363,6 +363,22 @@ app.post('/login',
 
 
 
+//* get user by user ID*//
+app.get('/user/:userID', function(req,res){
+
+    User.find({ username:req.params.userID }, function(err, data){
+
+      if(err){
+
+      }
+
+      res.json(data);
+  });
+
+
+})
+
+
 
 
 //* Posts

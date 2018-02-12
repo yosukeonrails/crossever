@@ -1517,6 +1517,7 @@ img{
   color: #828080;
   width: 50%;
   float: left;
+  min-width: 400px;
 
 
   h1{
@@ -1906,12 +1907,12 @@ h2{
 //-- Log In Page--//
 
 .log-in-box {
-  height: 445px;
+  height: 500px;
   width: 400px;
   background-color: #fff;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-50%);
   top: 50%;
   border-radius: 10px;
 }
@@ -1953,10 +1954,21 @@ h2{
   box-shadow: 1px 1px 1px #ababab;
 }
 
+#login-error-message{
+    color: #f35a5a;
+    font-size: 15px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 #done-login-button{
   position: absolute;
   transform: translate(-50%,-50%);
-  top: 85%;
+  top: 90%;
   left: 50%;
   width: 250px;
   color: #fff;
@@ -1979,12 +1991,12 @@ h2{
       height: 300px;
 
       input{
-          width: 300px;
-          height: 30px;
-          border-radius: 5px;
-          border: 1px solid #bbbbbb;
-          margin-top: 10px;
-          margin-bottom: 10px;
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #bbb;
+        margin-top: 10px;
+        margin-bottom: 5px;
       }
 
   h1{

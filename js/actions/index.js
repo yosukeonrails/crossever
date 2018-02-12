@@ -275,6 +275,23 @@ export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
  }
 
 
+
+//User
+
+
+export var GET_USER_BY_ID= 'GET_USER_BY_ID';
+
+  export function getUserById(userID){
+    return {
+      type:GET_USER_BY_ID,
+      promise:fetch('/user/'+userID).then(function(data){
+         return  data.json();
+      })
+    }
+  }
+
+
+
  export var GET_GAMECITY_BY_USER= 'GET_GAMECITY_BY_USER';
 
  export function getGameCityByUser(userID){

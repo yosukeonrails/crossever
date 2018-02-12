@@ -15,7 +15,7 @@ import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
 import LogInWindowContainer from './log-in-window.js';
-import {LogInUser, changeDisplaySettings,createOneUser} from '../actions'
+import {LogInUser, changeDisplaySettings,createOneUser,getUserById} from '../actions'
 
 
 export class SignUp extends React.Component {
@@ -27,7 +27,9 @@ export class SignUp extends React.Component {
       // this.submitSignUp= this.submitSignUp.bind(this);
        this.handleInput= this.handleInput.bind(this);
        this.submitSignUp= this.submitSignUp.bind(this);
+       this.authenticateUser= this.authenticateUser.bind(this);
 
+       this.state= {username:{input:''}};
        var display={}
        Object.assign(display, this.props.display_settings);
        display.viewPort.marginLeft='0px'
@@ -63,7 +65,8 @@ export class SignUp extends React.Component {
 
       var dis=this;
 
-      var username = this.state.username
+
+      var username = this.state.username;
       var password = this.state.password;
       var confirmation = this.state.password_confirmation;
 
@@ -100,6 +103,33 @@ export class SignUp extends React.Component {
     }
 
 
+  authenticateUser(){
+    var dis=this;
+    let input= this.state.username.input;
+    dis.setState({username:{ input:input , showError:'none', border:null, error:'Username must be at least 5 characters long.'}});
+
+    this.props.dispatch(getUserById(this.state.username.input)).then(function(data){
+        console.log(data)
+
+        // var state_copy ={};
+        // Object.assign(state_copy, dis.state);
+
+        if(data.payload.length > 0){
+
+            dis.setState({username:{input:"", showError:'block', border:pinkBorder, error:'User already exists.'}})
+
+            return
+         }
+
+        // dis.setState({username:{showError:'none', error:'Username must be at least 5 characters long.'}})
+         dis.submitSignUp();
+
+
+    });
+    // authenticate if the user exists before signing up//
+    //if so get error message
+  }
+
   submitSignUp(){
 
    // Checking for missing fields
@@ -115,7 +145,7 @@ export class SignUp extends React.Component {
        wrongField: false,
        unconfirmed_password:false
    };
-
+   console.log(stt)
 
    for(var key in stt){
 
@@ -235,20 +265,20 @@ export class SignUp extends React.Component {
                   <hr style={{width: "30%", marginTop: "40px" , float:"right"}} />
                   </div>
 
-                <div className="sign-up-credentials">
+                  <div className="sign-up-credentials">
 
                   <div className="signup-credential-container">
-                  <h1>Username</h1>
-                  <input style={{border:this.state.username.border}} onChange={ (event)=>{this.handleInput('username', event)} }></input>
-                  <h2 id="sign-up-error-message" style={{display:this.state.username.showError}}> {this.state.username.error}</h2>
 
-                  <h1>First Name</h1>
-                  <input style={{border:this.state.first_name.border}} onChange={ (event)=>{this.handleInput('first_name', event)} }></input>
+                      <h1>Username</h1>
 
+                      <input style={{border:this.state.username.border}} onChange={ (event)=>{this.handleInput('username', event)} }></input>
+                      <h2 id="sign-up-error-message" style={{display:this.state.username.showError}}> {this.state.username.error}</h2>
 
-                  <h1>Last Name</h1>
-                  <input style={{border:this.state.last_name.border}} onChange={ (event)=>{this.handleInput('last_name', event)} }></input>
+                      <h1>First Name</h1>
+                      <input style={{border:this.state.first_name.border}} onChange={ (event)=>{this.handleInput('first_name', event)} }></input>
 
+                      <h1>Last Name</h1>
+                      <input style={{border:this.state.last_name.border}} onChange={ (event)=>{this.handleInput('last_name', event)} }></input>
 
                   </div>
 
@@ -268,7 +298,7 @@ export class SignUp extends React.Component {
 
                 </div>
 
-            <button style={{ top:'75%', position:'relative'}} onClick={this.submitSignUp} id="done-login-button"> Done </button>
+                <button style={{ top:'75%', position:'relative'}} onClick={this.authenticateUser} id="done-login-button"> Done </button>
 
 
             </div>

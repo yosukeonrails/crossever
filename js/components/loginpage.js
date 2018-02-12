@@ -15,17 +15,19 @@ import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
 import LogInWindowContainer from './log-in-window.js';
 import {LogInUser, changeDisplaySettings} from '../actions'
-
-
+var displayNone= {display:'none'};
+var displayHidden= {visibility:'hidden'}
+var displayBlock= {display:'block'};
 export class LogInPage extends React.Component {
 
    constructor(props){
        super(props)
 
-       this.handleUsername= this.handleUsername.bind(this);
-       this.handlePassword= this.handlePassword.bind(this);
+
+       this.handleInput= this.handleInput.bind(this);
        this.submitLogin= this.submitLogin.bind(this);
 
+       this.state= {username:'', password:'', password_input_error:{visibility:'hidden'}, username_input_error:{visibility:'hidden'}, unauth_input_error:{display:'none'}};
        var display={}
        Object.assign(display, this.props.display_settings);
        display.viewPort.marginLeft='0px'
@@ -44,34 +46,52 @@ export class LogInPage extends React.Component {
    }
 
 
-   handleUsername(e){
+   handleInput(e, key){
 
-      this.setState({
-        username:e.target.value
-      })
+    //   dis.setState({unauth_input_error:displayNone});
 
-   }
-   handlePassword(e){
+      if(key==='username'){
+        if(e.target.value.length===0){ this.setState({ username_input_error:displayBlock});} else { this.setState({ username_input_error:displayHidden}); }
+       }
 
-     this.setState({
-       password:e.target.value
-     })
+
+      if(key==='password'){
+        if(e.target.value.length===0){ this.setState({ password_input_error:displayBlock});} else { this.setState({ password_input_error:displayHidden}); }
+       }
+
+      this.setState({ [key]:e.target.value })
 
    }
 
   submitLogin(){
     var dis=this;
+    let formatIsValid= true;
+    dis.setState({unauth_input_error:displayNone , username_input_error:displayHidden, password_input_error:displayHidden});
 
+      if(this.state.username.length ===0 ){
+          this.setState({username_input_error:displayBlock})
+          formatIsValid = false;
+      }
+      if(this.state.password.length===0){
+        this.setState({password_input_error:displayBlock})
+        formatIsValid = false;
+      }
+
+      if(formatIsValid===false){ return } else { this.setState({password_input_error:displayHidden, username_input_error:displayHidden}) }
 
       this.props.dispatch(LogInUser(
         {username:this.state.username,
            password:this.state.password
          })).then(function(data,err){
 
-            if(err){
-              console.log(err)
+           if(data.error){
+              //dont redirect but instead show error message
+              dis.setState({unauth_input_error:displayBlock})
+                console.log('unauthorizeed')
+              return
             }
 
+            dis.setState({unauth_input_error:displayNone})
            dis.redirectToUserdashboard()
          })
 
@@ -83,6 +103,7 @@ export class LogInPage extends React.Component {
 
    render(){
 
+      console.log(this.state)
       if(this.props.loggedUser){
         this.redirectToUserdashboard();
       }
@@ -105,13 +126,17 @@ export class LogInPage extends React.Component {
                   </div>
 
                 <div className="sign-in-credentials">
+                      <h2 id="login-error-message" style={this.state.unauth_input_error} >Invalid password or username.</h2>
 
                       <h1>Username</h1>
-                      <input onChange={this.handleUsername}></input>
+                      <input onChange={(event)=>{this.handleInput(event,'username')} } ></input>
+
+                      <h2 id="login-error-message" style={this.state.username_input_error} >Please provide a username.</h2>
 
                       <h1>Password</h1>
-                      <input onChange={this.handlePassword} type="password"></input>
+                      <input onChange={(event)=>{this.handleInput(event,'password')} } type="password"></input>
 
+                      <h2 id="login-error-message" style={this.state.password_input_error} >Please provide a password.</h2>
                 </div>
 
             <button  onClick={this.submitLogin} id="done-login-button"> Done </button>
