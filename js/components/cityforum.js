@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import PostCreatorContainer from './postcreator.js'
 import GroupPostContainer from './grouppost'
 import SearchQuery from './keyword_filter.js';
-
+import SwitchExample from './react-switch.js'
 
 var city=null;
 var imageUrl=null;
@@ -22,7 +22,7 @@ var post_creator=null;
 var noPostDisplay='none';
 var displayCreateButton= 'none';
 var posts= [];
-
+var lightBlue='#1997d4';
 var display={
   chanel_creator:'none',
 }
@@ -52,12 +52,27 @@ export class CityForum extends React.Component{
   this.getLoggedUser= this.getLoggedUser.bind(this);
   this.showPosts = this.showPosts.bind(this);
   this.getAllSetting = this.getAllSetting.bind(this);
+  this.toggleFilter = this.toggleFilter.bind(this);
+  this.selectedTopic= this.selectedTopic.bind(this);
 
   this.state={chanels:[],
+
     emptyQuery:true,
+
     posts:[],
+
+    selectedTopic:null,
+
     display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none', chanels_display:'block'},
-    chanel_link:'',chanel_name:''
+
+    chanel_link:'',chanel_name:'',
+
+    city_filters_container:{width:'20%'}, city_forum_filter_left:{width:'100%'}, city_forum_filter_right:{display:'none'},
+
+    filterOn:false,
+
+    team_request: {highlight:'none'}, events: {highlight:'none'},general: {highlight:'none'}
+
     };
 
 
@@ -165,25 +180,32 @@ export class CityForum extends React.Component{
 
 
 
-    showPosts(filteredPosts){
+    showPosts(filteredPosts, selectedTopic){
 
+        console.log(this.state);
         var dis=this;
 
         posts=[];
-        console.log(filteredPosts)
+
+        if(this.state.filterOn){
+
+            if(selectedTopic!==null){
+
+                filteredPosts = this.props.posts.filter((post)=>{
+                    console.log(post);
+                    console.log(selectedTopic)
+                   return post.topic === selectedTopic })
+                 console.log(posts)
+            }
+        }
+
+
 
         filteredPosts.map(function(post,i){
                 console.log(post);
                 posts.push(<GroupPostContainer key_id={"group-post-"+i} data={post} />)
         })
 
-        console.log(posts);
-
-        //
-        // if(this.state.emptyQuery === false){
-        //     console.log('setting it to false')
-        //     this.setState({posts:posts});
-        // }
 
         this.setState({posts:posts});
 
@@ -255,16 +277,69 @@ export class CityForum extends React.Component{
             emptyQuery:emptyQuery
         })
 
-        if(emptyQuery===false){  this.searchQuery(str) } else {this.showPosts(this.props.posts) }
+
+        let topic= this.state.selectedTopic;
+
+        if(emptyQuery===false){  this.searchQuery(str) } else {
+
+          console.log(topic)
+          this.showPosts(this.props.posts, topic)
+         }
 
 
     }
+
+    selectedTopic(topic){
+
+
+      this.setState({ team_request: {highlight:'rgba(51, 51, 51, 0)'}, events: {highlight:'rgba(51, 51, 51, 0)'},general: {highlight:'rgba(51, 51, 51, 0)'}})
+
+        switch (topic) {
+
+          case 'team':
+          this.setState({ team_request: {highlight:lightBlue} , selectedTopic:topic })
+          break;
+
+          case 'events':
+          this.setState({ events: {highlight:lightBlue} ,selectedTopic:topic})
+          break;
+
+          case 'general':
+          this.setState({ general: {highlight:lightBlue},selectedTopic:topic })
+          break;
+
+          default:
+
+        }
+        console.log(topic)
+
+          if(this.state.emptyQuery===false){  this.searchQuery(this.state.query) } else {this.showPosts(this.props.posts, topic) }
+
+    }
+
+    toggleFilter(){
+
+      if(!this.state.filterOn){
+        // turn ON
+        this.setState({filterOn:true, city_filters_container:{width:'60%'}, city_forum_filter_left:{width:'40%'}, city_forum_filter_right:{display:'block'},
+            team_request: {highlight:'rgba(51, 51, 51, 0)'}, events: {highlight:'rgba(51, 51, 51, 0)'},general: {highlight:'rgba(51, 51, 51, 0)'}
+        })
+
+      } else {
+        // turn OFF
+        this.setState({filterOn:false, city_filters_container:{width:'20%'}, city_forum_filter_left:{width:'100%'}, city_forum_filter_right:{display:'none'} , selectedTopic:null});
+        this.showPosts(this.props.posts, null);
+      }
+
+    }
+
+
 
     searchQuery(str){
 
       let query = str;
       var dis= this;
-
+    
       dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
 
               let masterKeyWords = data.payload[0].masterKeyArray;
@@ -276,7 +351,7 @@ export class CityForum extends React.Component{
               console.log(postIdArray);
               searchIds.map((search_id)=>{ let p = dis.props.posts.filter((post)=>{ return post._id == search_id[0] }); console.log(p); filteredResults.push(p[0]) });
 
-              dis.showPosts(filteredResults);
+              dis.showPosts(filteredResults,dis.state.selectedTopic);
 
       })
 
@@ -296,7 +371,7 @@ export class CityForum extends React.Component{
                         } else {
                         noPostDisplay='none';
                         displayCreateButton='block';
-                        dis.showPosts(data.payload);
+                        dis.showPosts(data.payload, dis.state.selectedTopic );
                       }
 
 
@@ -305,7 +380,6 @@ export class CityForum extends React.Component{
     }
 
     render () {
-
 
 
 
@@ -323,30 +397,43 @@ export class CityForum extends React.Component{
 
 
                 <div className="city-forum-bottom">
-                      <div className="city-forum-filters">
+                        <div className="city-forum-filters">
 
                                       <div className="filter-input">
                                           <span className="fa fa-search"></span>
                                           <input onChange={(event)=>{ this.handleInput(event); }} placeholder="Search:posts,comments,topics"></input>
                                       </div>
 
-                                      <div className="city-filters-container">
+                                <div style={{width:this.state.city_filters_container.width}} className="city-filters-container">
 
-                                      <div id="city-forum-filter-left">
+                                      <div style={{width:this.state.city_forum_filter_left.width}} id="city-forum-filter-left">
+
+                                        <div className="react-filter-toggle">
+                                          <h1>Filter</h1>
+
+                                          <div className="react-filter-toggle-wrapper">
+                                          <label>OFF</label>
+                                          <SwitchExample callback={this.toggleFilter} />
+                                          <label>ON</label></div>
+
+                                        </div>
+
                                       </div>
 
-                                      <div id="city-forum-filter-right">
+                                      <div style={{display:this.state.city_forum_filter_right.display}}  id="city-forum-filter-right">
+
+
                                               <div className="city-forum-filter-buttons">
-                                                <div id="filter-button"><img src="/assets/icons/teamrequest.png"/></div>
-                                                <div id="filter-button"><img src="/assets/icons/events.png"/></div>
-                                                <div id="filter-button">   <img src="/assets/icons/discussion.png"/></div>
+                                                <div onClick= { ()=>{ this.selectedTopic('team') } } id="filter-button"><img src="/assets/icons/teamrequest.png"/></div>
+                                                <div  onClick= { ()=>{ this.selectedTopic('events') } } id="filter-button"><img src="/assets/icons/events.png"/></div>
+                                                <div  onClick= { ()=>{ this.selectedTopic('general') } } id="filter-button"> <img src="/assets/icons/discussion.png"/></div>
                                               </div>
 
 
                                               <div className="city-forum-filter-labels">
-                                                <label>Team Request</label>
-                                                <label>Events</label>
-                                                <label>Free Discussion</label>
+                                                <label style={{backgroundColor:this.state.team_request.highlight}} >Team Request</label>
+                                                <label style={{backgroundColor:this.state.events.highlight}}>Events</label>
+                                                <label style={{backgroundColor:this.state.general.highlight}}>Free Discussion</label>
                                               </div>
                                       </div>
 
