@@ -156,8 +156,7 @@ export class PostCreator extends React.Component{
             // if so , add the id of the post in the keywards data, then filter out that one from key wards
 
                   masterKeyArray.map(function(m,i){
-                      console.log(m);
-                      console.log(Object.keys(m))
+
                       let index = keywords.indexOf(Object.keys(m)[0]);
                           if( index!== -1 ){
                               m[Object.keys(m)[0]].id.push(postID);
@@ -195,16 +194,12 @@ export class PostCreator extends React.Component{
               });
 
 
+              var display={}
+              Object.assign(display, dis.props.display_settings);
+              display.postCreator.display='none'
+              dis.props.dispatch(changeDisplaySettings(display));
 
-            var display={}
-            Object.assign(display, dis.props.display_settings);
-            display.postCreator.display='none'
-            dis.props.dispatch(changeDisplaySettings(display));
-
-            dis.props.dispatch(getPostByGroupID(data.payload.groupID)).then(function(data){
-
-
-            });
+              dis.props.getSettings();
 
           });
 

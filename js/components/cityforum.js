@@ -6,12 +6,14 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser,changeDisplaySettings, getUserInformation,postChanel,getGameCityById, getChanelsByGameCityID, getPostByGroupID} from '../actions'
+import {getFacebookUser,changeDisplaySettings, getUserInformation,postChanel,getGameCityById,getMasterKeyword, getChanelsByGameCityID, getPostByGroupID} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import PostCreatorContainer from './postcreator.js'
 import GroupPostContainer from './grouppost'
+import SearchQuery from './keyword_filter.js';
+
 
 var city=null;
 var imageUrl=null;
@@ -49,23 +51,21 @@ export class CityForum extends React.Component{
   this.handleInput= this.handleInput.bind(this);
   this.getLoggedUser= this.getLoggedUser.bind(this);
   this.showPosts = this.showPosts.bind(this);
-
+  this.getAllSetting = this.getAllSetting.bind(this);
 
   this.state={chanels:[],
     emptyQuery:true,
+    posts:[],
     display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none', chanels_display:'block'},
     chanel_link:'',chanel_name:''
     };
 
 
-  if(!this.props.loggedUser){
-      this.getLoggedUser();
-  }
+        if(!this.props.loggedUser){
+            this.getLoggedUser();
+        }
 
-  this.getCity();
-  //this.setState({gotCity:false});
-  this.getPosts();
-  this.getChanels();
+          this.getAllSetting();
 
           var display={}
           Object.assign(display, this.props.display_settings);
@@ -75,14 +75,24 @@ export class CityForum extends React.Component{
 
     }
 
-        getCity(){
+    getAllSetting(){
+
+      this.getCity();
+      this.getPosts();
+      this.getChanels();
+
+    }
+
+      getCity(){
+
           var dis=this;
+
           this.props.dispatch(getGameCityById(this.props.params.city_id)).then(function(data){
 
           city = data.payload[0];
           cityName=city.name;
           imageUrl= 'url('+city.gameData.box.large+')';
-          post_creator= <PostCreatorContainer type="city" group={city}/>
+          post_creator= <PostCreatorContainer getSettings={dis.getAllSetting} type="city" group={city}/>
 
           dis.setState({gotCity:true, openCity:city })
 
@@ -153,30 +163,29 @@ export class CityForum extends React.Component{
           this.props.dispatch(changeDisplaySettings(display));
     }
 
-    showPosts(){
+
+
+    showPosts(filteredPosts){
 
         var dis=this;
 
-        let filteredPosts =[];
-        let query = this.state.query
-
-
-
-        if(this.state.emptyQuery === false ){
-
-            this.props.posts.map(function(post){
-                 if(post.title.includes(query) || post.message.includes(query) ){ filteredPosts.push(post) };
-            })
-
-        } else{
-            filteredPosts = this.props.posts;
-        }
-
         posts=[];
+        console.log(filteredPosts)
+
         filteredPosts.map(function(post,i){
+                console.log(post);
                 posts.push(<GroupPostContainer key_id={"group-post-"+i} data={post} />)
         })
 
+        console.log(posts);
+
+        //
+        // if(this.state.emptyQuery === false){
+        //     console.log('setting it to false')
+        //     this.setState({posts:posts});
+        // }
+
+        this.setState({posts:posts});
 
     }
 
@@ -230,6 +239,7 @@ export class CityForum extends React.Component{
     }
 
     handleInput(e){
+
         console.log(e)
         let emptyQuery = false;
         let str= e.target.value;
@@ -239,17 +249,56 @@ export class CityForum extends React.Component{
           console.log(emptyQuery)
          }
 
+
         this.setState({
             query:str,
             emptyQuery:emptyQuery
         })
 
+        if(emptyQuery===false){  this.searchQuery(str) } else {this.showPosts(this.props.posts) }
+
+
+    }
+
+    searchQuery(str){
+
+      let query = str;
+      var dis= this;
+
+      dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
+
+              let masterKeyWords = data.payload[0].masterKeyArray;
+              let searchQuery = new SearchQuery(masterKeyWords,query);
+              let searchIds= searchQuery.returnSortedID();
+              let postIdArray= [];
+              let filteredResults = [];
+              dis.props.posts.map((post)=>{ postIdArray.push(post._id) });
+              console.log(postIdArray);
+              searchIds.map((search_id)=>{ let p = dis.props.posts.filter((post)=>{ return post._id == search_id[0] }); console.log(p); filteredResults.push(p[0]) });
+
+              dis.showPosts(filteredResults);
+
+      })
+
     }
 
 
     getPosts(){
+        var dis =this;
+        console.log(dis);
 
           this.props.dispatch(getPostByGroupID(this.props.params.city_id)).then(function(data){
+
+
+                      if(data.payload.length === 0 ){
+                        noPostDisplay='block';
+                        displayCreateButton='none';
+                        } else {
+                        noPostDisplay='none';
+                        displayCreateButton='block';
+                        dis.showPosts(data.payload);
+                      }
+
 
           })
 
@@ -259,27 +308,7 @@ export class CityForum extends React.Component{
 
 
 
-      posts= this.props.posts;
-      console.log(this.state)
 
-      if(posts.length === 0 ){
-            noPostDisplay='block';
-            displayCreateButton='none';
-
-      } else {
-
-
-          noPostDisplay='none';
-          displayCreateButton='block';
-          this.showPosts();
-
-      }
-
-      if(city===null){
-          this.getCity();
-      }
-
-      console.log(this.state.display)
 
       return(
 
@@ -362,7 +391,7 @@ export class CityForum extends React.Component{
                       <div className="post-result-container">
 
                       <button style={{display:displayCreateButton}} onClick={this.createPost}>Create post</button>
-                          {posts}
+                          {this.state.posts}
                       </div>
 
                       <div className="post-creator-container" style={{display:this.props.display_settings.postCreator.display}}>

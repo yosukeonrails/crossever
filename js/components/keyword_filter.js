@@ -79,5 +79,7 @@ class SearchQuery{
 
   }
 
-
 }
+
+
+export default SearchQuery;
