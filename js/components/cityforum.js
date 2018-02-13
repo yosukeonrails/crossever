@@ -48,9 +48,11 @@ export class CityForum extends React.Component{
   this.getChanels= this.getChanels.bind(this);
   this.handleInput= this.handleInput.bind(this);
   this.getLoggedUser= this.getLoggedUser.bind(this);
+  this.showPosts = this.showPosts.bind(this);
 
 
   this.state={chanels:[],
+    emptyQuery:true,
     display:{ chanel_creator:'none' , add_chanel:'block' , cancel_add:'none', chanels_display:'block'},
     chanel_link:'',chanel_name:''
     };
@@ -153,8 +155,25 @@ export class CityForum extends React.Component{
 
     showPosts(){
 
+        var dis=this;
+
+        let filteredPosts =[];
+        let query = this.state.query
+
+
+
+        if(this.state.emptyQuery === false ){
+
+            this.props.posts.map(function(post){
+                 if(post.title.includes(query) || post.message.includes(query) ){ filteredPosts.push(post) };
+            })
+
+        } else{
+            filteredPosts = this.props.posts;
+        }
+
         posts=[];
-        this.props.posts.map(function(post,i){
+        filteredPosts.map(function(post,i){
                 posts.push(<GroupPostContainer key_id={"group-post-"+i} data={post} />)
         })
 
@@ -210,11 +229,19 @@ export class CityForum extends React.Component{
 
     }
 
-    handleInput(e,key){
-
+    handleInput(e){
+        console.log(e)
+        let emptyQuery = false;
         let str= e.target.value;
+
+        if(str.length === 0 ){
+          emptyQuery = true;
+          console.log(emptyQuery)
+         }
+
         this.setState({
-              [key]:str
+            query:str,
+            emptyQuery:emptyQuery
         })
 
     }
@@ -233,15 +260,19 @@ export class CityForum extends React.Component{
 
 
       posts= this.props.posts;
+      console.log(this.state)
 
-      if(posts.length === 0){
-          noPostDisplay='block';
+      if(posts.length === 0 ){
+            noPostDisplay='block';
             displayCreateButton='none';
 
       } else {
+
+
           noPostDisplay='none';
           displayCreateButton='block';
           this.showPosts();
+
       }
 
       if(city===null){
@@ -267,7 +298,7 @@ export class CityForum extends React.Component{
 
                                       <div className="filter-input">
                                           <span className="fa fa-search"></span>
-                                          <input placeholder="Search:posts,comments,topics"></input>
+                                          <input onChange={(event)=>{ this.handleInput(event); }} placeholder="Search:posts,comments,topics"></input>
                                       </div>
 
                                       <div className="city-filters-container">

@@ -6,6 +6,54 @@ require('isomorphic-fetch');
 
 
 
+
+/// MasterKeyWord
+
+export var GET_KEYWORDS_BY_CITYID= 'GET_KEYWORDS_BY_CITYID';
+
+  export function getMasterKeyword(cityID){
+    return {
+      type:GET_KEYWORDS_BY_CITYID,
+      promise:fetch('/keyword/'+cityID).then(function(data){
+         return  data.json();
+      })
+    }
+  }
+
+
+  export var POST_KEYWORD= 'POST_KEYWORD';
+
+   export function postMasterKeyword(data) {
+
+     console.log(data);
+
+   var fetchData={
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json'
+   },
+   body:JSON.stringify({
+
+     cityID:data.cityID,
+     masterKeyArray:data.masterKeyArray
+
+   })
+
+   };
+
+   return {
+
+   type: POST_KEYWORD,
+   promise: fetch('/keyword', fetchData).then(function(data){
+
+   return data.json();
+
+   })
+   };
+   }
+
+
+
 // POSTS//
 export var POST_POST= 'POST_POST';
 
@@ -26,7 +74,7 @@ export var POST_POST= 'POST_POST';
    likedBy:data.likedBy,
    popularity:data.popularity,
    groupType:data.groupType,
-   tag:data.tag,
+   keywords:data.keywords,
    comments:data.comments
 
  })

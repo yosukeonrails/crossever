@@ -18,6 +18,7 @@ var GameCity= require('./models/gamecity.js')
 var UserInformation= require('./models/userinformation.js');
 var DiscordChanel = require('./models/discordchanels.js')
 mongoose.Promise = global.Promise;
+var MasterKeyWord = require('./models/masterkeywords.js');
 
 //
 // mongoose.createConnection('mongodb://localhost/');
@@ -790,6 +791,43 @@ app.get('/comments/id/:postID', function(req, res){
                  res.status(201).json(data);
              })
        })
+
+    //* KEY WORDS *  //
+
+    app.get('/keyword/:cityID' , function(req, res){
+
+         MasterKeyWord.find({cityID:req.params.cityID}, function(err,data){
+              if(err){
+                console.log(err)
+              }
+              console.log(data)
+              res.json(data);
+         })
+
+    })
+
+      app.post('/keyword', function(req, res){
+
+            var query= {cityID:req.body.cityID}
+
+            var userData={
+              $set:{
+                masterKeyArray:req.body.masterKeyArray
+              }
+            }
+
+        MasterKeyWord.findOneAndUpdate(query, userData, {upsert:true,new:true}, function(err, data){
+
+            if(err){ console.log(err)}
+
+            console.log(data)
+            res.status(201).json(data);
+
+        })
+
+      })
+
+
 
 
 

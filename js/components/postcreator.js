@@ -6,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-import {getFacebookUser, getUserInformation,postPost,changeDisplaySettings,getPostByGroupID} from '../actions'
+import {getFacebookUser, getUserInformation,postPost,changeDisplaySettings,getPostByGroupID, getMasterKeyword,postMasterKeyword} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -100,12 +100,25 @@ export class PostCreator extends React.Component{
     }
 
         submitForm(){
-
+          console.log('working?')
           if(!canSubmit){
 
            return}
 
           if(this.props.type === 'city'){ var group='gameCityID' } else { var group='gameID' }
+
+          /// here scan through message and topic to get keywords.//
+          // after separating them into important pieces , push them into an array
+          let title_keys = this.state.title.replace(/\s+/g,' ').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').trim().toLowerCase().split(" ");
+          title_keys.filter( (key)=>{ return key.length > 1 } );
+
+
+          let message_keys= this.state.message.replace(/\s+/g,' ').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').trim().toLowerCase().split(" ");
+          message_keys.filter( (key)=>{ return key.length > 1 } );
+
+          var keywords= [...title_keys , ...message_keys];
+             keywords.map((keyword)=>{ keywords = keywords.filter( (word)=>{ return word!==keyword }); keywords.push(keyword);   })
+             console.log(keywords);
 
           let data={
              user:this.props.loggedUser,
@@ -115,7 +128,7 @@ export class PostCreator extends React.Component{
              likedBy:[],
              popularity:0,
              groupType:this.props.type,
-             tag:['feature to be added'],
+             keywords:keywords,
              comments:0
           }
 
@@ -125,12 +138,71 @@ export class PostCreator extends React.Component{
 
           this.props.dispatch(postPost(data)).then(function(data){
 
+              var postID=data.payload._id;
+              console.log(postID);
+            // let masterKeyArray= [];
+            // get the masterKeywords from DB by cityID
+
+
+              dis.props.dispatch(getMasterKeyword(dis.props.group[group])).then(function(data){
+
+                let masterKeyArray = [];
+
+                if(data.payload.length > 0 ){ masterKeyArray = data.payload[0].masterKeyArray; }
+
+                let testArray=[ {apple:{id:['id1','id2','id4']}},{app:{id:['id2','id4']}}, {ate:{id:['id2','id4']}} ]
+
+            //  for each key , i want to see if there are any of the same in keywards
+            // if so , add the id of the post in the keywards data, then filter out that one from key wards
+
+                  masterKeyArray.map(function(m,i){
+                      console.log(m);
+                      console.log(Object.keys(m))
+                      let index = keywords.indexOf(Object.keys(m)[0]);
+                          if( index!== -1 ){
+                              m[Object.keys(m)[0]].id.push(postID);
+                              console.log(m);
+                              keywords.splice(index, 1);
+                          }
+                    })
+
+
+                // the remaining are keywords that do not yet exists in masterKeywords;
+                // so for each key words , create {[key]:{id:[postID]}}
+                keywords.map(function(key){
+
+                        let keywordData= {[key]:{id:[postID]}};
+                        masterKeyArray.push(keywordData);
+                })
+
+
+
+                console.log(masterKeyArray)
+
+                let keyArrayData = {
+                  cityID:dis.props.group[group],
+                  masterKeyArray:masterKeyArray
+                 };
+                console.log(keyArrayData)
+//
+//                 let test= {city:'123' , masterKeyArray:[ {apple:{id:['id1','id2','id4']}},
+// {app:{id:['id2','id4']}},
+// {ate:{id:['id2','id4']}},
+// {airplane:{id:['id1']}},
+// {blue:{id:['id1','id3']}} ]};
+                 dis.props.dispatch(postMasterKeyword(keyArrayData));
+
+              });
+
+
+
             var display={}
             Object.assign(display, dis.props.display_settings);
             display.postCreator.display='none'
             dis.props.dispatch(changeDisplaySettings(display));
 
             dis.props.dispatch(getPostByGroupID(data.payload.groupID)).then(function(data){
+
 
             });
 

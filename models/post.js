@@ -16,7 +16,7 @@ var PostSchema= new mongoose.Schema({
   user:{
     type:Object
   },
-  tag:{type:Array},
+  keywords:{type:Array},
   groupType:{ type: String, enum: ['city', 'group'] },
   title:{type:String},
   message:{type:String},

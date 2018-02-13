@@ -6,7 +6,7 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 import OpenPostContainer from './openpost.js'
-import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID,updatePost} from '../actions'
+import {getFacebookUser, getUserInformation, getPostByID,getCommentsByPostID,updatePost,getMasterKeyword} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -32,26 +32,26 @@ export class PostPage extends React.Component{
       this.likePost= this.likePost.bind(this);
       var dis= this;
       this.state =  {dataIsReady:false};
-    
+
       if(!this.props.loggedUser){
           this.getLoggedUser();
-      }  
-      
+      }
+
       this.props.dispatch(getPostByID(this.props.params.id)).then(function(data){
-               
+
           dis.props.dispatch(getCommentsByPostID(data.payload._id)).then(function(data){
-            
+
                 dis.setState({
                     dataIsReady:true,
                     openPage:data.payload
-                }) 
-                
+                })
+
           });
 
       })
 
     }
-    
+
     getLoggedUser(){
 
       var dis=this;
@@ -62,11 +62,11 @@ export class PostPage extends React.Component{
           }
       });
     }
-    
-    
-    
+
+
+
     likePost(data){
-      
+
        this.props.dispatch(updatePost(data));
        this.setState({liked:true});
     }
@@ -88,7 +88,7 @@ export class PostPage extends React.Component{
 
       comments=[];
       openPost=[];
-      
+
       if(this.props.openPost !== null && this.state.dataIsReady === true ){
           openPost= <OpenPostContainer params={this.props.params.id}/>;
       }
