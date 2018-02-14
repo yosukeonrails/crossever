@@ -339,7 +339,7 @@ export class CityForum extends React.Component{
 
       let query = str;
       var dis= this;
-    
+
       dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
 
               let masterKeyWords = data.payload[0].masterKeyArray;
@@ -471,7 +471,7 @@ export class CityForum extends React.Component{
 
                       </div>
 
-                      <div style={{display:noPostDisplay, float:"right" , width:"60%"}}>
+                      <div style={{display:noPostDisplay, float:"right" , width:"55%"}}>
                         <NoPost createPost={this.createPost} />
                       </div>
 

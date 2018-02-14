@@ -24,14 +24,10 @@ export class MoreGames extends React.Component{
     this.getTopGames = this.getTopGames.bind(this);
     this.setPercentage= this.setPercentage.bind(this);
     this.handleInput = this.handleInput.bind(this);
-
-
-
     this.state= {
         topGames:[],
         generator:""
     }
-
 
     }
 
@@ -96,6 +92,7 @@ export class MoreGames extends React.Component{
         });
 
       }
+
       addSelectedGames(){
 
         if(this.props.setUpInformation && this.props.userInformation){
@@ -151,7 +148,8 @@ export class MoreGames extends React.Component{
 
       blockSubmission(bool){
         console.log(bool)
-      }
+        }
+
       handleInput(e){
 
           if(e.target.value.length === 0){
@@ -162,8 +160,6 @@ export class MoreGames extends React.Component{
               this.props.dispatch(searchGame(e.target.value));
               this.setState({emptyString:false})
           }
-
-
       }
 
       renderBubbles(topGames, emptyString){

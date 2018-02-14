@@ -119,7 +119,8 @@ export class SetUp extends React.Component{
             loadingPercentage:50
           })
 
-
+          if(this.state.step===3){ userInfo.setup = 'done' };
+          
           this.props.dispatch(createUserInformation(userInfo))
 
           this.setState({
@@ -146,7 +147,8 @@ export class SetUp extends React.Component{
               username:dv.username,
               userID:this.props.loggedUser.userID,
               details:null,
-              image:this.props.userImage
+              image:this.props.userImage,
+              setup:1
         }))
       }
 

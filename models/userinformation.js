@@ -15,6 +15,9 @@ var UserInformationSchema= new mongoose.Schema({
   },
   details:{
     type:Object
+  },
+  setup:{
+    type:String
   }
 
 })

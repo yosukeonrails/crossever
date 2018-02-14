@@ -851,8 +851,8 @@ app.get('/comments/id/:postID', function(req, res){
             $set:{
               userID:req.body.userID,
               username:req.body.username,
-              details:req.body.details
-
+              details:req.body.details,
+              setup:req.body.setup
             }
           }
 

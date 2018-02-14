@@ -32,16 +32,21 @@ export class UserDashboard extends React.Component{
       this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
       this.getLoggedUser= this.getLoggedUser.bind(this);
 
+      console.log(this.props.userInformation);
+
+      // if(this.props.userInformation === null || this.props.userInformation.setup!=='done'){
+      //     this.redirectToSetup();
+      // };
+
 
       var display= {}
-
       Object.assign(display, this.props.display_settings);
       display.sidebar.display='block';
       display.viewPort.marginLeft='200px';
       this.props.dispatch(changeDisplaySettings(display));
 
     }
-    
+
     getLoggedUser(){
 
       var dis=this;
@@ -52,7 +57,7 @@ export class UserDashboard extends React.Component{
           }
       });
     }
-    
+
 
     componentWillMount(){
         this.setState({got_groups:false});
@@ -129,7 +134,7 @@ export class UserDashboard extends React.Component{
 
     getUserInformation(){
 
-      var dis= this;
+        var dis= this;
         this.props.dispatch(getUserInformation(dis.props.loggedUser.userID));
 
     }
@@ -137,8 +142,8 @@ export class UserDashboard extends React.Component{
 
     checkForUserInformation(){
 
-
-      if(this.props.userInformation == undefined){
+      console.log(this.props.userInformation);
+      if(this.props.userInformation == undefined || this.props.userInformation.setup!=='done' ){
          this.redirectToSetup();
       } else {
          this.getGroupsAndCities();

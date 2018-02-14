@@ -308,7 +308,8 @@ export var CREATE_USER_INFORMATION= 'CREATE_USER_INFORMATION';
 
    userID:userData.userID,
    username:userData.username,
-   details:userData.details
+   details:userData.details,
+   setup:userData.setup
  })
 
  };
