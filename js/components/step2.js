@@ -123,6 +123,12 @@ export class SetupStep2 extends React.Component{
 
         }
 
+        let locations= ['city' , 'state', 'country'];
+
+        for(let place of locations){ console.log(addressSummary[place]); if(!addressSummary[place]){
+          dis.props.blockSubmission(true); return console.log('NO PLACE ');} };
+          dis.props.blockSubmission(false);
+
         Object.assign(setUpData, {locationData:locationData, locationSummary:addressSummary}) ;
 
         dis.props.dispatch(setUpInformation(setUpData));

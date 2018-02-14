@@ -25,6 +25,9 @@ export class SetupStep3 extends React.Component{
     this.submitSearch= this.submitSearch.bind(this);
     this.hoverGame= this.hoverGame.bind(this);
     this.clearText= this.clearText.bind(this);
+
+    this.props.blockSubmission(true);
+
   }
 
   clearText(){
@@ -66,6 +69,7 @@ export class SetupStep3 extends React.Component{
 
     render () {
 
+      console.log(this.props);
       //render top games if the search is empty
 
       if(this.props.topGames && this.state.emptyString === true){
@@ -117,7 +121,7 @@ export class SetupStep3 extends React.Component{
             </div>
 
             <div className="step3-selection">
-              <SelectedGamesContainer styles={ {bubbleLeft:"none"}, {bubbleImage:{width:"80px",height:"80px", marginTop:"10px"}} }/>
+              <SelectedGamesContainer callback={this.props.blockSubmission} styles={ {bubbleLeft:"none"}, {bubbleImage:{width:"80px",height:"80px", marginTop:"10px"}} }/>
             </div>
 
         </div>
@@ -136,6 +140,7 @@ export class SetupStep3 extends React.Component{
             manuallyLogged:state.manuallyLogged,
             topGames:state.topGames,
             foundGames:state.foundGames,
+            selectedGameDataArray:state.selectedGameDataArray,
         }
 
   }

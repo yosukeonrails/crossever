@@ -149,6 +149,9 @@ export class MoreGames extends React.Component{
           hashHistory.push('/userdashboard')
       }
 
+      blockSubmission(bool){
+        console.log(bool)
+      }
       handleInput(e){
 
           if(e.target.value.length === 0){
@@ -223,9 +226,9 @@ export class MoreGames extends React.Component{
 
 
           <div className="more-games-container">
-          
+
               <div id="more-games-selected-games" className="more-games-selected-games">
-                <SelectedGamesContainer styles={{ bubbleLeft:"left", bubbleImage:{width:"70px",height:"70px", marginTop:"10px"}, h2:{fontSize:"10px",marginTop:"10px", width:"70px"} }} />
+                <SelectedGamesContainer callback={this.blockSubmission} styles={{ bubbleLeft:"left", bubbleImage:{width:"70px",height:"70px", marginTop:"10px"}, h2:{fontSize:"10px",marginTop:"10px", width:"70px"} }} />
               </div>
 
               <div id="add-games">

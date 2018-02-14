@@ -20,6 +20,7 @@ var dv= {
   username:null,
 }
 
+var lightBlue= '#45abbd';
 
 export class StepOne extends React.Component{
 
@@ -46,6 +47,10 @@ export class SetUp extends React.Component{
       super(props)
       this.nextStep= this.nextStep.bind(this);
       this.setPercentage= this.setPercentage.bind(this);
+      this.blockSubmission = this.blockSubmission.bind(this);
+
+
+      this.state={button:{color:lightBlue} ,submittable:true}
     }
     componentWillMount(){
         this.props.dispatch(getFacebookUser())
@@ -80,7 +85,18 @@ export class SetUp extends React.Component{
 
     }
 
+    blockSubmission(bool){
+
+        if(bool){
+          this.setState({  button:{color:'grey'}, submittable:false });
+        } else {   this.setState({  button:{color:lightBlue}, submittable:true  });
+       }
+
+    }
+
     nextStep(){
+
+      if(this.state.submittable === false){ return }
 
       if(this.props.setUpInformation ){
 
@@ -142,7 +158,7 @@ export class SetUp extends React.Component{
 
       this.getUser();
 
-      var stepsArray=[<StepOne image={this.props.loggedUser.userImage} username={dv.username} />,<SetupStep2Container/>,<SetupStep3Container/>,<SetupStep4Container setPercentage={this.setPercentage} />]
+      var stepsArray=[<StepOne image={this.props.loggedUser.userImage} username={dv.username} />,<SetupStep2Container blockSubmission={this.blockSubmission}/>,<SetupStep3Container blockSubmission={this.blockSubmission}/>,<SetupStep4Container setPercentage={this.setPercentage} />]
 
       return(
         <div>
@@ -151,7 +167,7 @@ export class SetUp extends React.Component{
         <div className="setup-window">
 
             {stepsArray[this.state.step]}
-            <button onClick={this.nextStep}> Next </button>
+            <button style={{backgroundColor:this.state.button.color}} onClick={this.nextStep}> Next </button>
         </div>
         </div>
     );

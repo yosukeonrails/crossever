@@ -183,12 +183,7 @@ export class PostCreator extends React.Component{
                   masterKeyArray:masterKeyArray
                  };
                 console.log(keyArrayData)
-//
-//                 let test= {city:'123' , masterKeyArray:[ {apple:{id:['id1','id2','id4']}},
-// {app:{id:['id2','id4']}},
-// {ate:{id:['id2','id4']}},
-// {airplane:{id:['id1']}},
-// {blue:{id:['id1','id3']}} ]};
+
                  dis.props.dispatch(postMasterKeyword(keyArrayData));
 
               });

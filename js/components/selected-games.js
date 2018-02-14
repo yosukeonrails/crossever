@@ -27,8 +27,10 @@ export class SelectedGames extends React.Component{
   }
 
     render () {
+
       var array= [];
       var dis= this;
+      if(this.props.selectedGameDataArray.length === 0 ){ this.props.callback(true) } else {this.props.callback(false)};
       this.props.selectedGameDataArray.map(function(game, i ){
 
             var imageURL= 'url('+game.box.large+')';
