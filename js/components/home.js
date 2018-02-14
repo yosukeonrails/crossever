@@ -12,7 +12,8 @@ import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import LogInWindowContainer  from './log-in-window.js'
-import {changeDisplaySettings} from '../actions'
+import {changeDisplaySettings} from '../actions';
+import FooterComponent from './footer.js'
 //
 // var showSignIn= function(){
 //
@@ -169,11 +170,12 @@ export class Home extends React.Component{
                                                   <h1> Crossever your local gaming community.</h1>
                                                   <p>With the vision to bring back the good old times of computer gaming, we wanted to re-connect the so separated MMO community by connecting them to the community around them!  </p>
                                                 </div>
-
+                                              <FooterComponent/>
 
                               </div>
 
             </div>
+
         </div>
 
     );

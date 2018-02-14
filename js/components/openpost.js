@@ -12,6 +12,8 @@ import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import CommentsContainer from './comments'
 import CommentWriter from './comment-writer'
+import DateComparator from './date_creator.js';
+
 var comments=[];
 var openPost=[];
 var imageUrl= 'url(/assets/icons/user.png)'
@@ -38,7 +40,7 @@ export class OpenPost extends React.Component{
 
       this.deletePost = this.deletePost.bind(this);
       this.likePost= this.likePost.bind(this);
-          
+
       if(this.props.openPost.likedBy.includes(this.props.loggedUser.userID)){
 
         this.state= {
@@ -92,18 +94,18 @@ export class OpenPost extends React.Component{
       }
 
       deletePost(user){
-        
-        
+
+
            var cityID= this.props.openPost.groupID;
-           
-           if(user){     
-             
+
+           if(user){
+
                 if(user.userID ==! this.props.openPost._id){ return }
 
-            this.props.dispatch(deletePostById(this.props.openPost._id)).then(function(){            
+            this.props.dispatch(deletePostById(this.props.openPost._id)).then(function(){
                   hashHistory.push('gamecity/'+cityID)
              })
-           
+
         }
       }
 
@@ -131,14 +133,18 @@ export class OpenPost extends React.Component{
         return result
       }
 
-  
+
 
 
       render () {
 
       var showOptions=this.authenticatePostOwner();
-      
+
+      let utc = this.props.openPost.time;
+      let comparator = new DateComparator(utc);
+      let time_stamp= comparator.compare();
   
+
 
         return(
 
@@ -194,7 +200,7 @@ export class OpenPost extends React.Component{
 
                         <div className="group-post-user-left">
                         <h2>{this.props.openPost.user.first_name}</h2>
-                        <h3>Today @ 12:43 AM</h3></div>
+                        <h3>{time_stamp}</h3></div>
 
                       <div className="group-post-user-right">
                             <div className="group-post-user-picture" style={{backgroundImage:'url('+this.props.openPost.user.userImage+')'}}></div>

@@ -11,6 +11,8 @@ import {getFacebookUser, getUserInformation,changeDisplaySettings} from '../acti
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
+import DateComparator from './date_creator.js';
+
 var imageUrl= 'url(/assets/icons/user.png)'
 
 var matchingData= {
@@ -35,6 +37,10 @@ export class GroupPost extends React.Component{
       display.viewPort.marginLeft='200px';
       this.props.dispatch(changeDisplaySettings(display));
 
+      let utc = this.props.data.time;
+      let comparator = new DateComparator(utc);
+      let time_stamp= comparator.compare();
+       this.state = {time_stamp:time_stamp};
 
     }
 
@@ -61,7 +67,9 @@ export class GroupPost extends React.Component{
 
     render () {
 
-    
+      //console.log(this.props.data.time);
+
+
 
       return(
 
@@ -100,7 +108,7 @@ export class GroupPost extends React.Component{
 
                         <div className="group-post-user-left">
                         <h2>{this.props.data.user.first_name}</h2>
-                        <h3>Today @ 12:43 AM</h3></div>
+                        <h3>{this.state.time_stamp}</h3></div>
 
                       <div className="group-post-user-right">
                           <div className="group-post-user-picture" style={{backgroundImage:'url('+this.props.data.user.userImage+')'}}></div>

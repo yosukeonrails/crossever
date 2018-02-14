@@ -100,6 +100,10 @@ export class PostCreator extends React.Component{
     }
 
         submitForm(){
+
+          let message_ref= this.refs.post_message;
+          let title_ref= this.refs.post_title;
+
           console.log('working?')
           if(!canSubmit){
 
@@ -107,6 +111,8 @@ export class PostCreator extends React.Component{
 
           if(this.props.type === 'city'){ var group='gameCityID' } else { var group='gameID' }
 
+          message_ref.value="";
+          title_ref.value="";
           /// here scan through message and topic to get keywords.//
           // after separating them into important pieces , push them into an array
           let title_keys = this.state.title.replace(/\s+/g,' ').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').trim().toLowerCase().split(" ");
@@ -244,12 +250,12 @@ export class PostCreator extends React.Component{
 
                                   <div className="post-creator-title">
                                     <h1>Title</h1>
-                                    <input onChange={ (event)=>{this.handleInput('title', event) } } ></input>
+                                    <input ref="post_title" onChange={ (event)=>{this.handleInput('title', event) } } ></input>
                                   </div>
 
                                   <div className="post-creator-message">
                                     <h1>Text</h1>
-                                    <textarea  onChange={ (event)=>{this.handleInput('message',event) } } rows="20" cols="50" ></textarea>
+                                    <textarea ref="post_message"   onChange={ (event)=>{this.handleInput('message',event) } } rows="20" cols="50" ></textarea>
                                   </div>
 
                                   <div className="button-container">

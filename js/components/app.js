@@ -5,6 +5,8 @@ import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import NavigationContainer from './navigation.js'
 import SideBarContainer from './sidebar.js';
+import FooterComponent from './footer.js'
+
 
 export class App extends React.Component{
 
@@ -20,6 +22,7 @@ export class App extends React.Component{
                               <div className="app-content">
                                   {this.props.children}
                               </div>
+
                         </div>
               );
         }

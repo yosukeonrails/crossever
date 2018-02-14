@@ -54,7 +54,7 @@ export class GameCard extends React.Component{
 
                     <div className="game-card-numbers">
                       <div id="number"> <h1>{this.props.data.members.length}</h1></div>
-                      <div id="number"> <h1>3</h1></div>
+                    
                       <div id="number">  </div>
                     </div>
             </div>

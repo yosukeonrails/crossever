@@ -33,6 +33,9 @@ var display={
        hashHistory.push('/loginpage')
     }
 
+    goHome(){
+        hashHistory.push('/')
+    }
 
     logOut(){
       var dis=this;
@@ -81,7 +84,7 @@ var display={
 
                    return(
                      <div className="navigation">
-                         <h1> CROSSEVER</h1><h2 style={{color:'black'}}>  </h2>
+                        <h1 onClick={this.goHome} > CROSSEVER</h1><h2 style={{color:'black'}}>  </h2>
 
                                    <div className="user-info">
 
