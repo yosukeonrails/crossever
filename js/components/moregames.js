@@ -106,10 +106,10 @@ export class MoreGames extends React.Component{
           let sum= myGames;
           let setUpData= this.props.setUpInformation;
           Object.assign(setUpData , {games:sum} );
-          console.log(setUpData);
+
           let userInfo= this.props.userInformation;
           Object.assign(userInfo , {details:setUpData});
-          console.log(setUpData);
+
           this.props.dispatch(createUserInformation(userInfo));
 
           let generator= <GroupGeneratorContainer setPercentage={this.setPercentage} callBack={this.addingIsDone}/>
@@ -150,7 +150,7 @@ export class MoreGames extends React.Component{
       }
 
       blockSubmission(bool){
-        console.log(bool)
+
         }
 
       handleInput(e){

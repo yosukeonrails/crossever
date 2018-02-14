@@ -32,7 +32,7 @@ class SearchQuery{
 
 
             sortable.reverse();
-              console.log(sortable)
+            
              return sortable
   }
 
@@ -48,7 +48,7 @@ class SearchQuery{
 					let id_array= m[arr[0]].id;
 
           if(arr[0] === query){
-						console.log('how many times?')
+					
             firstMatch.push(m);
 
              for(let id of id_array){

@@ -104,7 +104,6 @@ export class PostCreator extends React.Component{
           let message_ref= this.refs.post_message;
           let title_ref= this.refs.post_title;
 
-          console.log('working?')
           if(!canSubmit){
 
            return}
@@ -124,7 +123,7 @@ export class PostCreator extends React.Component{
 
           var keywords= [...title_keys , ...message_keys];
              keywords.map((keyword)=>{ keywords = keywords.filter( (word)=>{ return word!==keyword }); keywords.push(keyword);   })
-             console.log(keywords);
+
 
           let data={
              user:this.props.loggedUser,
@@ -145,7 +144,7 @@ export class PostCreator extends React.Component{
           this.props.dispatch(postPost(data)).then(function(data){
 
               var postID=data.payload._id;
-              console.log(postID);
+
             // let masterKeyArray= [];
             // get the masterKeywords from DB by cityID
 
@@ -166,7 +165,7 @@ export class PostCreator extends React.Component{
                       let index = keywords.indexOf(Object.keys(m)[0]);
                           if( index!== -1 ){
                               m[Object.keys(m)[0]].id.push(postID);
-                              console.log(m);
+                              
                               keywords.splice(index, 1);
                           }
                     })
@@ -182,13 +181,13 @@ export class PostCreator extends React.Component{
 
 
 
-                console.log(masterKeyArray)
+
 
                 let keyArrayData = {
                   cityID:dis.props.group[group],
                   masterKeyArray:masterKeyArray
                  };
-                console.log(keyArrayData)
+
 
                  dis.props.dispatch(postMasterKeyword(keyArrayData));
 

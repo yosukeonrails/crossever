@@ -16,7 +16,6 @@ var store= redux.createStore(reducer,redux.compose(
 store.subscribe(()=>{
   var state= store.getState();
 
-  console.log('now the content is', state );
 });
 
 export default store;

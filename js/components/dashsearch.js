@@ -68,7 +68,7 @@ export class DashSearch extends React.Component{
              let cities= data.payload;
              let my=[];
              let other=[];
-             console.log(cities);
+    
                    cities.map(function(city){
 
                           if(dis.state.cityArray.includes(city.cityID)){
@@ -162,15 +162,15 @@ export class DashSearch extends React.Component{
 
 
         if(this.state.emptyString === true){
-              cities.map(function(city){
-                      myCities.push(<GameCardContainer data={city} />)
+              cities.map(function(city, i){
+                      myCities.push(<GameCardContainer key={i} data={city} />)
               })
         }
 
         if(this.state.emptyString === false){
           cities=this.state.filteredCities;
-          cities.map(function(city){
-                  myCities.push(<GameCardContainer data={city} />)
+          cities.map(function(city , i ){
+                  myCities.push(<GameCardContainer key={i} data={city} />)
           })
         }
 

@@ -109,7 +109,6 @@ export class SignUp extends React.Component {
     dis.setState({username:{ input:input , showError:'none', border:null, error:'Username must be at least 5 characters long.'}});
 
     this.props.dispatch(getUserById(this.state.username.input)).then(function(data){
-        console.log(data)
 
         // var state_copy ={};
         // Object.assign(state_copy, dis.state);
@@ -145,8 +144,7 @@ export class SignUp extends React.Component {
        wrongField: false,
        unconfirmed_password:false
    };
-   console.log(stt)
-
+   
    for(var key in stt){
 
       if( stt[key].input.length === 0 ){

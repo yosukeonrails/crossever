@@ -69,8 +69,7 @@ export class SetupStep3 extends React.Component{
 
     render () {
 
-      console.log(this.props);
-      //render top games if the search is empty
+
 
       if(this.props.topGames && this.state.emptyString === true){
 

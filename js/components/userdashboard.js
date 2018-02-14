@@ -32,11 +32,6 @@ export class UserDashboard extends React.Component{
       this.getGroupsAndCities= this.getGroupsAndCities.bind(this);
       this.getLoggedUser= this.getLoggedUser.bind(this);
 
-      console.log(this.props.userInformation);
-
-      // if(this.props.userInformation === null || this.props.userInformation.setup!=='done'){
-      //     this.redirectToSetup();
-      // };
 
 
       var display= {}
@@ -142,7 +137,7 @@ export class UserDashboard extends React.Component{
 
     checkForUserInformation(){
 
-      console.log(this.props.userInformation);
+
       if(this.props.userInformation == undefined || this.props.userInformation.setup!=='done' ){
          this.redirectToSetup();
       } else {

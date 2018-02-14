@@ -87,7 +87,7 @@ export class LogInPage extends React.Component {
            if(data.error){
               //dont redirect but instead show error message
               dis.setState({unauth_input_error:displayBlock})
-                console.log('unauthorizeed')
+
               return
             }
 
@@ -103,7 +103,7 @@ export class LogInPage extends React.Component {
 
    render(){
 
-      console.log(this.state)
+
       if(this.props.loggedUser){
         this.redirectToUserdashboard();
       }

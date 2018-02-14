@@ -25,7 +25,6 @@ export var GET_KEYWORDS_BY_CITYID= 'GET_KEYWORDS_BY_CITYID';
 
    export function postMasterKeyword(data) {
 
-     console.log(data);
 
    var fetchData={
    method:'POST',
@@ -126,7 +125,7 @@ export var POST_POST= 'POST_POST';
    type: UPDATE_POST,
    promise: fetch('/post', fetchData).then(function(data){
 
-     console.log(data);
+
    return data.json();
 
    })

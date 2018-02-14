@@ -149,7 +149,7 @@ export class CityForum extends React.Component{
 
            return this.toggleStyle(stateDisplay, toggle_key , toggle_display , array);
         }
-        console.log(stateDisplay)
+
         this.setState({
           display:stateDisplay
         })
@@ -182,7 +182,7 @@ export class CityForum extends React.Component{
 
     showPosts(filteredPosts, selectedTopic){
 
-        console.log(this.state);
+
         var dis=this;
 
         posts=[];
@@ -192,18 +192,17 @@ export class CityForum extends React.Component{
             if(selectedTopic!==null){
 
                 filteredPosts = this.props.posts.filter((post)=>{
-                    console.log(post);
-                    console.log(selectedTopic)
+
                    return post.topic === selectedTopic })
-                 console.log(posts)
+
             }
         }
 
 
 
         filteredPosts.map(function(post,i){
-                console.log(post);
-                posts.push(<GroupPostContainer key_id={"group-post-"+i} data={post} />)
+
+                posts.push(<GroupPostContainer  key={i} key_id={"group-post-"+i} data={post} />)
         })
 
 
@@ -219,7 +218,7 @@ export class CityForum extends React.Component{
           var chanels=[];
 
           data.payload.map(function(chanel){
-                chanels.push(  <div className="chanel"><li> <a target="_blank" href={chanel.link}>{chanel.name}</a></li></div> )
+                chanels.push(  <div  className="chanel"><li> <a target="_blank" href={chanel.link}>{chanel.name}</a></li></div> )
           })
 
           dis.setState({chanels:chanels})
@@ -233,12 +232,12 @@ export class CityForum extends React.Component{
         let discord_prefix='https://discord.gg/';
 
         if(this.state.chanel_name.length===0 || this.state.chanel_link.length===0){
-            console.log('EMPTY')
+
             return
         }
 
         if(!this.state.chanel_link.includes(discord_prefix)){
-            console.log('not a discord group')
+
             return
         }
 
@@ -262,13 +261,13 @@ export class CityForum extends React.Component{
 
     handleInput(e){
 
-        console.log(e)
+
         let emptyQuery = false;
         let str= e.target.value;
 
         if(str.length === 0 ){
           emptyQuery = true;
-          console.log(emptyQuery)
+
          }
 
 
@@ -282,7 +281,7 @@ export class CityForum extends React.Component{
 
         if(emptyQuery===false){  this.searchQuery(str) } else {
 
-          console.log(topic)
+
           this.showPosts(this.props.posts, topic)
          }
 
@@ -311,7 +310,7 @@ export class CityForum extends React.Component{
           default:
 
         }
-        console.log(topic)
+
 
           if(this.state.emptyQuery===false){  this.searchQuery(this.state.query) } else {this.showPosts(this.props.posts, topic) }
 
@@ -348,8 +347,8 @@ export class CityForum extends React.Component{
               let postIdArray= [];
               let filteredResults = [];
               dis.props.posts.map((post)=>{ postIdArray.push(post._id) });
-              console.log(postIdArray);
-              searchIds.map((search_id)=>{ let p = dis.props.posts.filter((post)=>{ return post._id == search_id[0] }); console.log(p); filteredResults.push(p[0]) });
+
+              searchIds.map((search_id)=>{ let p = dis.props.posts.filter((post)=>{ return post._id == search_id[0] });  filteredResults.push(p[0]) });
 
               dis.showPosts(filteredResults,dis.state.selectedTopic);
 
@@ -360,7 +359,7 @@ export class CityForum extends React.Component{
 
     getPosts(){
         var dis =this;
-        console.log(dis);
+
 
           this.props.dispatch(getPostByGroupID(this.props.params.city_id)).then(function(data){
 
