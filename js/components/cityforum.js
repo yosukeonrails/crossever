@@ -347,7 +347,7 @@ export class CityForum extends React.Component{
 
       dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
               
-              console.log(data.payload);
+              
               let masterKeyWords = data.payload[0].masterKeyArray;
               let searchQuery = new SearchQuery(masterKeyWords,query);
               let searchIds= searchQuery.returnSortedID();
