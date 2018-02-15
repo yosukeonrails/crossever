@@ -226,6 +226,12 @@ export class CityForum extends React.Component{
 
         });
     }
+    
+    handleChanelInput( e, key  ){
+    
+        this.setState({ [key]: e.target.value })
+    
+    }
 
     postChanel(){
 
@@ -278,11 +284,11 @@ export class CityForum extends React.Component{
 
 
         let topic= this.state.selectedTopic;
-
+        
         if(emptyQuery===false){  this.searchQuery(str) } else {
 
 
-          this.showPosts(this.props.posts, topic)
+            this.showPosts(this.props.posts, topic)
          }
 
 
@@ -340,7 +346,8 @@ export class CityForum extends React.Component{
       var dis= this;
 
       dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
-
+              
+              console.log(data.payload);
               let masterKeyWords = data.payload[0].masterKeyArray;
               let searchQuery = new SearchQuery(masterKeyWords,query);
               let searchIds= searchQuery.returnSortedID();
@@ -456,8 +463,8 @@ export class CityForum extends React.Component{
                           <button style={{display:this.state.display.cancel_add, backgroundColor:'#e44545'}} onClick={ () => this.toggleStyle(this.state.display, "cancel_add",  null , ["chanel_creator","add_chanel","chanels_display"] )} > Cancel </button>
 
                           <div style={{display:this.state.display.chanel_creator}}  className="chanel-creator">
-                          <label>link:</label>  <input onChange={ (event)=>{ this.handleInput(event,'chanel_link') } }></input>
-                          <label>name:</label>  <input onChange={ (event)=>{ this.handleInput(event ,'chanel_name') } }></input>
+                          <label>link:</label>  <input onChange={ (event)=>{ this.handleChanelInput(event,'chanel_link') } }></input>
+                          <label>name:</label>  <input onChange={ (event)=>{ this.handleChanelInput(event ,'chanel_name') } }></input>
                           <button style={{backgroundColor:'#3150ad'}} onClick={ () => { this.toggleStyle(this.state.display,"chanel_creator",  null , ["cancel_add" , "add_chanel","chanels_display"])  ; this.postChanel() } }  > Add </button>
                           </div>
 
