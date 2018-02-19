@@ -1,5 +1,3 @@
-
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -8,20 +6,18 @@ var router = require('react-router');
 var Route = router.Route;
 var Link = router.Link;
 
-
 import {getFacebookUser, getUserInformation,changeDisplaySettings,setUpInformation,addToGameIdList, getGameByLocality,addToSelectedGame} from '../actions'
 import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import GameCardContainer from './game-card.js'
+
 var myCities= [];
 var cities;
 
-
 export class DashSearch extends React.Component{
 
-  constructor(props){
-
+    constructor(props){
     super(props)
 
     this.addMoreGames = this.addMoreGames.bind(this);
@@ -53,87 +49,61 @@ export class DashSearch extends React.Component{
     }
 
     findMyGames(){
-
           this.setState({ locality:'mycity'});
-
     }
 
     findState(locality){
 
         var dis=this;
-
-
         this.props.dispatch(getGameByLocality(locality,this.props.userInformation.details.locationSummary[locality])).then(function(data){
 
              let cities= data.payload;
              let my=[];
              let other=[];
     
-                   cities.map(function(city){
+             cities.map(function(city){
 
-                          if(dis.state.cityArray.includes(city.cityID)){
-                                my.push(city);
-                          } else{
-                              other.push(city);
-                          }
-
-                   })
+                    if(dis.state.cityArray.includes(city.cityID)){
+                          my.push(city);
+                    } else{
+                        other.push(city);
+                    }
+             })
 
             const result_array = [...other, ...my];
 
             dis.setState({state_gamecities:result_array , locality:locality});
-
         });
     }
 
     findCountry(){
-
-
-
-
     }
 
-
     findGlobal(){
-
-
-
     }
 
 
     handleInput(e){
-
         let string= e.target.value;
         let games= [];
 
         if(string.length === 0){
-
             this.setState({
               emptyString:true
             })
-
         }
 
         if(string.length > 0){
-
             cities.map(function(game){
-
               let gameName= game.name.toLowerCase();
-
-                if(gameName.indexOf(string)!== -1){
-
-                    games.push(game);
-                }
-
+              if(gameName.indexOf(string)!== -1){ games.push(game); }
             })
 
             this.setState({
               emptyString:false,
               filteredCities:games
-            })
+            })            
         }
-
-
     }
 
     renderCities(locality){

@@ -67,9 +67,8 @@ export class Comments extends React.Component{
         return {
             loggedUser:state.loggedUser,
         }
+      }
 
-  }
+  var CommentsContainer = connect(mapStateToProps)(Comments);
 
-   var CommentsContainer = connect(mapStateToProps)(Comments);
-
-export default CommentsContainer;
+  export default CommentsContainer;

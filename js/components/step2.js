@@ -130,7 +130,7 @@ export class SetupStep2 extends React.Component{
         Object.assign(setUpData, {locationData:locationData, locationSummary:addressSummary}) ;
 
         dis.props.dispatch(setUpInformation(setUpData));
-  
+
     })
 
 

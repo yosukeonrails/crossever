@@ -36,7 +36,7 @@ export class GameCard extends React.Component{
 
       return(
 
-          <div className="game-card">
+          <div onClick={this.goToForum} className="game-card">
 
             <div className="game-card-top">
                 <div className="game-card-image" style={{backgroundImage:'url('+this.props.data.gameData.box.medium+')'}}></div>
@@ -54,7 +54,7 @@ export class GameCard extends React.Component{
 
                     <div className="game-card-numbers">
                       <div id="number"> <h1>{this.props.data.members.length}</h1></div>
-                    
+
                       <div id="number">  </div>
                     </div>
             </div>

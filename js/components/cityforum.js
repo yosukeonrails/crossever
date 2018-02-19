@@ -226,11 +226,11 @@ export class CityForum extends React.Component{
 
         });
     }
-    
+
     handleChanelInput( e, key  ){
-    
+
         this.setState({ [key]: e.target.value })
-    
+
     }
 
     postChanel(){
@@ -284,7 +284,7 @@ export class CityForum extends React.Component{
 
 
         let topic= this.state.selectedTopic;
-        
+
         if(emptyQuery===false){  this.searchQuery(str) } else {
 
 
@@ -346,8 +346,8 @@ export class CityForum extends React.Component{
       var dis= this;
 
       dis.props.dispatch(getMasterKeyword(dis.props.params.city_id)).then(function(data){
-              
-              
+
+
               let masterKeyWords = data.payload[0].masterKeyArray;
               let searchQuery = new SearchQuery(masterKeyWords,query);
               let searchIds= searchQuery.returnSortedID();

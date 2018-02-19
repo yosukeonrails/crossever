@@ -39,8 +39,6 @@ export class GameBubble extends React.Component{
 
    selectGame(){
 
-
-
       var gameIdList=[];
       var list = this.props.selectedGameDataArray
       var gameId=this.props.data._id;

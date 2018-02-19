@@ -33,14 +33,9 @@ export class GroupGenerator extends React.Component{
       this.props.setPercentage('block', 0);
 
          var dis= this;
-
-         //1. GET Game by game
-
-
+      //1. GET Game by game
          var members=[];
          var cityMembers=[];
-
-
 
          var user= {
            name:this.props.loggedUser.first_name,
@@ -48,7 +43,6 @@ export class GroupGenerator extends React.Component{
            userID:this.props.loggedUser.userID,
            details:this.props.userInformation.details
          }
-
 
          var loggedUser= this.props.loggedUser;
          var userInfo= this.props.userInformation;

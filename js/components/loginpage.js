@@ -7,8 +7,6 @@ var Router = router.Router;
 var Route = router.Route;
 var Link = router.Link;
 
-//import BlueTriangle from './bluetriangle.svg';
-import BlueTriangle from 'babel!svg-react!./bluetriangle.svg';
 import LoadingContainer from './loading.js'
 import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';

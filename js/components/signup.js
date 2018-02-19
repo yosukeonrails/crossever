@@ -9,8 +9,6 @@ var Link = router.Link;
 var pinkBorder= '1px solid #ff6b6b'
 var haveSubmitted= false;
 //import BlueTriangle from './bluetriangle.svg';
-import BlueTriangle from 'babel!svg-react!./bluetriangle.svg';
-
 import {push} from 'react-router-redux';
 import {hashHistory} from 'react-router';
 import {connect} from 'react-redux';
@@ -144,7 +142,7 @@ export class SignUp extends React.Component {
        wrongField: false,
        unconfirmed_password:false
    };
-   
+
    for(var key in stt){
 
       if( stt[key].input.length === 0 ){

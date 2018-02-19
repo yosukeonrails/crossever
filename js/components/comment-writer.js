@@ -1,5 +1,3 @@
-
-
 require('babel-polyfill');
 
 var React = require('react');
@@ -13,8 +11,6 @@ import {push} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 
-
-
 export class CommentWriter extends React.Component{
 
   constructor(props){
@@ -25,21 +21,18 @@ export class CommentWriter extends React.Component{
     }
 
     handleText(e){
-
         this.setState({
-          message:e.target.value})
+            message:e.target.value})
 
     }
 
     handleSubmit(){
+      
       event.preventDefault();
-
       var dis=this;
       let textarea= this.refs.comment_text
 
-
       if(!this.props.loggedUser){
-
          return
       }
 
@@ -52,63 +45,53 @@ export class CommentWriter extends React.Component{
           reply:[]
       }
 
-
       let postData= {};
+      
       Object.assign(postData, this.props.openPost)
       Object.assign(postData, {postID:this.props.openPost._id})
+      
       let comments= postData.comments;
       comments++
+      
       Object.assign(postData,{comments:comments})
 
       this.props.dispatch(updatePost(postData)).then(function(){
-            dis.props.dispatch(getPostByID(postData.postID)).then(function(data){
-                  
+            
+        dis.props.dispatch(getPostByID(postData.postID)).then(function(data){                  
             })
       })
 
 
-
-
       this.props.dispatch(postComment(data)).then(function(data){
-
             dis.props.dispatch(getCommentsByPostID(data.payload.postID)).then(function(data){
-
             });
-
       });
-
       textarea.value="";
+    
     }
 
 
-    render () {
-
-
+  render () {
 
       return(
-
           <div className="comment-writer">
-
           <div className="comment-writer-content">
                 <textarea ref="comment_text" onChange={this.handleText}></textarea>
                 <button onClick={this.handleSubmit}>Submit</button>
           </div>
           </div>
-
-    );
-  }
-}
+        );
+      }
+    }
 
 
   var mapStateToProps= function(state){
-
         return {
             loggedUser:state.loggedUser,
             openPost:state.openPost
         }
-
   }
 
-   var CommentWriterContainer = connect(mapStateToProps)(CommentWriter);
+  var CommentWriterContainer = connect(mapStateToProps)(CommentWriter);
 
-export default CommentWriterContainer;
+  export default CommentWriterContainer;
