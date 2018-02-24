@@ -344,7 +344,6 @@ app.post('/login',
      function(req, res) {
        // Successful authentication, redirect home.
        console.log('sucessful login');
-
        res.redirect('/#/userdashboard');
 
      });
