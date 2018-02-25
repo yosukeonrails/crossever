@@ -5,6 +5,9 @@ var webpack = require('webpack');
 
 
 module.exports = {
+  node: {
+   fs: "empty"
+},
     entry: path.resolve(__dirname, 'js/index.js'),
     output: {
         path: path.resolve(__dirname, 'build/js'),

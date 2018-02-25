@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
@@ -872,6 +873,7 @@ app.get('/comments/id/:postID', function(req, res){
 
 var runServer = function(callback) {
     mongoose.connect(config.DATABASE_URL, function(err) {
+        console.log('running at'+ config.DATABASE_URL)
         if (err && callback) {
             return callback(err);
         }

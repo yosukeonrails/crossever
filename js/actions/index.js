@@ -5,8 +5,6 @@ require('isomorphic-fetch');
  import ClientId from '../env.js';
 
 
-
-
 /// MasterKeyWord
 
 export var GET_KEYWORDS_BY_CITYID= 'GET_KEYWORDS_BY_CITYID';
