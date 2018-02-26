@@ -315,7 +315,7 @@ app.post('/login',
 
 
     let userData= {
-
+          username:profile.id,
           first_name:profile._json.first_name,
           nickname:profile.displayName,
           facebookId:profile.id,
@@ -340,7 +340,7 @@ app.post('/login',
      passport.authenticate('facebook'));
 
 
-   app.get('/auth/facebook/callback',
+    app.get('/auth/facebook/callback',
      passport.authenticate('facebook', { failureRedirect: '/' }),
      function(req, res) {
        // Successful authentication, redirect home.

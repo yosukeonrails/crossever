@@ -1,5 +1,5 @@
-require('dotenv').config();
 
+require('dotenv').config();
 
 exports.URL= process.env.URL ||'http://localhost:8080/';
 
